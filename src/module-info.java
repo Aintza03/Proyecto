@@ -1,9 +1,0 @@
-/**
- * 
- */
-/**
- * @author usuario
- *
- */
-module Proyecto {
-}
