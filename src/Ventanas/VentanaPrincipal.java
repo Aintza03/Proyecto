@@ -70,6 +70,7 @@ public class VentanaPrincipal extends JFrame{
 		this.setVisible(true);
 		this.setSize(300,150);
 		this.setName("Inicio de Sesión");
+		this.setLocationRelativeTo(null);
 	}
 	public static void main(String[] args) {//temporalmente localizado aqui para hacer pruebas
 		VentanaPrincipal v = new VentanaPrincipal();
