@@ -5,7 +5,7 @@ import javax.swing.*;
 public class VentanaPrincipal extends JFrame{
 		protected JButton continuar;
 		protected JTextField usuario;
-		protected JTextField contraseña;
+		protected JTextField contraseña; 
 		protected JLabel Error;
 		//para crear el menu(idioma por efecto al iniciar español)
 		protected JMenu idioma;
