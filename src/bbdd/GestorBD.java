@@ -205,9 +205,12 @@ public class GestorBD {
 			
 			//Se recorre el ResultSet y se crean objetos Cliente
 			while (rs.next()) {
-				cliente = new Cliente(rs.getString("DNI"),rs.getString("DIR"),rs.getInt("TEL"),rs.getString("NOMBRE"),new ArrayList<Animal>(),new ArrayList<Animal>(),rs.getInt("PERMISO"),);
-				
-				
+				cliente = new Cliente(rs.getString("DNI"),rs.getString("DIR"),rs.getInt("TEL"),rs.getString("NOMBRE"),new ArrayList<Animal>(),new ArrayList<Animal>(),true);
+				if (rs.getInt("PERMISO") == 1) {
+					cliente.setPermiso(true);
+				}else {
+				cliente.setPermiso(false);
+				}
 				
 				//Se inserta cada nuevo cliente en la lista de clientes
 				clientes.add(cliente);
@@ -216,13 +219,13 @@ public class GestorBD {
 			//Se cierra el ResultSet
 			rs.close();
 			
-			System.out.println(String.format("- Se han recuperado %d usuario...", usuarios.size()));			
+			System.out.println(String.format("- Se han recuperado %d cliente...", clientes.size()));			
 		} catch (Exception ex) {
 			System.err.println(String.format("* Error al obtener datos de la BBDD: %s", ex.getMessage()));
 			ex.printStackTrace();						
 		}		
 		
-		return usuarios;
+		return clientes;
 	}
 	
 	public void actualizarPassword(Usuario usuario, String newPassword) {
