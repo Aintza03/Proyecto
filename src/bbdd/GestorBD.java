@@ -9,6 +9,8 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
+import General.Animal;
+import General.Cliente;
 import General.Usuario;
 import java.util.ArrayList;
 import java.util.List;
@@ -50,6 +52,28 @@ public class GestorBD {
 		}
 	}
 	
+	public void crearBBDD1() {
+		//Se abre la conexiÃ³n y se obtiene el Statement
+		//Al abrir la conexiÃ³n, si no existÃ­a el fichero, se crea la base de datos
+		try (Connection con = DriverManager.getConnection(CONNECTION_STRING);
+		     Statement stmt = con.createStatement()) {
+			
+	        String sql = "CREATE TABLE IF NOT EXISTS CLIENTE(\n"
+	        		+ "DNI TEXT NOT NULL PRIMARY KEY,\n"
+	        		+ "PERMISO INTEGER DEFAULT 1,\n"
+	        		+ "TEL INTEGER,\n"
+	        		+ "DIR TEXT,\n"
+	        		+ "NOMBRE TEXT,\n" + ");";
+	   
+	        if (!stmt.execute(sql)) {
+	        	System.out.println("- Se ha creado la tabla Cliente");
+	        }
+	       
+		} catch (Exception ex) {
+			System.err.println(String.format("* Error al crear la BBDD: %s", ex.getMessage()));
+			ex.printStackTrace();			
+		}
+	}
 	
 	public void borrarBBDD() {
 		//Se abre la conexiÃ³n y se obtiene el Statement
@@ -66,7 +90,19 @@ public class GestorBD {
 			System.err.println(String.format("* Error al borrar la BBDD: %s", ex.getMessage()));
 			ex.printStackTrace();			
 		}
-		
+		try (Connection con = DriverManager.getConnection(CONNECTION_STRING);
+			     Statement stmt = con.createStatement()) {
+				
+		        String sql = "DROP TABLE IF EXISTS CLIENTE";
+				
+		        //Se ejecuta la sentencia de creaciÃ³n de la tabla Estudiantes
+		        if (!stmt.execute(sql)) {
+		        	System.out.println("- Se ha borrado la tabla cliente");
+		        }
+			} catch (Exception ex) {
+				System.err.println(String.format("* Error al borrar la BBDD: %s", ex.getMessage()));
+				ex.printStackTrace();			
+			}
 		try {
 			//Se borra el fichero de la BBDD
 			Files.delete(Paths.get(DATABASE_FILE));
@@ -77,12 +113,12 @@ public class GestorBD {
 		}
 	}
 	
-	public void insertarDatos(Usuario... Usuarios ) {
+	public void insertarDatos0(Usuario... Usuarios) {
 		//Se abre la conexiÃ³n y se obtiene el Statement
 		try (Connection con = DriverManager.getConnection(CONNECTION_STRING);
 		     Statement stmt = con.createStatement()) {
 			//Se define la plantilla de la sentencia SQL
-			String sql = "INSERT INTO USUARIOS (USUARIO, CONTRASEÑA) VALUES ('%s', '%s');";
+			String sql = "INSERT INTO USUARIO (USUARIO, CONTRASEÑA) VALUES ('%s', '%s');";
 			
 			System.out.println("- Insertando usuarios...");
 			
@@ -99,8 +135,29 @@ public class GestorBD {
 			ex.printStackTrace();						
 		}				
 	}
-	
-	public List<Usuario> obtenerDatos() {
+	public void insertarDatos1(Cliente... clientes) {
+		//Se abre la conexiÃ³n y se obtiene el Statement
+		try (Connection con = DriverManager.getConnection(CONNECTION_STRING);
+		     Statement stmt = con.createStatement()) {
+			//Se define la plantilla de la sentencia SQL
+			String sql = "INSERT INTO CLIENTE (DNI,PERMISO,TEL,DIR,NOMBRE) VALUES ('%s', '%d','%d','%s','%s');";
+			
+			System.out.println("- Insertando Clientes...");
+			
+			//Se recorren los clientes y se insertan uno a uno
+			for (Cliente c : clientes) {
+				if (1 == stmt.executeUpdate(String.format(sql, c.getDni(),c.isPermiso(),c.getTelefono(), c.getDireccion(),c.getNombre()))) {					
+					System.out.println(String.format(" - Cliente insertado: %s", c.toString()));
+				} else {
+					System.out.println(String.format(" - No se ha insertado el cliente: %s", c.toString()));
+				}
+			}			
+		} catch (Exception ex) {
+			System.err.println(String.format("* Error al insertar datos de la BBDD: %s", ex.getMessage()));
+			ex.printStackTrace();						
+		}				
+	}
+	public List<Usuario> obtenerDatosUs() {
 		List<Usuario> usuarios = new ArrayList<>();
 		
 		//Se abre la conexiÃ³n y se obtiene el Statement
@@ -134,7 +191,40 @@ public class GestorBD {
 		
 		return usuarios;
 	}
-
+	public List<Cliente> obtenerDatosCl() {
+		List<Cliente> clientes = new ArrayList<>();
+		
+		//Se abre la conexiÃ³n y se obtiene el Statement
+		try (Connection con = DriverManager.getConnection(CONNECTION_STRING);
+		     Statement stmt = con.createStatement()) {
+			String sql = "SELECT * FROM CLIENTE WHERE";
+			
+			//Se ejecuta la sentencia y se obtiene el ResultSet con los resutlados
+			ResultSet rs = stmt.executeQuery(sql);			
+			Cliente cliente;
+			
+			//Se recorre el ResultSet y se crean objetos Cliente
+			while (rs.next()) {
+				cliente = new Cliente(rs.getString("DNI"),rs.getString("DIR"),rs.getInt("TEL"),rs.getString("NOMBRE"),new ArrayList<Animal>(),new ArrayList<Animal>(),rs.getInt("PERMISO"),);
+				
+				
+				
+				//Se inserta cada nuevo cliente en la lista de clientes
+				clientes.add(cliente);
+			}
+			
+			//Se cierra el ResultSet
+			rs.close();
+			
+			System.out.println(String.format("- Se han recuperado %d usuario...", usuarios.size()));			
+		} catch (Exception ex) {
+			System.err.println(String.format("* Error al obtener datos de la BBDD: %s", ex.getMessage()));
+			ex.printStackTrace();						
+		}		
+		
+		return usuarios;
+	}
+	
 	public void actualizarPassword(Usuario usuario, String newPassword) {
 		//Se abre la conexiÃ³n y se obtiene el Statement
 		try (Connection con = DriverManager.getConnection(CONNECTION_STRING);
@@ -165,40 +255,5 @@ public class GestorBD {
 			ex.printStackTrace();						
 		}		
 	}	
-	public void crearBBDD2() {
-		//Se abre la conexiÃ³n y se obtiene el Statement
-		//Al abrir la conexiÃ³n, si no existÃ­a el fichero, se crea la base de datos
-		try (Connection con = DriverManager.getConnection(CONNECTION_STRING);
-		     Statement stmt = con.createStatement()) {
-			
-	        String sql = "CREATE TABLE IF NOT EXISTS USUARIOS (\n"
-	                   + " USUARIO TEXT NOT NULL PRIMARY KEY,\n"
-	                   + " CONTRASEÑA INTEGER NOT NULL\n"
-	                   + ");";
-	        
-	        String sql1 = "CREATE TABLE IF NOT EXISTS  (\n"
-	                   + " USUARIO TEXT NOT NULL PRIMARY KEY,\n"
-	                   + " CONTRASEÑA INTEGER NOT NULL\n"
-	                   + ");";
-	        
-	        String sql2 = "CREATE TABLE IF NOT EXISTS USUARIO (\n"
-	                   + " USUARIO TEXT NOT NULL PRIMARY KEY,\n"
-	                   + " CONTRASEÑA INTEGER NOT NULL\n"
-	                   + ");";
-	        	        
-	        if (!stmt.execute(sql)) {
-	        	System.out.println("- Se ha creado la tabla Usuarios");
-	        }
-	        if (!stmt.execute(sql1)) {
-	        	System.out.println("- Se ha creado la tabla Usuarios");
-	        }
-	        if (!stmt.execute(sql2)) {
-	        	System.out.println("- Se ha creado la tabla Usuarios");
-	        }
-		} catch (Exception ex) {
-			System.err.println(String.format("* Error al crear la BBDD: %s", ex.getMessage()));
-			ex.printStackTrace();			
-		}
-	}
-
+	
 }
