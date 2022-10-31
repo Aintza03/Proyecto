@@ -39,31 +39,18 @@ public class GestorBD {
 	                   + " USUARIO TEXT NOT NULL PRIMARY KEY,\n"
 	                   + " CONTRASEÑA INTEGER NOT NULL\n"
 	                   + ");";
-	        
-	        String sql1 = "CREATE TABLE IF NOT EXISTS  (\n"
-	                   + " USUARIO TEXT NOT NULL PRIMARY KEY,\n"
-	                   + " CONTRASEÑA INTEGER NOT NULL\n"
-	                   + ");";
-	        
-	        String sql2 = "CREATE TABLE IF NOT EXISTS USUARIO (\n"
-	                   + " USUARIO TEXT NOT NULL PRIMARY KEY,\n"
-	                   + " CONTRASEÑA INTEGER NOT NULL\n"
-	                   + ");";
-	        	        
+	   
 	        if (!stmt.execute(sql)) {
 	        	System.out.println("- Se ha creado la tabla Usuarios");
 	        }
-	        if (!stmt.execute(sql1)) {
-	        	System.out.println("- Se ha creado la tabla Usuarios");
-	        }
-	        if (!stmt.execute(sql2)) {
-	        	System.out.println("- Se ha creado la tabla Usuarios");
-	        }
+	       
 		} catch (Exception ex) {
 			System.err.println(String.format("* Error al crear la BBDD: %s", ex.getMessage()));
 			ex.printStackTrace();			
 		}
 	}
+	
+	
 	public void borrarBBDD() {
 		//Se abre la conexiÃ³n y se obtiene el Statement
 		try (Connection con = DriverManager.getConnection(CONNECTION_STRING);
@@ -178,5 +165,40 @@ public class GestorBD {
 			ex.printStackTrace();						
 		}		
 	}	
+	public void crearBBDD2() {
+		//Se abre la conexiÃ³n y se obtiene el Statement
+		//Al abrir la conexiÃ³n, si no existÃ­a el fichero, se crea la base de datos
+		try (Connection con = DriverManager.getConnection(CONNECTION_STRING);
+		     Statement stmt = con.createStatement()) {
+			
+	        String sql = "CREATE TABLE IF NOT EXISTS USUARIOS (\n"
+	                   + " USUARIO TEXT NOT NULL PRIMARY KEY,\n"
+	                   + " CONTRASEÑA INTEGER NOT NULL\n"
+	                   + ");";
+	        
+	        String sql1 = "CREATE TABLE IF NOT EXISTS  (\n"
+	                   + " USUARIO TEXT NOT NULL PRIMARY KEY,\n"
+	                   + " CONTRASEÑA INTEGER NOT NULL\n"
+	                   + ");";
+	        
+	        String sql2 = "CREATE TABLE IF NOT EXISTS USUARIO (\n"
+	                   + " USUARIO TEXT NOT NULL PRIMARY KEY,\n"
+	                   + " CONTRASEÑA INTEGER NOT NULL\n"
+	                   + ");";
+	        	        
+	        if (!stmt.execute(sql)) {
+	        	System.out.println("- Se ha creado la tabla Usuarios");
+	        }
+	        if (!stmt.execute(sql1)) {
+	        	System.out.println("- Se ha creado la tabla Usuarios");
+	        }
+	        if (!stmt.execute(sql2)) {
+	        	System.out.println("- Se ha creado la tabla Usuarios");
+	        }
+		} catch (Exception ex) {
+			System.err.println(String.format("* Error al crear la BBDD: %s", ex.getMessage()));
+			ex.printStackTrace();			
+		}
+	}
 
 }
