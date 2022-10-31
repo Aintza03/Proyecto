@@ -75,6 +75,34 @@ public class GestorBD {
 		}
 	}
 	
+	public void crearBBDD2() {
+		//Se abre la conexiÃ³n y se obtiene el Statement
+		//Al abrir la conexiÃ³n, si no existÃ­a el fichero, se crea la base de datos
+		try (Connection con = DriverManager.getConnection(CONNECTION_STRING);
+		     Statement stmt = con.createStatement()) {
+			
+	        String sql = "CREATE TABLE IF NOT EXISTS ANIMAL(\n"
+	        		+"ID INTEGER PRIMARY KEY AUTOINCREMENT,\n"
+	        		+"TIPO TEXT,\n"
+	        		+"FECHA_NAC TEXT,\n"
+	        		+"ESPECIAL TEXT,\n"
+	        		+"RAZA TEXT,\n"
+	        		+"DNIC_AC TEXT DEFAULT noAcogido,\n"
+	        		+"DNIC_AD TEXT DEFAULT noAdoptado,\n"
+	        		+ "FOREIGN KEY (DNIC_AC) REFERENCES CLIENTE(DNI) ON DELETE CASCADE,\n"
+	        		+ "FOREIGN KEY (DNIC_AD) REFERENCES CLIENTE(DNI) ON DELETE CASCADE\n" + ");";
+
+	   
+	        if (!stmt.execute(sql)) {
+	        	System.out.println("- Se ha creado la tabla Animales");
+	        }
+	       
+		} catch (Exception ex) {
+			System.err.println(String.format("* Error al crear la BBDD: %s", ex.getMessage()));
+			ex.printStackTrace();			
+		}
+	}
+	
 	public void borrarBBDD() {
 		//Se abre la conexiÃ³n y se obtiene el Statement
 		try (Connection con = DriverManager.getConnection(CONNECTION_STRING);
@@ -98,6 +126,19 @@ public class GestorBD {
 		        //Se ejecuta la sentencia de creaciÃ³n de la tabla Estudiantes
 		        if (!stmt.execute(sql)) {
 		        	System.out.println("- Se ha borrado la tabla cliente");
+		        }
+			} catch (Exception ex) {
+				System.err.println(String.format("* Error al borrar la BBDD: %s", ex.getMessage()));
+				ex.printStackTrace();			
+			}
+		try (Connection con = DriverManager.getConnection(CONNECTION_STRING);
+			     Statement stmt = con.createStatement()) {
+				
+		        String sql = "DROP TABLE IF EXISTS ANIMAL";
+				
+		        //Se ejecuta la sentencia de creaciÃ³n de la tabla Estudiantes
+		        if (!stmt.execute(sql)) {
+		        	System.out.println("- Se ha borrado la tabla animal");
 		        }
 			} catch (Exception ex) {
 				System.err.println(String.format("* Error al borrar la BBDD: %s", ex.getMessage()));
@@ -150,6 +191,28 @@ public class GestorBD {
 					System.out.println(String.format(" - Cliente insertado: %s", c.toString()));
 				} else {
 					System.out.println(String.format(" - No se ha insertado el cliente: %s", c.toString()));
+				}
+			}			
+		} catch (Exception ex) {
+			System.err.println(String.format("* Error al insertar datos de la BBDD: %s", ex.getMessage()));
+			ex.printStackTrace();						
+		}				
+	}
+	public void insertarDatos2(Animal... animales) {
+		//Se abre la conexiÃ³n y se obtiene el Statement
+		try (Connection con = DriverManager.getConnection(CONNECTION_STRING);
+		     Statement stmt = con.createStatement()) {
+			//Se define la plantilla de la sentencia SQL
+			String sql = "INSERT INTO ANIMAL (TIPO,FECHA_NAC,ESPECIAL,RAZA,) VALUES ( '%s','%s','%s','%s');";
+			
+			System.out.println("- Insertando Animales...");
+			
+			//Se recorren los clientes y se insertan uno a uno
+			for (Animal c : animales) {
+				if (1 == stmt.executeUpdate(String.format(sql, c.getTipo(),c.getFechaNac(),c.getEspecial(), c.getRaza()))) {					
+					System.out.println(String.format(" - Animal insertado: %s", c.toString()));
+				} else {
+					System.out.println(String.format(" - No se ha insertado el animal: %s", c.toString()));
 				}
 			}			
 		} catch (Exception ex) {
@@ -228,21 +291,73 @@ public class GestorBD {
 		return clientes;
 	}
 	
-	public void actualizarPassword(Usuario usuario, String newPassword) {
+	public List<ArrayList> obtenerDatosAn(ArrayList<Cliente> clientes) {
+		//El valor 0 de lista sera animales y el valor 1 clientes 
+		List<ArrayList> lista = new ArrayList<ArrayList>() ;
+		ArrayList<Animal> animales = new ArrayList<>();
+		
 		//Se abre la conexiÃ³n y se obtiene el Statement
 		try (Connection con = DriverManager.getConnection(CONNECTION_STRING);
 		     Statement stmt = con.createStatement()) {
-			//Se ejecuta la sentencia de borrado de datos
-			String sql = "UPDATE CLIENTE SET PASSWORD = '%s' WHERE ID = %d;";
+			String sql = "SELECT * FROM ANIMAL WHERE";
 			
-			int result = stmt.executeUpdate(String.format(sql, newPassword, usuario.getUsuario()));
+			//Se ejecuta la sentencia y se obtiene el ResultSet con los resutlados
+			ResultSet rs = stmt.executeQuery(sql);			
+			Animal animal;
 			
-			System.out.println(String.format("- Se ha actulizado %d clientes", result));
+			//Se recorre el ResultSet y se crean objetos Cliente
+			while (rs.next()) {
+				animal = new Animal(rs.getInt("ID"),rs.getString("RAZA"),rs.getString("ESPECIAL"),rs.getString("TIPO"),rs.getDate("FECHA_NAC"));
+				if (!rs.getString("DNI_AC").equals("noAcogido")) {
+					for (Cliente cliente : clientes) {
+						if(cliente.getDni().equals(rs.getString("DNI_AC"))) {
+							cliente.getAnimalesAcogidos().add(animal);
+							break;
+						}
+					}
+				}
+					
+				if (!rs.getString("DNI_AD").equals("noAdoptado")) {
+					for (Cliente cliente : clientes) {
+						if(cliente.getDni().equals(rs.getString("DNI_AD"))) {
+							cliente.getAnimalesAdoptados().add(animal);
+							break;
+						}
+					}
+				}
+				
+				//Se inserta cada nuevo cliente en la lista de clientes
+				animales.add(animal);
+			}
+			
+			//Se cierra el ResultSet
+			rs.close();
+			
+			System.out.println(String.format("- Se han recuperado %d cliente...", animales.size()));			
 		} catch (Exception ex) {
-			System.err.println(String.format("* Error actualizando datos de la BBDD: %s", ex.getMessage()));
+			System.err.println(String.format("* Error al obtener datos de la BBDD: %s", ex.getMessage()));
 			ex.printStackTrace();						
 		}		
+		lista.add(animales);
+		lista.add(clientes);
+		return lista;
 	}
+	
+	//public void actualizarPassword(Usuario usuario, String newPassword) {
+		//Se abre la conexiÃ³n y se obtiene el Statement
+		//try (Connection con = DriverManager.getConnection(CONNECTION_STRING);
+		  //   Statement stmt = con.createStatement()) {
+			//Se ejecuta la sentencia de borrado de datos
+			//String sql = "UPDATE CLIENTE SET PASSWORD = '%s' WHERE ID = %d;";
+			
+			//int result = stmt.executeUpdate(String.format(sql, newPassword, usuario.getUsuario()));
+			
+			//System.out.println(String.format("- Se ha actulizado %d clientes", result));
+		//} catch (Exception ex) {
+			//System.err.println(String.format("* Error actualizando datos de la BBDD: %s", ex.getMessage()));
+			//ex.printStackTrace();						
+		//}		
+	//}
 	
 	public void borrarDatos() {
 		//Se abre la conexiÃ³n y se obtiene el Statement
