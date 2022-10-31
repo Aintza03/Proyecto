@@ -35,12 +35,28 @@ public class GestorBD {
 		try (Connection con = DriverManager.getConnection(CONNECTION_STRING);
 		     Statement stmt = con.createStatement()) {
 			
-	        String sql = "CREATE TABLE IF NOT EXISTS USUARIO (\n"
-	                   + " USUARIO TEXT PRIMARY KEY,\n"
+	        String sql = "CREATE TABLE IF NOT EXISTS USUARIOS (\n"
+	                   + " USUARIO TEXT NOT NULL PRIMARY KEY,\n"
+	                   + " CONTRASEÑA INTEGER NOT NULL\n"
+	                   + ");";
+	        
+	        String sql1 = "CREATE TABLE IF NOT EXISTS  (\n"
+	                   + " USUARIO TEXT NOT NULL PRIMARY KEY,\n"
+	                   + " CONTRASEÑA INTEGER NOT NULL\n"
+	                   + ");";
+	        
+	        String sql2 = "CREATE TABLE IF NOT EXISTS USUARIO (\n"
+	                   + " USUARIO TEXT NOT NULL PRIMARY KEY,\n"
 	                   + " CONTRASEÑA INTEGER NOT NULL\n"
 	                   + ");";
 	        	        
 	        if (!stmt.execute(sql)) {
+	        	System.out.println("- Se ha creado la tabla Usuarios");
+	        }
+	        if (!stmt.execute(sql1)) {
+	        	System.out.println("- Se ha creado la tabla Usuarios");
+	        }
+	        if (!stmt.execute(sql2)) {
 	        	System.out.println("- Se ha creado la tabla Usuarios");
 	        }
 		} catch (Exception ex) {
@@ -79,9 +95,9 @@ public class GestorBD {
 		try (Connection con = DriverManager.getConnection(CONNECTION_STRING);
 		     Statement stmt = con.createStatement()) {
 			//Se define la plantilla de la sentencia SQL
-			String sql = "INSERT INTO CLIENT (NAME, EMAIL, PASSWORD) VALUES ('%s', '%s', '%s');";
+			String sql = "INSERT INTO USUARIOS (USUARIO, CONTRASEÑA) VALUES ('%s', '%s');";
 			
-			System.out.println("- Insertando clientes...");
+			System.out.println("- Insertando usuarios...");
 			
 			//Se recorren los clientes y se insertan uno a uno
 			for (Usuario c : Usuarios) {
