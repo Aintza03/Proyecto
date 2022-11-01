@@ -12,9 +12,9 @@ import org.junit.Test;
 public class AdopcionTest {
 	
 	protected Adopcion adopcion;
-	protected String contrato;
-	protected Date fechaInicio;
-	protected Animal animal;
+	protected String contrato = "l";
+	protected Date fechaInicio= null;
+	protected Animal animal= null;
 	@Before
 	public void setUp() throws Exception {
 		adopcion = new Adopcion(fechaInicio, animal);
