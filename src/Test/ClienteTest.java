@@ -9,6 +9,7 @@ import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 
+import General.Adopcion;
 import General.Animal;
 import General.Cliente;
 
@@ -134,10 +135,8 @@ public class ClienteTest {
 	
 	@Test
 	public void testEqualsObject() {
-		assertEquals(true, cliente.equals(cliente));
-		assertEquals(true, this.equals(cliente));
-		assertEquals(false, cliente.equals(null));
-		assertEquals(false, cliente.equals(animalesAcogidos));
+		Cliente c = new Cliente("dth","dtj",603441074,"eth");
+		Assert.assertTrue(c.equals(cliente) && cliente.equals(c));
 	}
 
 }

@@ -9,10 +9,13 @@ import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 
+import General.Adopcion;
+import General.Animal;
+
 public class AdopcionTest {
 	
 	protected Adopcion adopcion;
-	protected String contrato = "l";
+	protected String contrato = "";
 	protected Date fechaInicio= null;
 	protected Animal animal= null;
 	@Before
@@ -27,7 +30,7 @@ public class AdopcionTest {
 
 	@Test
 	public void testHashCode() {
-		Animal an = new Animal(0, null, null, null, null);
+		Animal an = null;
 		Adopcion ad = new Adopcion(null, an);
 		Assert.assertTrue(ad.hashCode() == adopcion.hashCode());
 	}
@@ -58,7 +61,7 @@ public class AdopcionTest {
 
 	@Test
 	public void testToString() {
-		String toString = "Adopcion [contrato=" + contrato + "]";
+		String toString = "Adopcion [contrato=" + "" + "]";
 		assertEquals(toString,adopcion.toString());
 	}
 
@@ -78,7 +81,8 @@ public class AdopcionTest {
 
 	@Test
 	public void testGetContrato() {
-		assertEquals(contrato,adopcion.getContrato());
+		String contratoA = "";
+		assertEquals(contratoA,adopcion.getContrato());
 	}
 
 	@Test
@@ -87,4 +91,4 @@ public class AdopcionTest {
 		adopcion.setContrato(k);
 		assertEquals(k,adopcion.getContrato());
 	}
-
+}

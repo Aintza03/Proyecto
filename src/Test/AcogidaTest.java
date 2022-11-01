@@ -9,6 +9,9 @@ import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 
+import General.Acogida;
+import General.Animal;
+
 public class AcogidaTest {
 	
 	protected Acogida acogida;

@@ -9,9 +9,7 @@ public class Adopcion extends Servicio {
 
 	public Adopcion(Date fechaInicio, Animal animal) {
 		super(fechaInicio, animal);
-		this.fechaInicio = fechaInicio;
-		this.animal = animal;
-		this.contrato= null;
+		this.contrato= "";
 	}
 	public Date getFechaInicio() {
 		return fechaInicio;
@@ -26,8 +24,10 @@ public class Adopcion extends Servicio {
 		this.animal = animal;
 	}
 	
+	
 	public String getContrato() {
 		return contrato;
+		
 	}
 	public void setContrato(String contrato) {
 		this.contrato = contrato;

@@ -4,14 +4,27 @@ import static org.junit.Assert.*;
 
 import java.sql.Date;
 
-
+import org.junit.After;
+import org.junit.Before;
 import org.junit.Test;
 
+import General.Adopcion;
+import General.Animal;
+import General.Servicio;
+
 public class ServicioTest {
-	protected Servicio servicio;
+	protected Adopcion servicio;
 	protected Date fechaInicio = null;
 	protected Animal animal = null;
-	
+	@Before
+	public void setUp() throws Exception {
+		servicio = new Adopcion(fechaInicio, animal);
+	}
+
+	@After
+	public void tearDown() throws Exception {
+		servicio = null;
+	}
 
 	@Test
 	public void testServicio() {
