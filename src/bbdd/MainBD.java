@@ -11,39 +11,37 @@ import General.Usuario;
 public class MainBD {
 
 	public static void main(String[] args) {
-		GestorBD gestorBDUsuario = new GestorBD();
-		GestorBD gestorBDCliente = new GestorBD();
-		GestorBD gestorBDAnimal = new GestorBD();
+		GestorBD gestorBD = new GestorBD();
 		
 		//CREATE DATABASE: Se crea la BBDD
-		gestorBDUsuario.crearBBDDUsuario();
-		gestorBDCliente.crearBBDDUsuario();
-		gestorBDAnimal.crearBBDDUsuario();
+		gestorBD.crearBBDDUsuario();
+		gestorBD.crearBBDDCliente();
+		gestorBD.crearBBDDAnimal();
 		
 		//INSERT: Insertar datos en la BBDD		
 		List<Usuario> usuarios = initUsuarios();
-		gestorBDUsuario.insertarDatosUsuario(usuarios.toArray(new Usuario[usuarios.size()]));
-		List<ArrayList> animales = initAnimales();
-		gestorBDUsuario.insertarDatosUsuario(animales.toArray(new Usuario[animales.size()]));
+		gestorBD.insertarDatosUsuario(usuarios.toArray(new Usuario[usuarios.size()]));
 		ArrayList<Cliente> clientes = (ArrayList<Cliente>) initClientes();
-		gestorBDUsuario.insertarDatosUsuario(clientes.toArray(new Usuario[clientes.size()]));
-		
+		gestorBD.insertarDatosCliente(clientes.toArray(new Cliente[clientes.size()]));
+		List<ArrayList> animales = initAnimales();
+		gestorBD.insertarDatosAnimal(animales.toArray(new Animal[animales.size()]));
+
 		//SELECT: Se obtienen datos de la BBDD
-		usuarios = gestorBDUsuario.obtenerDatosUsuario();
-		printUsuarios(usuarios);
-		clientes = (ArrayList<Cliente>) gestorBDCliente.obtenerDatosCliente();
-		printClientes(clientes);
-		animales = gestorBDAnimal.obtenerDatosAnimal(clientes);
-		printAnimales(animales);
+		//usuarios = gestorBDUsuario.obtenerDatosUsuario();
+		//printUsuarios(usuarios);
+		//clientes = (ArrayList<Cliente>) gestorBDCliente.obtenerDatosCliente();
+		//printClientes(clientes);
+		//animales = gestorBDAnimal.obtenerDatosAnimal(clientes);
+		//printAnimales(animales);
 		//SELECT: Se obtienen datos de la BBDD
-		usuarios = gestorBDUsuario.obtenerDatosUsuario();
-		printUsuarios(usuarios);
+		//usuarios = gestorBDUsuario.obtenerDatosUsuario();
+		//printUsuarios(usuarios);
 
 		//DELETE: Se borran datos de la BBDD
-		gestorBDUsuario.borrarDatos();
+		//gestorBDUsuario.borrarDatos();
 		
 		//DROP DATABASE: Se borra la BBDD
-		gestorBDUsuario.borrarBBDDUsuario();
+		//gestorBDUsuario.borrarBBDDUsuario();
 	}
 	
 	private static void printUsuarios(List<Usuario> usuarios) {

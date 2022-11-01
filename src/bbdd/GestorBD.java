@@ -63,7 +63,7 @@ public class GestorBD {
 	        		+ "PERMISO INTEGER DEFAULT 1,\n"
 	        		+ "TEL INTEGER,\n"
 	        		+ "DIR TEXT,\n"
-	        		+ "NOMBRE TEXT,\n" + ");";
+	        		+ "NOMBRE TEXT\n" + ");";
 	   
 	        if (!stmt.execute(sql)) {
 	        	System.out.println("- Se ha creado la tabla Cliente");
