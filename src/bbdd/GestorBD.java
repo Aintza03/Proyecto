@@ -361,56 +361,31 @@ public class GestorBD {
 			ex.printStackTrace();						
 		}		
 	}	
-	public void update(List<Usuario> usuarios, List<Animal> animales , List<Cliente> clientes) {
-		List<Usuario> usuarioBBDD;
-		List<ArrayList> animalesBBDD;
-		ArrayList<Cliente> clienteBBDD;
+	public void update( Animal animal, String DniC, String DniD) {
 		
-		clienteBBDD = (ArrayList<Cliente>) obtenerDatosCliente();
-		usuarioBBDD = obtenerDatosUsuario();
-		animalesBBDD =obtenerDatosAnimal(clienteBBDD);
-		for (Usuario usuario : usuarios) {
-			if ((usuarioBBDD.contains(usuario))) {
-				this.actualizarUsuario(usuario);
-			} else {
-				this.insertarDatosUsuario(usuario);
-			}
-		}
+		ArrayList<Cliente> clienteBBDD = (ArrayList<Cliente>) obtenerDatosCliente();
+		List<ArrayList> animalesBBDD = obtenerDatosAnimal(clienteBBDD);
 		
-		for (Cliente cliente : clientes) {
-			if ((clienteBBDD.contains(cliente))) {
-				this.actualizarCliente(cliente);
-			} else {
-				this.insertarDatosCliente(cliente);
-			}
-		}
-	
-			for (Animal animal : animales) {
 			if ((animalesBBDD.contains(animal))) {
-				this.actualizarAnimal(animal);
-			} else {
-				this.insertarDatosAnimal(animal);
+				this.actualizarAnimal(animal, DniC, DniD);
 			}
-		}}
-
-	private void actualizarAnimal(Animal animal) {
-		// TODO Auto-generated method stub
+	}
+	
+	private void actualizarAnimal(Animal animal, String Dni_AC, String Dni_AD) {
+		try (Connection con = DriverManager.getConnection(CONNECTION_STRING);
+			     Statement stmt = con.createStatement()) {
+				//Se ejecuta la sentencia de borrado de datos
+				String sql = "UPDATE ANIMAL SET DNIC_AD = '%s', DNIC_AD = '%s'  WHERE ID = %d;";
+				
+				int result = stmt.executeUpdate(String.format(sql, Dni_AC, Dni_AD, animal.getId()));
+				
+				System.out.println(String.format("- Se ha actulizado %d animales", result));
+			} catch (Exception ex) {
+				System.err.println(String.format("* Error actualizando datos de la BBDD: %s", ex.getMessage()));
+				ex.printStackTrace();						
+			}		
+		}
 		
 	}
-
-	private void actualizarCliente(Cliente cliente) {
-		// TODO Auto-generated method stub
 		
-	}
-
-	private void actualizarUsuario(Usuario usuario) {
-		// TODO Auto-generated method stub
-		
-	}
-		
-		
-		
-		
-		
-}
 

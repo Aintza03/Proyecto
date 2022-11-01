@@ -35,7 +35,8 @@ public class MainBD {
 		List<ArrayList> resultado = gestorBD.obtenerDatosAnimal((listac));
 		printAnimales(resultado);
 		//UPDATE: Se actualizan los datos
-		gestorBD.update(usuarios,resultado.get(1),clientes);
+		Animal animal = new Animal(2002, "nombre", null, null, null);
+		gestorBD.update(animal, "090909c", null);
 		//DELETE: Se borran datos de la BBDD (No vamos a usar borrarDatos() )
 	    gestorBD.borrarDatos();
 		
