@@ -16,6 +16,14 @@ public class Animal {
 		this.tipo = tipo;
 		this.fechaNac = fechaNac;
 	}
+		
+	public int getId() {
+		return id;
+	}
+
+	public void setId(int id) {
+		this.id = id;
+	}
 	public String getRaza() {
 		return raza;
 	}
