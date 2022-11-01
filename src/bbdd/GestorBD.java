@@ -31,7 +31,7 @@ public class GestorBD {
 		}
 	}
 		
-	public void crearBBDD() {
+	public void crearBBDDUsuario() {
 		//Se abre la conexiÃ³n y se obtiene el Statement
 		//Al abrir la conexiÃ³n, si no existÃ­a el fichero, se crea la base de datos
 		try (Connection con = DriverManager.getConnection(CONNECTION_STRING);
@@ -52,7 +52,7 @@ public class GestorBD {
 		}
 	}
 	
-	public void crearBBDD1() {
+	public void crearBBDDCliente() {
 		//Se abre la conexiÃ³n y se obtiene el Statement
 		//Al abrir la conexiÃ³n, si no existÃ­a el fichero, se crea la base de datos
 		try (Connection con = DriverManager.getConnection(CONNECTION_STRING);
@@ -75,7 +75,7 @@ public class GestorBD {
 		}
 	}
 	
-	public void crearBBDD2() {
+	public void crearBBDDAnimal() {
 		//Se abre la conexiÃ³n y se obtiene el Statement
 		//Al abrir la conexiÃ³n, si no existÃ­a el fichero, se crea la base de datos
 		try (Connection con = DriverManager.getConnection(CONNECTION_STRING);
@@ -103,7 +103,7 @@ public class GestorBD {
 		}
 	}
 	
-	public void borrarBBDD() {
+	public void borrarBBDDUsuario() {
 		//Se abre la conexiÃ³n y se obtiene el Statement
 		try (Connection con = DriverManager.getConnection(CONNECTION_STRING);
 		     Statement stmt = con.createStatement()) {
@@ -154,7 +154,7 @@ public class GestorBD {
 		}
 	}
 	
-	public void insertarDatos0(Usuario... Usuarios) {
+	public void insertarDatosUsuario(Usuario... Usuarios) {
 		//Se abre la conexiÃ³n y se obtiene el Statement
 		try (Connection con = DriverManager.getConnection(CONNECTION_STRING);
 		     Statement stmt = con.createStatement()) {
@@ -176,7 +176,7 @@ public class GestorBD {
 			ex.printStackTrace();						
 		}				
 	}
-	public void insertarDatos1(Cliente... clientes) {
+	public void insertarDatosCliente(Cliente... clientes) {
 		//Se abre la conexiÃ³n y se obtiene el Statement
 		try (Connection con = DriverManager.getConnection(CONNECTION_STRING);
 		     Statement stmt = con.createStatement()) {
@@ -198,7 +198,7 @@ public class GestorBD {
 			ex.printStackTrace();						
 		}				
 	}
-	public void insertarDatos2(Animal... animales) {
+	public void insertarDatosAnimal(Animal... animales) {
 		//Se abre la conexiÃ³n y se obtiene el Statement
 		try (Connection con = DriverManager.getConnection(CONNECTION_STRING);
 		     Statement stmt = con.createStatement()) {
@@ -220,7 +220,7 @@ public class GestorBD {
 			ex.printStackTrace();						
 		}				
 	}
-	public List<Usuario> obtenerDatosUs() {
+	public List<Usuario> obtenerDatosUsuario() {
 		List<Usuario> usuarios = new ArrayList<>();
 		
 		//Se abre la conexiÃ³n y se obtiene el Statement
@@ -254,7 +254,7 @@ public class GestorBD {
 		
 		return usuarios;
 	}
-	public List<Cliente> obtenerDatosCl() {
+	public List<Cliente> obtenerDatosCliente() {
 		List<Cliente> clientes = new ArrayList<>();
 		
 		//Se abre la conexiÃ³n y se obtiene el Statement
@@ -291,7 +291,7 @@ public class GestorBD {
 		return clientes;
 	}
 	
-	public List<ArrayList> obtenerDatosAn(ArrayList<Cliente> clientes) {
+	public List<ArrayList> obtenerDatosAnimal(ArrayList<Cliente> clientes) {
 		//El valor 0 de lista sera animales y el valor 1 clientes 
 		List<ArrayList> lista = new ArrayList<ArrayList>() ;
 		ArrayList<Animal> animales = new ArrayList<>();
@@ -343,21 +343,7 @@ public class GestorBD {
 		return lista;
 	}
 	
-	//public void actualizarPassword(Usuario usuario, String newPassword) {
-		//Se abre la conexiÃ³n y se obtiene el Statement
-		//try (Connection con = DriverManager.getConnection(CONNECTION_STRING);
-		  //   Statement stmt = con.createStatement()) {
-			//Se ejecuta la sentencia de borrado de datos
-			//String sql = "UPDATE CLIENTE SET PASSWORD = '%s' WHERE ID = %d;";
-			
-			//int result = stmt.executeUpdate(String.format(sql, newPassword, usuario.getUsuario()));
-			
-			//System.out.println(String.format("- Se ha actulizado %d clientes", result));
-		//} catch (Exception ex) {
-			//System.err.println(String.format("* Error actualizando datos de la BBDD: %s", ex.getMessage()));
-			//ex.printStackTrace();						
-		//}		
-	//}
+	
 	
 	public void borrarDatos() {
 		//Se abre la conexiÃ³n y se obtiene el Statement
@@ -373,5 +359,34 @@ public class GestorBD {
 			ex.printStackTrace();						
 		}		
 	}	
+	public void update(List<Usuario> usuarios, List<Animal> animales , List<Cliente> clientes) {
+		List<Usuario> usuarioBBDD;
+		List<ArrayList> animalesBBDD;
+		ArrayList<Cliente> clienteBBDD;
+		clienteBBDD = (ArrayList<Cliente>) obtenerDatosCliente();
+		usuarioBBDD = obtenerDatosUsuario();
+		animalesBBDD =obtenerDatosAnimal(clienteBBDD);
+		for (Usuario usuario : usuarios) {
+			if (!(usuarioBBDD.contains(usuario))) {
+				insertarDatosUsuario(usuario);
+			}
+		}
+		
+		for (Cliente cliente : clientes) {
+			if (!(clienteBBDD.contains(cliente))) {
+				insertarDatosCliente(cliente);
+			}
+		}
 	
+			for (Animal animal : animales) {
+			if (!(animalesBBDD.contains(animal))) {
+				insertarDatosAnimal(animal);
+			}
+		}}
+		
+		
+		
+		
+		
 }
+
