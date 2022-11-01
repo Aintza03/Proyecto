@@ -68,11 +68,6 @@ public class AcogidaTest {
 	}
 
 	@Test
-	public void testServicio() {
-		fail("Not yet implemented");
-	}
-
-	@Test
 	public void testGetFechaInicio() {
 		assertEquals(fechaInicio, acogida.getFechaInicio());
 	}
