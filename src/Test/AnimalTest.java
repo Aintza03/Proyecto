@@ -1,12 +1,13 @@
-package General;
+package Test;
 import static org.junit.Assert.*;
 
 import java.sql.Date;
 
 import org.junit.After;
-import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
+
+import General.Animal;
 
 public class AnimalTest {
 
@@ -101,11 +102,4 @@ public class AnimalTest {
 		String toString = tipo + " " + raza +  ", nacido en " + fechaNac + "??"+ especial;
 		assertEquals(toString,animal.toString());
 	}
-
-	@Test
-	public void testHashCode() {
-		Animal an1 = new Animal(1, "p", "u", "i", null);
-		Assert.assertTrue(an1.hashCode() == animal.hashCode());
-	}
-
 }
