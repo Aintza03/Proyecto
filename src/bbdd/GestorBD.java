@@ -308,20 +308,20 @@ public class GestorBD {
 			
 			//Se recorre el ResultSet y se crean objetos Cliente
 			while (rs.next()) {
-				animal = new Animal(rs.getInt("ID"),rs.getString("RAZA"),rs.getString("ESPECIAL"),rs.getString("TIPO"),new Date());
-				System.out.println(rs.getDate("FECHA_NAC"));
-				if (!rs.getString("DNI_AC").equals("noAcogido")) {
+				animal = new Animal(rs.getInt("ID"),rs.getString("RAZA"),rs.getString("ESPECIAL"),rs.getString("TIPO"), new Date() );
+				
+				if (!rs.getString("DNIC_AC").equals("noAcogido")) {
 					for (Cliente cliente : clientes) {
-						if(cliente.getDni().equals(rs.getString("DNI_AC"))) {
+						if(cliente.getDni().equals(rs.getString("DNIC_AC"))) {
 							cliente.getAnimalesAcogidos().add(animal);
 							break;
 						}
 					}
 				}
 					
-				if (!rs.getString("DNI_AD").equals("noAdoptado")) {
+				if (!rs.getString("DNIC_AD").equals("noAdoptado")) {
 					for (Cliente cliente : clientes) {
-						if(cliente.getDni().equals(rs.getString("DNI_AD"))) {
+						if(cliente.getDni().equals(rs.getString("DNIC_AD"))) {
 							cliente.getAnimalesAdoptados().add(animal);
 							break;
 						}

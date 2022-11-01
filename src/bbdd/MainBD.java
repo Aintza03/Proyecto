@@ -34,15 +34,12 @@ public class MainBD {
 		ArrayList<Cliente> listac = (ArrayList<Cliente>) clientes;
 		List<ArrayList> resultado = gestorBD.obtenerDatosAnimal((listac));
 		printAnimales(resultado);
-		//SELECT: Se obtienen datos de la BBDD
-		//usuarios = gestorBDUsuario.obtenerDatosUsuario();
-		//printUsuarios(usuarios);
-
-		//DELETE: Se borran datos de la BBDD
-		//gestorBDUsuario.borrarDatos();
 		
-		//DROP DATABASE: Se borra la BBDD
-		//gestorBDUsuario.borrarBBDDUsuario();
+		//DELETE: Se borran datos de la BBDD (No vamos a usar borrarDatos() )
+	    gestorBD.borrarDatos();
+		
+		//DROP DATABASE: Se borra la BBDD (No vamos a usarlo en el proyecto)
+		 gestorBD.borrarBBDDUsuario();
 	}
 	
 	private static void printClientes(List<Cliente> clientes) {
