@@ -1,41 +1,40 @@
 package General;
 
 import java.sql.Date;
-import java.util.HashMap;
 import java.util.Objects;
 
+
 public abstract class Servicio {
-	protected Date fecha;
-	protected HashMap<Animal, Boolean> animales;
-	public Servicio(Date fecha, HashMap<Animal, Boolean> animales) {
+	protected Date fechaInicio;
+	protected Animal animal;
+	
+	
+	
+	public Servicio(Date fechaInicio, Animal animal) {
 		super();
-		this.fecha = fecha;
-		this.animales = animales;
+		this.fechaInicio = fechaInicio;
+		this.animal = animal;
 	}
-	
-	public Date getFecha() {
-		return fecha;
+	public Date getFechaInicio() {
+		return fechaInicio;
 	}
-	public void setFecha(Date fecha) {
-		this.fecha = fecha;
+	public void setFechaInicio(Date fechaInicio) {
+		this.fechaInicio = fechaInicio;
 	}
-	public HashMap<Animal, Boolean> getAnimales() {
-		return animales;
+	public Animal getAnimal() {
+		return animal;
 	}
-	public void setAnimales(HashMap<Animal, Boolean> animales) {
-		this.animales = animales;
+	public void setAnimal(Animal animal) {
+		this.animal = animal;
 	}
-	
 	@Override
 	public String toString() {
-		return "Servicio [fecha=" + fecha + ", animales=" + animales + "]";
+		return "Servicio [fechaInicio=" + fechaInicio + ", animal=" + animal + "]";
 	}
-	
 	@Override
 	public int hashCode() {
-		return Objects.hash(animales, fecha);
+		return Objects.hash(animal, fechaInicio);
 	}
-	
 	@Override
 	public boolean equals(Object obj) {
 		if (this == obj)
@@ -45,9 +44,8 @@ public abstract class Servicio {
 		if (getClass() != obj.getClass())
 			return false;
 		Servicio other = (Servicio) obj;
-		return Objects.equals(animales, other.animales) && Objects.equals(fecha, other.fecha);
+		return Objects.equals(animal, other.animal) && Objects.equals(fechaInicio, other.fechaInicio);
 	}
-	
 	
 	
 
