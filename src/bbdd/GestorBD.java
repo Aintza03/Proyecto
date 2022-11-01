@@ -365,26 +365,48 @@ public class GestorBD {
 		List<Usuario> usuarioBBDD;
 		List<ArrayList> animalesBBDD;
 		ArrayList<Cliente> clienteBBDD;
+		
 		clienteBBDD = (ArrayList<Cliente>) obtenerDatosCliente();
 		usuarioBBDD = obtenerDatosUsuario();
 		animalesBBDD =obtenerDatosAnimal(clienteBBDD);
 		for (Usuario usuario : usuarios) {
-			if (!(usuarioBBDD.contains(usuario))) {
-				insertarDatosUsuario(usuario);
+			if ((usuarioBBDD.contains(usuario))) {
+				this.actualizarUsuario(usuario);
+			} else {
+				this.insertarDatosUsuario(usuario);
 			}
 		}
 		
 		for (Cliente cliente : clientes) {
-			if (!(clienteBBDD.contains(cliente))) {
-				insertarDatosCliente(cliente);
+			if ((clienteBBDD.contains(cliente))) {
+				this.actualizarCliente(cliente);
+			} else {
+				this.insertarDatosCliente(cliente);
 			}
 		}
 	
 			for (Animal animal : animales) {
-			if (!(animalesBBDD.contains(animal))) {
-				insertarDatosAnimal(animal);
+			if ((animalesBBDD.contains(animal))) {
+				this.actualizarAnimal(animal);
+			} else {
+				this.insertarDatosAnimal(animal);
 			}
 		}}
+
+	private void actualizarAnimal(Animal animal) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	private void actualizarCliente(Cliente cliente) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	private void actualizarUsuario(Usuario usuario) {
+		// TODO Auto-generated method stub
+		
+	}
 		
 		
 		
