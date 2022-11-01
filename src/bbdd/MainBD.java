@@ -21,9 +21,9 @@ public class MainBD {
 		//INSERT: Insertar datos en la BBDD		
 		List<Usuario> usuarios = initUsuarios();
 		gestorBD.insertarDatosUsuario(usuarios.toArray(new Usuario[usuarios.size()]));
-		ArrayList<Cliente> clientes = (ArrayList<Cliente>) initClientes();
+		List<Cliente> clientes = initClientes();
 		gestorBD.insertarDatosCliente(clientes.toArray(new Cliente[clientes.size()]));
-		List<ArrayList> animales = initAnimales();
+		List<Animal> animales = initAnimales();
 		gestorBD.insertarDatosAnimal(animales.toArray(new Animal[animales.size()]));
 
 		//SELECT: Se obtienen datos de la BBDD
@@ -60,7 +60,41 @@ public class MainBD {
 		usuario.setContraseña(1234);
 		usuarios.add(usuario);
 		
+		Usuario usuario1 = new Usuario(1111, "nombre");
+		usuario.setUsuario("Bruce Banner");
+		usuario.setContraseña(1234);
+		usuarios.add(usuario);
+		
 		return usuarios;
+	}
+	
+	public static List<Cliente> initClientes() {
+		List<Cliente> clientes = new ArrayList<>();
+		
+		Cliente cliente = new Cliente(null, null, 1111, "nombre", null, null, false);
+		cliente.setDni("Bruce Banner");
+		cliente.setDireccion("a");
+		cliente.setTelefono(90909090);
+		cliente.setNombre("Bruce Banner");
+		cliente.setAnimalesAdoptados(null);
+		cliente.setAnimalesAcogidos(null);
+		cliente.setPermiso(true);
+		
+		return clientes;
+	}
+	
+	public static List<Animal> initAnimales() {
+		List<Animal> animales = new ArrayList<>();
+		
+		Animal animal = new Animal(1111, "nombre", null, null, null);
+		animal.setId(2002);
+		animal.setRaza("Siames");
+		animal.setEspecial(null);
+		animal.setTipo("gato");
+		animal.setFechaNac(null);
+		animales.add(animal);
+		
+		return animales; 
 	}
 	private static void printAnimales(List<ArrayList> lista) {
 		if (!lista.isEmpty()) {	
@@ -72,35 +106,12 @@ public class MainBD {
 				// TODO: handle exception
 				System.out.println(String.format(" - %s", elemento.toString()));
 			} {
-				
 					
-				
 			}}
 		}		
 	}
-	
-	public static List<ArrayList> initAnimales() {
-		List<ArrayList> animales = null;
-		ArrayList<Animal> animal = new ArrayList<Animal>();
-		animal.add(new Animal(0, null, null, null, null));
-		animal.add(new Animal(5, null, null, null, null));
-		animales.add(animal);
-		return animales;
-	}
-	private static void printClientes(List<Cliente> clientes) {
-		if (!clientes.isEmpty()) {		
-			for(Cliente cliente : clientes) {
-				System.out.println(String.format(" - %s", cliente.toString()));
-			}
-		}		
-	}
-	
-	public static List<Cliente> initClientes() {
-		List<Cliente> clientes = null;
-		Cliente cliente = new Cliente(null, null, 0, null); 
-		clientes.add(cliente);
-		return clientes;
-	}
 
+
+	
 }
 
