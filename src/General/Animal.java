@@ -1,6 +1,6 @@
 package General;
 
-import java.sql.Date;
+import java.util.Date;
 
 public class Animal {
 	protected int id;

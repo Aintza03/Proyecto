@@ -27,12 +27,13 @@ public class MainBD {
 		gestorBD.insertarDatosAnimal(animales.toArray(new Animal[animales.size()]));
 
 		//SELECT: Se obtienen datos de la BBDD
-		//usuarios = gestorBDUsuario.obtenerDatosUsuario();
-		//printUsuarios(usuarios);
-		//clientes = (ArrayList<Cliente>) gestorBDCliente.obtenerDatosCliente();
-		//printClientes(clientes);
-		//animales = gestorBDAnimal.obtenerDatosAnimal(clientes);
-		//printAnimales(animales);
+		usuarios = gestorBD.obtenerDatosUsuario();
+		printUsuarios(usuarios);
+		clientes = (ArrayList<Cliente>) gestorBD.obtenerDatosCliente();
+		printClientes(clientes);
+		ArrayList<Cliente> listac = (ArrayList<Cliente>) clientes;
+		List<ArrayList> resultado = gestorBD.obtenerDatosAnimal((listac));
+		printAnimales(resultado);
 		//SELECT: Se obtienen datos de la BBDD
 		//usuarios = gestorBDUsuario.obtenerDatosUsuario();
 		//printUsuarios(usuarios);
@@ -44,6 +45,15 @@ public class MainBD {
 		//gestorBDUsuario.borrarBBDDUsuario();
 	}
 	
+	private static void printClientes(List<Cliente> clientes) {
+		// TODO Auto-generated method stub
+		if (!clientes.isEmpty()) {		
+			for(Cliente cliente : clientes) {
+				System.out.println(String.format(" - %s", cliente.toString()));
+			}
+		}	
+	}
+
 	private static void printUsuarios(List<Usuario> usuarios) {
 		if (!usuarios.isEmpty()) {		
 			for(Usuario usuario : usuarios) {
@@ -56,15 +66,14 @@ public class MainBD {
 		List<Usuario> usuarios = new ArrayList<>();
 		
 		Usuario usuario = new Usuario(1111, "nombre");
-		usuario.setUsuario("Bruce Banner");
+		usuario.setUsuario("Bruce A");
 		usuario.setContraseña(1234);
 		usuarios.add(usuario);
 		
-		Usuario usuario1 = new Usuario(1111, "nombre");
-		usuario.setUsuario("Bruce Banner");
+		usuario = new Usuario(1111, "nombre");
+		usuario.setUsuario("Bruce B");
 		usuario.setContraseña(1234);
 		usuarios.add(usuario);
-		
 		return usuarios;
 	}
 	
@@ -98,20 +107,16 @@ public class MainBD {
 	}
 	private static void printAnimales(List<ArrayList> lista) {
 		if (!lista.isEmpty()) {	
-			
-			for(Object elemento : lista) {
-				try {System.out.println(String.format(" - %s", elemento.toString()));
+			ArrayList<Animal> objeto = lista.get(1);
+			for(Animal animal : objeto) {
+				System.out.println(String.format(" - %s", animal.toString()));
 			}
-			catch (Exception e) {
-				// TODO: handle exception
-				System.out.println(String.format(" - %s", elemento.toString()));
-			} {
-					
-			}}
-		}		
+		}	
+		}
+			
 	}
 
 
 	
-}
+
 

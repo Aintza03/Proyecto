@@ -7,6 +7,7 @@ import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.Statement;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import General.Animal;
@@ -37,9 +38,9 @@ public class GestorBD {
 		try (Connection con = DriverManager.getConnection(CONNECTION_STRING);
 		     Statement stmt = con.createStatement()) {
 			
-	        String sql = "CREATE TABLE IF NOT EXISTS USUARIOS (\n"
-	                   + " USUARIO TEXT NOT NULL PRIMARY KEY,\n"
-	                   + " CONTRASEÑA INTEGER NOT NULL\n"
+	        String sql = "CREATE TABLE IF NOT EXISTS USUARIO (\n"
+	                   + " USUARIO TEXT PRIMARY KEY,\n"
+	                   + " CONTRASEÑA INTEGER NOT NULL UNIQUE\n"
 	                   + ");";
 	   
 	        if (!stmt.execute(sql)) {
@@ -203,13 +204,13 @@ public class GestorBD {
 		try (Connection con = DriverManager.getConnection(CONNECTION_STRING);
 		     Statement stmt = con.createStatement()) {
 			//Se define la plantilla de la sentencia SQL
-			String sql = "INSERT INTO ANIMAL (TIPO,FECHA_NAC,ESPECIAL,RAZA,) VALUES ( '%s','%s','%s','%s');";
+			String sql = "INSERT INTO ANIMAL (TIPO,FECHA_NAC,ESPECIAL,RAZA) VALUES ('%s','%s','%s','%s');";
 			
 			System.out.println("- Insertando Animales...");
 			
 			//Se recorren los clientes y se insertan uno a uno
 			for (Animal c : animales) {
-				if (1 == stmt.executeUpdate(String.format(sql, c.getTipo(),c.getFechaNac(),c.getEspecial(), c.getRaza()))) {					
+				if (1 == stmt.executeUpdate(String.format(sql ,c.getTipo(),c.getFechaNac(),c.getEspecial(), c.getRaza()))) {					
 					System.out.println(String.format(" - Animal insertado: %s", c.toString()));
 				} else {
 					System.out.println(String.format(" - No se ha insertado el animal: %s", c.toString()));
@@ -226,7 +227,7 @@ public class GestorBD {
 		//Se abre la conexiÃ³n y se obtiene el Statement
 		try (Connection con = DriverManager.getConnection(CONNECTION_STRING);
 		     Statement stmt = con.createStatement()) {
-			String sql = "SELECT * FROM USUARIO WHERE ID >= 0";
+			String sql = "SELECT * FROM USUARIO";
 			
 			//Se ejecuta la sentencia y se obtiene el ResultSet con los resutlados
 			ResultSet rs = stmt.executeQuery(sql);			
@@ -260,7 +261,7 @@ public class GestorBD {
 		//Se abre la conexiÃ³n y se obtiene el Statement
 		try (Connection con = DriverManager.getConnection(CONNECTION_STRING);
 		     Statement stmt = con.createStatement()) {
-			String sql = "SELECT * FROM CLIENTE WHERE";
+			String sql = "SELECT * FROM CLIENTE";
 			
 			//Se ejecuta la sentencia y se obtiene el ResultSet con los resutlados
 			ResultSet rs = stmt.executeQuery(sql);			
@@ -299,7 +300,7 @@ public class GestorBD {
 		//Se abre la conexiÃ³n y se obtiene el Statement
 		try (Connection con = DriverManager.getConnection(CONNECTION_STRING);
 		     Statement stmt = con.createStatement()) {
-			String sql = "SELECT * FROM ANIMAL WHERE";
+			String sql = "SELECT * FROM ANIMAL";
 			
 			//Se ejecuta la sentencia y se obtiene el ResultSet con los resutlados
 			ResultSet rs = stmt.executeQuery(sql);			
@@ -307,7 +308,8 @@ public class GestorBD {
 			
 			//Se recorre el ResultSet y se crean objetos Cliente
 			while (rs.next()) {
-				animal = new Animal(rs.getInt("ID"),rs.getString("RAZA"),rs.getString("ESPECIAL"),rs.getString("TIPO"),rs.getDate("FECHA_NAC"));
+				animal = new Animal(rs.getInt("ID"),rs.getString("RAZA"),rs.getString("ESPECIAL"),rs.getString("TIPO"),new Date());
+				System.out.println(rs.getDate("FECHA_NAC"));
 				if (!rs.getString("DNI_AC").equals("noAcogido")) {
 					for (Cliente cliente : clientes) {
 						if(cliente.getDni().equals(rs.getString("DNI_AC"))) {
