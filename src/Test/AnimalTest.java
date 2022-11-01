@@ -35,6 +35,17 @@ public class AnimalTest {
 		assertEquals(tipo,animal.getTipo());
 		assertEquals(fechaNac, animal.getFechaNac());	
 	}
+	
+	@Test
+	public void testGeId() {
+		assertEquals(id,animal.getId());
+	}
+	@Test
+	public void testSetId() {
+		int x = 2;
+		animal.setId(x);
+		assertEquals(x,animal.getId());
+	}
 
 	@Test
 	public void testGetRaza() {
