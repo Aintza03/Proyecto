@@ -9,8 +9,8 @@ import org.junit.Test;
 
 public class ServicioTest {
 	protected Servicio servicio;
-	protected Date fechaInicio;
-	protected Animal animal;
+	protected Date fechaInicio = null;
+	protected Animal animal = null;
 	
 
 	@Test
