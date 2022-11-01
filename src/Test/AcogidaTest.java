@@ -13,7 +13,7 @@ public class AcogidaTest {
 	
 	protected Acogida acogida;
 	protected Date fechaInicio= null;
-	protected Animal animal= new Animal(0, null, null, null, null);
+	protected Animal animal= null;
 	protected Date fechaEntrega= null;
 	
 	
