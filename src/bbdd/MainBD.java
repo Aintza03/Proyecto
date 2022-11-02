@@ -18,7 +18,7 @@ public class MainBD {
 
 	public static void main(String[] args) {
 		GestorBD gestorBD = new GestorBD();
-		
+		 gestorBD.borrarBBDDUsuario();
 		//CREATE DATABASE: Se crea la BBDD
 		gestorBD.crearBBDDUsuario();
 		gestorBD.crearBBDDCliente();
@@ -40,9 +40,11 @@ public class MainBD {
 		ArrayList<Cliente> listac = (ArrayList<Cliente>) clientes;
 		List<ArrayList> resultado = gestorBD.obtenerDatosAnimal((listac));
 		printAnimales(resultado);
+		System.out.println("prueba");
 		//UPDATE: Se actualizan los datos
-		Animal animal = new Animal(2002, "nombre", null, null, null);
-		gestorBD.update(animal, "090909c", null);
+		
+		Animal animal = new Animal(1, "Gato", null , null , null);
+		gestorBD.update(animal, "11111111H", null);
 		//DELETE: Se borran datos de la BBDD (No vamos a usar borrarDatos() )
 	    gestorBD.borrarDatos();
 		
@@ -69,9 +71,10 @@ public class MainBD {
 	
 	public static List<Usuario> initUsuarios() {
 		List<Usuario> usuarios = new ArrayList<>();
-		File fichero = new File("data/usuarios");
+		File fichero = new File("data/usuarios.csv");
 		try {
 			Scanner sc = new Scanner(fichero);
+			sc.nextLine();
 			while(sc.hasNextLine()) {
 				Usuario usuario = new Usuario(0,null);
 				String linea = sc.nextLine();
@@ -101,9 +104,10 @@ public class MainBD {
 	public static List<Cliente> initClientes() {
 		List<Cliente> clientes = new ArrayList<>();
 		
-		File fichero = new File("data/clientes");
+		File fichero = new File("data/clientes.csv");
 		try {
 			Scanner sc = new Scanner(fichero);
+			sc.nextLine();
 			while(sc.hasNextLine()) {
 				Cliente cliente = new Cliente(null,null,0,null);
 				String linea = sc.nextLine();
@@ -138,15 +142,17 @@ public class MainBD {
 	
 	public static List<Animal> initAnimales() {
 		List<Animal> animales = new ArrayList<>();
-		File fichero = new File("data/animales");
+		File fichero = new File("data/animales.csv");
 		try {
 			Scanner sc = new Scanner(fichero);
+			sc.nextLine();
 			while(sc.hasNextLine()) {
 				Animal animal = new Animal(0,null,null,null,new Date());
 				String linea = sc.nextLine();
 				String[] campos = linea.split(";");
 				animal.setTipo(campos[0]);
 				SimpleDateFormat formato = new SimpleDateFormat("dd/MM/yyyy");
+				
 				try {
 					animal.setFechaNac(formato.parse(campos[1]));
 				} catch (ParseException e) {
@@ -164,19 +170,20 @@ public class MainBD {
 			e.printStackTrace();
 		}
 		
-		Animal animal = new Animal(1111, "nombre", null, null, null);
-		animal.setId(2002);
-		animal.setRaza("Siames");
-		animal.setEspecial(null);
-		animal.setTipo("gato");
-		animal.setFechaNac(null);
-		animales.add(animal);
+		//Animal animal = new Animal(1111, "nombre", null, null, null);
+		//animal.setId(2002);
+		//animal.setRaza("Siames");
+		//animal.setEspecial(null);
+		//animal.setTipo("gato");
+		//animal.setFechaNac(null);
+		//animales.add(animal);
 		
 		return animales; 
 	}
 	private static void printAnimales(List<ArrayList> lista) {
 		if (!lista.isEmpty()) {	
-			ArrayList<Animal> objeto = lista.get(1);
+			ArrayList<Animal> objeto = lista.get(0);
+			System.out.println(objeto);
 			for(Animal animal : objeto) {
 				System.out.println(String.format(" - %s", animal.toString()));
 			}

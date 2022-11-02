@@ -40,7 +40,7 @@ public class GestorBD {
 			
 	        String sql = "CREATE TABLE IF NOT EXISTS USUARIO (\n"
 	                   + " USUARIO TEXT PRIMARY KEY,\n"
-	                   + " CONTRASEÑA INTEGER NOT NULL UNIQUE\n"
+	                   + " CONTRASEÑA INTEGER\n"
 	                   + ");";
 	   
 	        if (!stmt.execute(sql)) {
@@ -188,12 +188,21 @@ public class GestorBD {
 			
 			//Se recorren los clientes y se insertan uno a uno
 			for (Cliente c : clientes) {
-				if (1 == stmt.executeUpdate(String.format(sql, c.getDni(),c.isPermiso(),c.getTelefono(), c.getDireccion(),c.getNombre()))) {					
-					System.out.println(String.format(" - Cliente insertado: %s", c.toString()));
+				if(c.isPermiso() == true) {
+					if (1 == stmt.executeUpdate(String.format(sql, c.getDni(),1,c.getTelefono(), c.getDireccion(),c.getNombre()))) {					
+						System.out.println(String.format(" - Cliente insertado: %s", c.toString()));
+					} else {
+						System.out.println(String.format(" - No se ha insertado el cliente: %s", c.toString()));
+					}
 				} else {
-					System.out.println(String.format(" - No se ha insertado el cliente: %s", c.toString()));
+					if (1 == stmt.executeUpdate(String.format(sql, c.getDni(),0,c.getTelefono(), c.getDireccion(),c.getNombre()))) {					
+						System.out.println(String.format(" - Cliente insertado: %s", c.toString()));
+					} else {
+						System.out.println(String.format(" - No se ha insertado el cliente: %s", c.toString()));
+					}
+				}		
 				}
-			}			
+						
 		} catch (Exception ex) {
 			System.err.println(String.format("* Error al insertar datos de la BBDD: %s", ex.getMessage()));
 			ex.printStackTrace();						
@@ -308,6 +317,7 @@ public class GestorBD {
 			
 			//Se recorre el ResultSet y se crean objetos Cliente
 			while (rs.next()) {
+				System.out.println(rs.getInt("ID"));
 				animal = new Animal(rs.getInt("ID"),rs.getString("RAZA"),rs.getString("ESPECIAL"),rs.getString("TIPO"), new Date() );
 				
 				if (!rs.getString("DNIC_AC").equals("noAcogido")) {
@@ -335,7 +345,7 @@ public class GestorBD {
 			//Se cierra el ResultSet
 			rs.close();
 			
-			System.out.println(String.format("- Se han recuperado %d cliente...", animales.size()));			
+			System.out.println(String.format("- Se han recuperado %d animales...", animales.size()));			
 		} catch (Exception ex) {
 			System.err.println(String.format("* Error al obtener datos de la BBDD: %s", ex.getMessage()));
 			ex.printStackTrace();						
@@ -364,11 +374,14 @@ public class GestorBD {
 	public void update( Animal animal, String DniC, String DniD) {
 		
 		ArrayList<Cliente> clienteBBDD = (ArrayList<Cliente>) obtenerDatosCliente();
-		List<ArrayList> animalesBBDD = obtenerDatosAnimal(clienteBBDD);
-		
-			if ((animalesBBDD.contains(animal))) {
-				this.actualizarAnimal(animal, DniC, DniD);
+		List<ArrayList> animalesTabla = obtenerDatosAnimal(clienteBBDD);
+		ArrayList<Animal> animalesBBDD = animalesTabla.get(0);
+		for (Animal animalA : animalesBBDD) {
+			int id = animalA.getId();
+			if (animal.getId() == id) {
+				this.actualizarAnimal(animal,DniC,DniD);
 			}
+		}
 	}
 	
 	private void actualizarAnimal(Animal animal, String Dni_AC, String Dni_AD) {
