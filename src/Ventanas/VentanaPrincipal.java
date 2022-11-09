@@ -1,24 +1,32 @@
 package Ventanas;
 import java.awt.*;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.IOException;
+import java.util.Properties;
 import java.awt.event.*;
 import javax.swing.*;
 public class VentanaPrincipal extends JFrame{
 		protected JButton continuar;
 		protected JTextField usuario;
-		protected JTextField contraseña; 
+		protected JPasswordField contraseña; 
 		protected JLabel Error;
+		protected JLabel usuarioIdioma;
+		protected JLabel contraseñaIdioma;
 		//para crear el menu(idioma por efecto al iniciar español)
 		protected JMenu idioma;
 		protected JMenuItem español;
 		protected JMenuItem euskera;
 		protected JMenuBar barra;
+		protected int contra;
+		protected String u;
 	public VentanaPrincipal() {
 		//Inicializar y declarar el cp
 		Container cp = this.getContentPane();
 		cp.setLayout(new GridLayout(3,3));
 		//Inicializar los componentes previamente declarados
 		usuario = new JTextField();
-		contraseña = new JTextField();
+		contraseña = new JPasswordField();
 		Error = new JLabel("");
 		continuar = new JButton("Continuar ->");
 		//Inicializar el menu
@@ -32,9 +40,11 @@ public class VentanaPrincipal extends JFrame{
 		idioma.add(euskera);
 		
 		//para añadir los componentes previamente inicializados y declarados
-		cp.add(new JLabel("Usuario:"));
+		usuarioIdioma = new JLabel("Usuario:");
+		cp.add(usuarioIdioma);
 		cp.add(usuario);
-		cp.add(new JLabel("Contraseña:"));
+		contraseñaIdioma = new JLabel("Contraseña:");
+		cp.add(contraseñaIdioma);
 		cp.add(contraseña);
 		JScrollPane a = new JScrollPane(Error); //como error sera modificado y puede ser muy grande se le añade un scroll
 		cp.add(a);
@@ -45,6 +55,13 @@ public class VentanaPrincipal extends JFrame{
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				// TODO Auto-generated method stub
+				char[] contraseñas = contraseña.getPassword();
+				String stringC = "";
+				for (char c : contraseñas) {
+					stringC = stringC + c;
+				}
+				contra = Integer.parseInt(stringC);
+				u = usuario.getText();
 				}
 		});
 		//Action Listener de la opcion de español
@@ -53,6 +70,21 @@ public class VentanaPrincipal extends JFrame{
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				// TODO Auto-generated method stub
+				try (FileReader reader = new FileReader("config/castellano.properties")){
+					Properties español = new Properties();
+					español.load(reader);
+					usuarioIdioma.setText(español.get("usuario").toString()+ ":");
+					contraseñaIdioma.setText(español.get("contrasena").toString() + ":");
+					
+				} catch (FileNotFoundException e1) {
+					// TODO Auto-generated catch block
+					System.out.println("No se puede encontrar el fichero config/castellano.properties");
+					e1.printStackTrace();
+				} catch (IOException e1) {
+					// TODO Auto-generated catch block
+					System.err.println("No se puede leer el fichero");
+					e1.printStackTrace();
+				}
 				
 			}
 		});
@@ -62,9 +94,24 @@ public class VentanaPrincipal extends JFrame{
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				// TODO Auto-generated method stub
-				
+				try (FileReader reader = new FileReader("config/euskera.properties")){
+					Properties euskera = new Properties();
+					euskera.load(reader);
+					usuarioIdioma.setText(euskera.get("usuario").toString()+ ":");
+					contraseñaIdioma.setText(euskera.get("contrasena").toString() + ":");
+				} catch (FileNotFoundException e1) {
+					// TODO Auto-generated catch block
+					System.out.println("No se puede encontrar el fichero config/euskera.properties");
+					e1.printStackTrace();
+				} catch (IOException e1) {
+					// TODO Auto-generated catch block
+					System.err.println("No se puede leer el fichero");
+					e1.printStackTrace();
+				}
 			}
 		});
+		//El idioma por defecto es español
+		español.doClick();
 		//se escoge el modo de cierre de la ventana, su apariencia y nombre
 		this.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
 		this.setVisible(true);
