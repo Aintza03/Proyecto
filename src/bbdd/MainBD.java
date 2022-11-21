@@ -21,8 +21,6 @@ public class MainBD {
 		 gestorBD.borrarBBDDUsuario();
 		//CREATE DATABASE: Se crea la BBDD
 		gestorBD.crearBBDDUsuario();
-		gestorBD.crearBBDDCliente();
-		gestorBD.crearBBDDAnimal();
 		
 		//INSERT: Insertar datos en la BBDD		
 		List<Usuario> usuarios = initUsuarios();
@@ -40,12 +38,11 @@ public class MainBD {
 		ArrayList<Cliente> listac = (ArrayList<Cliente>) clientes;
 		List<ArrayList> resultado = gestorBD.obtenerDatosAnimal((listac));
 		printAnimales(resultado);
-		System.out.println("prueba");
 		//UPDATE: Se actualizan los datos
 		
 		Animal animal = new Animal(1, "Gato", null , null , null);
 		gestorBD.update(animal, "11111111H", null);
-		//DELETE: Se borran datos de la BBDD (No vamos a usar borrarDatos() )
+		//DELETE: Se borran datos de la BBDD (No vamos a usar borrarDatos() por lo tanto es solo un ejemplo)
 	    gestorBD.borrarDatos();
 		
 		//DROP DATABASE: Se borra la BBDD (No vamos a usarlo en el proyecto)

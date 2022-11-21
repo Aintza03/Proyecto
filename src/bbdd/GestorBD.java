@@ -4,6 +4,7 @@ import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.sql.Connection;
 import java.sql.DriverManager;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.Statement;
 import java.util.ArrayList;
@@ -35,116 +36,66 @@ public class GestorBD {
 	public void crearBBDDUsuario() {
 		//Se abre la conexiÃ³n y se obtiene el Statement
 		//Al abrir la conexiÃ³n, si no existÃ­a el fichero, se crea la base de datos
-		try (Connection con = DriverManager.getConnection(CONNECTION_STRING);
-		     Statement stmt = con.createStatement()) {
-			
-	        String sql = "CREATE TABLE IF NOT EXISTS USUARIO (\n"
-	                   + " USUARIO TEXT PRIMARY KEY,\n"
-	                   + " CONTRASEÑA INTEGER\n"
-	                   + ");";
-	   
-	        if (!stmt.execute(sql)) {
-	        	System.out.println("- Se ha creado la tabla Usuarios");
-	        }
-	       
-		} catch (Exception ex) {
-			System.err.println(String.format("* Error al crear la BBDD: %s", ex.getMessage()));
-			ex.printStackTrace();			
-		}
-	}
-	
-	public void crearBBDDCliente() {
-		//Se abre la conexiÃ³n y se obtiene el Statement
-		//Al abrir la conexiÃ³n, si no existÃ­a el fichero, se crea la base de datos
-		try (Connection con = DriverManager.getConnection(CONNECTION_STRING);
-		     Statement stmt = con.createStatement()) {
-			
-	        String sql = "CREATE TABLE IF NOT EXISTS CLIENTE(\n"
-	        		+ "DNI TEXT NOT NULL PRIMARY KEY,\n"
-	        		+ "PERMISO INTEGER DEFAULT 1,\n"
-	        		+ "TEL INTEGER,\n"
-	        		+ "DIR TEXT,\n"
-	        		+ "NOMBRE TEXT\n" + ");";
-	   
-	        if (!stmt.execute(sql)) {
-	        	System.out.println("- Se ha creado la tabla Cliente");
-	        }
-	       
-		} catch (Exception ex) {
-			System.err.println(String.format("* Error al crear la BBDD: %s", ex.getMessage()));
-			ex.printStackTrace();			
-		}
-	}
-	
-	public void crearBBDDAnimal() {
-		//Se abre la conexiÃ³n y se obtiene el Statement
-		//Al abrir la conexiÃ³n, si no existÃ­a el fichero, se crea la base de datos
-		try (Connection con = DriverManager.getConnection(CONNECTION_STRING);
-		     Statement stmt = con.createStatement()) {
-			
-	        String sql = "CREATE TABLE IF NOT EXISTS ANIMAL(\n"
-	        		+"ID INTEGER PRIMARY KEY AUTOINCREMENT,\n"
-	        		+"TIPO TEXT,\n"
-	        		+"FECHA_NAC TEXT,\n"
-	        		+"ESPECIAL TEXT,\n"
-	        		+"RAZA TEXT,\n"
-	        		+"DNIC_AC TEXT DEFAULT noAcogido,\n"
-	        		+"DNIC_AD TEXT DEFAULT noAdoptado,\n"
-	        		+ "FOREIGN KEY (DNIC_AC) REFERENCES CLIENTE(DNI) ON DELETE CASCADE,\n"
-	        		+ "FOREIGN KEY (DNIC_AD) REFERENCES CLIENTE(DNI) ON DELETE CASCADE\n" + ");";
+	String sql = "CREATE TABLE IF NOT EXISTS USUARIO (\n"
+                + " USUARIO TEXT PRIMARY KEY,\n"
+                + " CONTRASEÑA INTEGER\n"
+                + ");";
+     String sql1 = "CREATE TABLE IF NOT EXISTS CLIENTE(\n"
+     		+ "DNI TEXT NOT NULL PRIMARY KEY,\n"
+     		+ "PERMISO INTEGER DEFAULT 1,\n"
+     		+ "TEL INTEGER,\n"
+     		+ "DIR TEXT,\n"
+     		+ "NOMBRE TEXT\n" + ");";
+     String sql2 = "CREATE TABLE IF NOT EXISTS ANIMAL(\n"
+     		+"ID INTEGER PRIMARY KEY AUTOINCREMENT,\n"
+     		+"TIPO TEXT,\n"
+     		+"FECHA_NAC TEXT,\n"
+     		+"ESPECIAL TEXT,\n"
+     		+"RAZA TEXT,\n"
+     		+"DNIC_AC TEXT DEFAULT noAcogido,\n"
+     		+"DNIC_AD TEXT DEFAULT noAdoptado,\n"
+     		+ "FOREIGN KEY (DNIC_AC) REFERENCES CLIENTE(DNI) ON DELETE CASCADE,\n"
+     		+ "FOREIGN KEY (DNIC_AD) REFERENCES CLIENTE(DNI) ON DELETE CASCADE\n" + ");";
 
-	   
-	        if (!stmt.execute(sql)) {
-	        	System.out.println("- Se ha creado la tabla Animales");
+		try {
+			Connection con = DriverManager.getConnection(CONNECTION_STRING);
+		     PreparedStatement pstmt = con.prepareStatement(sql);
+		     PreparedStatement pstmt1 = con.prepareStatement(sql1);
+		     PreparedStatement pstmt2 = con.prepareStatement(sql2);
+	        
+	        if (!pstmt.execute() && !pstmt1.execute() && !pstmt2.execute()) {
+	        	System.out.println("- Se han creado las tablas");
 	        }
-	       
+	       con.close();
 		} catch (Exception ex) {
 			System.err.println(String.format("* Error al crear la BBDD: %s", ex.getMessage()));
 			ex.printStackTrace();			
 		}
 	}
+	
 	
 	public void borrarBBDDUsuario() {
 		//Se abre la conexiÃ³n y se obtiene el Statement
-		try (Connection con = DriverManager.getConnection(CONNECTION_STRING);
-		     Statement stmt = con.createStatement()) {
-			
-	        String sql = "DROP TABLE IF EXISTS USUARIO";
-			
+		String sql = "DROP TABLE IF EXISTS USUARIO";
+		String sql1 = "DROP TABLE IF EXISTS CLIENTE";
+		String sql2 = "DROP TABLE IF EXISTS ANIMAL";
+		
+		try {
+		     Connection con = DriverManager.getConnection(CONNECTION_STRING);
+		     PreparedStatement pstmt = con.prepareStatement(sql);
+		     PreparedStatement pstmt1 = con.prepareStatement(sql1);
+		     PreparedStatement pstmt2 = con.prepareStatement(sql2);
+		     
 	        //Se ejecuta la sentencia de creaciÃ³n de la tabla Estudiantes
-	        if (!stmt.execute(sql)) {
-	        	System.out.println("- Se ha borrado la tabla usuario");
+	        if (!pstmt.execute() && !pstmt1.execute() && !pstmt2.execute()) {
+	        	System.out.println("- Se han borrado las tablas");
 	        }
+	        con.close();
 		} catch (Exception ex) {
 			System.err.println(String.format("* Error al borrar la BBDD: %s", ex.getMessage()));
-			ex.printStackTrace();			
+			ex.printStackTrace();
+			
 		}
-		try (Connection con = DriverManager.getConnection(CONNECTION_STRING);
-			     Statement stmt = con.createStatement()) {
-				
-		        String sql = "DROP TABLE IF EXISTS CLIENTE";
-				
-		        //Se ejecuta la sentencia de creaciÃ³n de la tabla Estudiantes
-		        if (!stmt.execute(sql)) {
-		        	System.out.println("- Se ha borrado la tabla cliente");
-		        }
-			} catch (Exception ex) {
-				System.err.println(String.format("* Error al borrar la BBDD: %s", ex.getMessage()));
-				ex.printStackTrace();			
-			}
-		try (Connection con = DriverManager.getConnection(CONNECTION_STRING);
-			     Statement stmt = con.createStatement()) {
-				
-		        String sql = "DROP TABLE IF EXISTS ANIMAL";
-				
-		        //Se ejecuta la sentencia de creaciÃ³n de la tabla Estudiantes
-		        if (!stmt.execute(sql)) {
-		        	System.out.println("- Se ha borrado la tabla animal");
-		        }
-			} catch (Exception ex) {
-				System.err.println(String.format("* Error al borrar la BBDD: %s", ex.getMessage()));
-				ex.printStackTrace();			
-			}
 		try {
 			//Se borra el fichero de la BBDD
 			Files.delete(Paths.get(DATABASE_FILE));
@@ -171,7 +122,8 @@ public class GestorBD {
 				} else {
 					System.out.println(String.format(" - No se ha insertado el usuario: %s", c.toString()));
 				}
-			}			
+			}	
+			con.close();
 		} catch (Exception ex) {
 			System.err.println(String.format("* Error al insertar datos de la BBDD: %s", ex.getMessage()));
 			ex.printStackTrace();						
@@ -202,7 +154,7 @@ public class GestorBD {
 					}
 				}		
 				}
-						
+			con.close();			
 		} catch (Exception ex) {
 			System.err.println(String.format("* Error al insertar datos de la BBDD: %s", ex.getMessage()));
 			ex.printStackTrace();						
@@ -224,7 +176,8 @@ public class GestorBD {
 				} else {
 					System.out.println(String.format(" - No se ha insertado el animal: %s", c.toString()));
 				}
-			}			
+			}
+			con.close();
 		} catch (Exception ex) {
 			System.err.println(String.format("* Error al insertar datos de la BBDD: %s", ex.getMessage()));
 			ex.printStackTrace();						
@@ -255,7 +208,7 @@ public class GestorBD {
 			
 			//Se cierra el ResultSet
 			rs.close();
-			
+			con.close();
 			System.out.println(String.format("- Se han recuperado %d usuario...", usuarios.size()));			
 		} catch (Exception ex) {
 			System.err.println(String.format("* Error al obtener datos de la BBDD: %s", ex.getMessage()));
@@ -291,7 +244,7 @@ public class GestorBD {
 			
 			//Se cierra el ResultSet
 			rs.close();
-			
+			con.close();
 			System.out.println(String.format("- Se han recuperado %d cliente...", clientes.size()));			
 		} catch (Exception ex) {
 			System.err.println(String.format("* Error al obtener datos de la BBDD: %s", ex.getMessage()));
@@ -344,7 +297,7 @@ public class GestorBD {
 			
 			//Se cierra el ResultSet
 			rs.close();
-			
+			con.close();
 			System.out.println(String.format("- Se han recuperado %d animales...", animales.size()));			
 		} catch (Exception ex) {
 			System.err.println(String.format("* Error al obtener datos de la BBDD: %s", ex.getMessage()));
