@@ -2,6 +2,7 @@ package Ventanas;
 
 import java.awt.Color;
 import java.awt.Component;
+import java.awt.Container;
 import java.awt.GridLayout;
 import java.util.Arrays;
 import java.util.List;
@@ -27,7 +28,7 @@ public class VentanaAcoger extends JFrame{
 	private int mouseCol = -1;
 	
 	public VentanaAcoger() {
-
+		Container cp = this.getContentPane();
 		this.initTable();
 		
 		//La tabla de comics se inserta en un panel con scroll
@@ -35,9 +36,9 @@ public class VentanaAcoger extends JFrame{
 		scrollPaneComics.setBorder(new TitledBorder("Comics"));
 		this.tablaAnimales.setFillsViewportHeight(true);
 		
-		
+		cp.add(scrollPaneComics);
 		this.setTitle("Ventana Acoger");		
-		this.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
+		this.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
 
 		this.setSize(800, 600);
 		this.setLocationRelativeTo(null);

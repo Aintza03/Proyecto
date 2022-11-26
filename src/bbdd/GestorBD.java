@@ -106,7 +106,7 @@ public class GestorBD {
 		}
 	}
 	
-	public void insertarDatosUsuario(Usuario... Usuarios) {
+	public boolean insertarDatosUsuario(Usuario... Usuarios) {
 		//Se abre la conexiÃ³n y se obtiene el Statement
 		try (Connection con = DriverManager.getConnection(CONNECTION_STRING);
 		     Statement stmt = con.createStatement()) {
@@ -124,9 +124,11 @@ public class GestorBD {
 				}
 			}	
 			con.close();
+			return true;
 		} catch (Exception ex) {
 			System.err.println(String.format("* Error al insertar datos de la BBDD: %s", ex.getMessage()));
-			ex.printStackTrace();						
+			ex.printStackTrace();
+			return false;
 		}				
 	}
 	public void insertarDatosCliente(Cliente... clientes) {
