@@ -165,7 +165,7 @@ public class VentanaPrincipal extends JFrame{
 	}
 	public static void main(String[] args) {//temporalmente localizado aqui para hacer pruebas
 		VentanaPrincipal v = new VentanaPrincipal();
-		VentanaAcoger a = new VentanaAcoger();
+		VentanaAcoger a = new VentanaAcoger(null);
 		v.gestorV = new GestorBD();
 		//v.gestorV.borrarBBDDUsuario(); //para comprobaciones de la BD
 		//CREATE DATABASE: Se crea la BBDD
