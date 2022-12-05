@@ -156,7 +156,9 @@ public class VentanaPrincipal extends JFrame{
 					resultado = "Usuario encontrado";
 				} else {
 					resultado = "La contraseña no coincide";
-				}
+				} 
+				} else {
+					resultado = "El usuario no existe";
 			}
 		}
 		return resultado;
