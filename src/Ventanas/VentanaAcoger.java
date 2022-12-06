@@ -3,13 +3,15 @@ package Ventanas;
 import java.awt.Color;
 import java.awt.Component;
 import java.awt.Container;
+import java.awt.GridLayout;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Properties;
 import java.util.Vector;
 
-
+import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JScrollPane;
@@ -24,28 +26,37 @@ import General.Animal;
 
 public class VentanaAcoger extends JFrame{
 	
-	private List<Animal> animales;
+	protected List<Animal> animales;
+	protected Properties p;
 	
-	private JTable tablaAnimales;
-	private DefaultTableModel modeloDatosAnimales;
+	protected JTable tablaAnimales;
+	protected DefaultTableModel modeloDatosAnimales;
 	
-	private int mouseRow = -1;
-	private int mouseCol = -1;
+	protected JButton boton;
 	
-	public VentanaAcoger(List<Animal> animales) {
-		this.animales = animales;
+	protected int mouseRow = -1;
+	protected int mouseCol = -1;
+	
+	public VentanaAcoger(List<Animal> animales, Properties p) {
 		
+		this.animales = animales;
+		this.p = p;
 		Container cp = this.getContentPane();
 		
 		this.initTable();
 		this.loadAnimal();
 		
+		boton = new JButton("Continuar ->");
+		
 		//La tabla de comics se inserta en un panel con scroll
 		JScrollPane scrollPaneAnimales = new JScrollPane(this.tablaAnimales);
-		scrollPaneAnimales.setBorder(new TitledBorder("Acoger"));
+		scrollPaneAnimales.setBorder(new TitledBorder(p.get("acoger").toString()));
 		this.tablaAnimales.setFillsViewportHeight(true);
 		
+		cp.setLayout(new GridLayout(2,1));
 		cp.add(scrollPaneAnimales);
+		
+		cp.add(boton);
 		this.setTitle("Ventana Acoger");		
 		this.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
 
@@ -53,11 +64,13 @@ public class VentanaAcoger extends JFrame{
 		this.setLocationRelativeTo(null);
 		this.setVisible(true);	
 		
+		
+		
 	}
 	
 	private void initTable() {
 		//Cabecera del modelo de datos
-		Vector<String> cabeceraAnimales = new Vector<String>(Arrays.asList( "ID", "TIPO", "FECHA_NAC", "ESPECIAL", "RAZA", "DNI_AC", "DNI_AD"));				
+		Vector<String> cabeceraAnimales = new Vector<String>(Arrays.asList( "ID", p.get("tipo").toString() , p.get("fecha_nac").toString(), p.get("raza").toString(), p.get("especial").toString()));				
 		//Se crea el modelo de datos para la tabla de comics sÃ³lo con la cabecera		
 		this.modeloDatosAnimales = new DefaultTableModel(new Vector<Vector<Object>>(), cabeceraAnimales);
 		//Se crea la tabla de comics con el modelo de datos		
@@ -149,8 +162,7 @@ public class VentanaAcoger extends JFrame{
 		
 	}
 	
-	// Corregir el metodo loadAnimal la lista que utiliza tiene que ser la misma la cual se usa para obtener los datos de la BD con el metodo ObtenerDatosAnimal
-	// el problema es que devuelve una lista de 
+	// Corregir el metodo loadAnimal 
 	
 	private void loadAnimal() {
 		//Se borran los datos del modelo de datos
@@ -158,7 +170,8 @@ public class VentanaAcoger extends JFrame{
 		
 		//Se aÃ±ade al modelo una fila de datos por cada comic
 		for (Animal a : this.animales) {
-			this.modeloDatosAnimales.addRow( new Object[] {a.getId(), a.getTipo(), a.getFechaNac(), a.getEspecial(), a.getRaza()} );
+			System.out.println("animales" + a);
+			this.modeloDatosAnimales.addRow( new Object[] {a.getId(), a.getTipo(), a.getFechaNac(),  a.getRaza(), a.getEspecial()} );
 		}		
 	}
 }
