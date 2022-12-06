@@ -32,6 +32,8 @@ public class VentanaPrincipal extends JFrame{
 		protected GestorBD gestorV;
 		//variables parte del Properties;
 		protected Properties i;
+		//para la ventanaCliente
+		protected ventanaCliente v2;
 	public VentanaPrincipal() {
 		//Inicializar y declarar el cp
 		Container cp = this.getContentPane();
@@ -50,7 +52,6 @@ public class VentanaPrincipal extends JFrame{
 		euskera = new JMenuItem("Euskera");
 		idioma.add(español);
 		idioma.add(euskera);
-		
 		//para añadir los componentes previamente inicializados y declarados
 		usuarioIdioma = new JLabel("Usuario:");
 		cp.add(usuarioIdioma);
@@ -77,14 +78,14 @@ public class VentanaPrincipal extends JFrame{
 					contra = Integer.parseInt(stringC);
 					String verificacion = verificarUsuario(u,contra);
 					if (verificacion.equals("Usuario encontrado")) {
-						Error.setText(verificacion); //Temporal hasta crear la 2ª ventana
-						//setVisible(false);
+						v2 = new ventanaCliente(i);
+						setVisible(false);
 					} else {
 						Error.setText(verificacion);
 					}
-					System.out.println(verificarUsuario(u,contra));
+					
 				} catch (Exception e1) {
-					Error.setText("La contraseña insertada no es una contraseña valida.");
+					Error.setText(i.getProperty("errorTres"));
 					System.out.println("No se han insertado numeros");
 					e1.printStackTrace();
 				}
@@ -102,6 +103,8 @@ public class VentanaPrincipal extends JFrame{
 					i.load(reader);
 					usuarioIdioma.setText(i.get("usuario").toString()+ ":");
 					contraseñaIdioma.setText(i.get("contrasena").toString() + ":");
+					continuar.setText(i.get("continuar").toString() + " ->");
+					
 					
 				} catch (FileNotFoundException e1) {
 					// TODO Auto-generated catch block
@@ -126,6 +129,8 @@ public class VentanaPrincipal extends JFrame{
 					i.load(reader);
 					usuarioIdioma.setText(i.get("usuario").toString()+ ":");
 					contraseñaIdioma.setText(i.get("contrasena").toString() + ":");
+					continuar.setText(i.get("continuar").toString() + " ->");
+					
 				} catch (FileNotFoundException e1) {
 					// TODO Auto-generated catch block
 					System.out.println("No se puede encontrar el fichero config/euskera.properties");
@@ -155,22 +160,23 @@ public class VentanaPrincipal extends JFrame{
 				if (usuario2.getContraseña() == contraseña) {
 					resultado = "Usuario encontrado";
 				} else {
-					resultado = "La contraseña no coincide";
-				} 
+					resultado = i.getProperty("errorUno");
+					}
+				break;
 				} else {
-					resultado = "El usuario no existe";
-			}
-		}
+					resultado = i.getProperty("errorDos");
+				}
+			
+		} 
 		return resultado;
 	}
 	public static void main(String[] args) {//temporalmente localizado aqui para hacer pruebas
 		VentanaPrincipal v = new VentanaPrincipal();
-		VentanaAcoger a = new VentanaAcoger(null);
+		//VentanaAcoger a = new VentanaAcoger(null);
 		v.gestorV = new GestorBD();
 		//v.gestorV.borrarBBDDUsuario(); //para comprobaciones de la BD
 		//CREATE DATABASE: Se crea la BBDD
 		v.gestorV.crearBBDDUsuario();
-		
 		//INSERT: Insertar datos en la BBDD	inicial	
 		List<Usuario> usuarios = Inits.initUsuarios();
 		//Si la BD ya tenia los datos iniciales insertados la siguiente linea fallara por su primary key al igual que al insertar clientes, no obstante, habra que detener el proceso de añadir datos a la tabla de animales para evitar duplicados
