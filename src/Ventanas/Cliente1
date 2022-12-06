@@ -1,0 +1,92 @@
+package Ventanas;
+
+import java.awt.EventQueue;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+
+import javax.swing.JFrame;
+import javax.swing.JPanel;
+import javax.swing.border.EmptyBorder;
+import net.miginfocom.swing.MigLayout;
+import javax.swing.JTextField;
+import javax.swing.JButton;
+import javax.swing.JLabel;
+
+public class Cliente1 extends JFrame {
+
+	private JPanel contentPane;
+	private JTextField textField;
+
+	
+	
+
+	
+	public Cliente1() {
+		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		setBounds(100, 100, 450, 300);
+		contentPane = new JPanel();
+		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
+
+		setContentPane(contentPane);
+		contentPane.setLayout(new MigLayout("", "[][][][][][][grow]", "[][][][][][][]"));
+		
+		JLabel lblNewLabel_1 = new JLabel("DNI:");
+		contentPane.add(lblNewLabel_1, "cell 4 2");
+		
+		textField = new JTextField();
+		contentPane.add(textField, "cell 6 2,alignx left");
+		textField.setColumns(10);
+		
+		JLabel lblNewLabel = new JLabel("");
+		contentPane.add(lblNewLabel, "cell 3 6");
+		
+		JButton btnNewButton = new JButton("Buscar");
+		contentPane.add(btnNewButton, "cell 6 6");
+		
+		btnNewButton.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				// TODO Auto-generated method stub
+				
+				
+					String u = textField.getText();
+					String verificacion = estadoCliente(u);
+					if (verificacion.equals("Cliente existente con permiso")) {
+						VentanaAcoger bai = new VentanaAcoger();  
+						setVisible(false);
+						bai.setVisible(true);
+					} else if (verificacion.equals("El cliente no existe")){
+						IntroducirCliente bai = new IntroducirCliente();  //Temporal hasta incorporar la 3ª ventana
+						setVisible(false);
+						bai.setVisible(true);
+					
+					}else if  (verificacion.equals("Cliente existente sin permiso")){
+					lblNewLabel.setText(verificacion);
+				}
+			}
+				
+			});
+		
+	}
+	public String estadoCliente(String u) {
+		ArrayList<Cliente> cliente = (ArrayList<Cliente>) gestorV.obtenerDatosCliente();
+		String resultado;
+		for (Cliente cliente2 : cliente) {
+			if (cliente2.getCliente().equals(u)) {
+				if (cliente2.isPermiso()) {
+					resultado = "Cliente existente con permiso";
+				} else {
+					resultado = "Cliente existente sin permiso";
+				} 
+				} else {
+					resultado = "El cliente no existe";
+			}
+		}
+		return resultado;
+	}
+
+
+
+
+}
