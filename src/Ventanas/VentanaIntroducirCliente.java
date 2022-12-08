@@ -103,7 +103,7 @@ public class VentanaIntroducirCliente extends JFrame {
 		cliente = new Cliente(dniC,direccionC,telefonoC,nombreC);
 		//Error.setText("Cliente Registrado");
 		v.insertarDatosCliente(cliente);
-		v3 = new VentanaAcoger(v.obtenerDatosAnimal((ArrayList<Cliente>) v.obtenerDatosCliente()).get(0), idioma);
+		v3 = new VentanaAcoger(v , idioma, dni.getText());
 
 		}
 

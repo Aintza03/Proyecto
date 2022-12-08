@@ -339,7 +339,7 @@ public class GestorBD {
 		}
 	}
 	
-	private void actualizarAnimal(Animal animal, String Dni_AC, String Dni_AD) {
+	public void actualizarAnimal(Animal animal, String Dni_AC, String Dni_AD) {
 		try (Connection con = DriverManager.getConnection(CONNECTION_STRING);
 			     Statement stmt = con.createStatement()) {
 				//Se ejecuta la sentencia de borrado de datos

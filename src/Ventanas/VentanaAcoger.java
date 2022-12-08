@@ -4,9 +4,15 @@ import java.awt.Color;
 import java.awt.Component;
 import java.awt.Container;
 import java.awt.GridLayout;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.awt.event.MouseMotionAdapter;
+import java.awt.event.MouseMotionListener;
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Properties;
 import java.util.Vector;
@@ -14,6 +20,7 @@ import java.util.Vector;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.WindowConstants;
@@ -22,11 +29,13 @@ import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
 
 import General.Animal;
+import General.Cliente;
+import bbdd.GestorBD;
 
 
 public class VentanaAcoger extends JFrame{
 	
-	protected List<Animal> animales;
+	protected ArrayList<Animal> animales;
 	protected Properties p;
 	
 	protected JTable tablaAnimales;
@@ -37,34 +46,65 @@ public class VentanaAcoger extends JFrame{
 	protected int mouseRow = -1;
 	protected int mouseCol = -1;
 	
-	public VentanaAcoger(List<Animal> animales, Properties p) {
+	public VentanaAcoger(GestorBD v, Properties p, String dni) {
 		
-		this.animales = animales;
+		this.animales = v.obtenerDatosAnimal((ArrayList<Cliente>) v.obtenerDatosCliente()).get(0);
+		holis(recorrer((ArrayList<Cliente>) v.obtenerDatosCliente()), animales ) ;
 		this.p = p;
 		Container cp = this.getContentPane();
 		
 		this.initTable();
 		this.loadAnimal();
 		
-		boton = new JButton("Continuar ->");
+		boton = new JButton("->");
 		
 		//La tabla de comics se inserta en un panel con scroll
 		JScrollPane scrollPaneAnimales = new JScrollPane(this.tablaAnimales);
 		scrollPaneAnimales.setBorder(new TitledBorder(p.get("acoger").toString()));
+		JPanel cosa = new JPanel();
+		cosa.setLayout(new GridLayout(3,3));
+		cosa.add(new JLabel(""));
+		cosa.add(new JLabel(""));
+		cosa.add(new JLabel(""));
+		cosa.add(new JLabel(""));
+		cosa.add(boton);
+		cosa.add(new JLabel(""));
+		cosa.add(new JLabel(""));
+		cosa.add(new JLabel(""));
+		cosa.add(new JLabel(""));
+		
+		
 		this.tablaAnimales.setFillsViewportHeight(true);
+		
+		
 		
 		cp.setLayout(new GridLayout(2,1));
 		cp.add(scrollPaneAnimales);
 		
-		cp.add(boton);
+		cp.add(cosa);
 		this.setTitle("Ventana Acoger");		
-		this.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
+		this.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
 
 		this.setSize(800, 600);
 		this.setLocationRelativeTo(null);
 		this.setVisible(true);	
 		
-		
+		boton.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				
+				int d = 0; 
+				d = Integer.parseInt(modeloDatosAnimales.getValueAt(tablaAnimales.getSelectedRow(), 0).toString());
+				for (Animal animal : animales) {
+					if(animal.getId() == d) {
+						v.actualizarAnimal(animal, dni, null);
+						
+					}
+				}
+				
+			}
+		});
 		
 	}
 	
@@ -79,31 +119,33 @@ public class VentanaAcoger extends JFrame{
 		//Render para las celdas de la Editorial se define como un Label un logo
 		DefaultTableCellRenderer a = new DefaultTableCellRenderer() {
 			private static final long serialVersionUID = 1L;
-
+			
 			@Override
 			public Component getTableCellRendererComponent(JTable table, Object value, boolean isSelected, boolean hasFocus, int row, int column) {
-				JLabel label = new JLabel();
+				JLabel label = new JLabel(value.toString());
 	
 				//El label se alinea a la izquierda
 				label.setHorizontalAlignment(JLabel.LEFT);
 						
 				//Se diferencia el color de fondo en filas pares e impares
 				if (row % 2 == 0) {
-					label.setBackground(new Color(224, 224, 224));
+					label.setForeground(Color.BLACK);
+					label.setBackground(Color.CYAN);
 				} else {
+					label.setForeground(Color.BLACK);
 					label.setBackground(Color.WHITE);
 				}
 				
 				//Si la celda estÃ¡ seleccionada se asocia un color de fondo y letra
-				if (mouseRow == row && mouseCol == column) {
-					label.setBackground(Color.PINK);
-					label.setForeground(Color.WHITE);
+				if (mouseRow == row ) {
+					label.setBackground(Color.GREEN);
+					label.setForeground(Color.BLACK);
 				}
 				
 				//Si la celda estÃ¡ seleccionada se asocia un color de fondo y letra
 				if (isSelected) {
-					label.setBackground(table.getSelectionBackground());
-					label.setForeground(table.getSelectionForeground());
+					label.setBackground(table.getSelectionBackground().BLUE);
+					label.setForeground(table.getSelectionForeground().WHITE);
 				}
 
 				//Es necesaria esta sentencia para pintar correctamente el color de fondo
@@ -111,15 +153,24 @@ public class VentanaAcoger extends JFrame{
 				
 				return label;
 			}
+			
 		};
 		
+		for(int i = 0; i < this.tablaAnimales.getColumnModel().getColumnCount(); i++ ) {
+			this.tablaAnimales.getColumnModel().getColumn(i).setCellRenderer(a);
+			
+		}
+				
+			
+			
 		this.tablaAnimales.addMouseListener(new MouseAdapter() {						
 			@Override
 			public void mousePressed(MouseEvent e) {
 				int row = tablaAnimales.rowAtPoint(e.getPoint());
 				int col = tablaAnimales.columnAtPoint(e.getPoint());
 				
-				System.out.println(String.format("Se ha pulsado el botÃ³n %d en la fila %d, columna %d", e.getButton(), row, col));
+				
+				System.out.println(String.format("Se ha pulsado el boton %d en la fila %d, columna %d", e.getButton(), row, col));
 			}
 			
 			@Override
@@ -127,7 +178,7 @@ public class VentanaAcoger extends JFrame{
 				int row = tablaAnimales.rowAtPoint(e.getPoint());
 				int col = tablaAnimales.columnAtPoint(e.getPoint());
 
-				System.out.println(String.format("Se ha liverado el botÃ³n %d en la fila %d, columna %d", e.getButton(), row, col));
+				System.out.println(String.format("Se ha liverado el boton %d en la fila %d, columna %d", e.getButton(), row, col));
 			}
 			
 			@Override
@@ -135,7 +186,7 @@ public class VentanaAcoger extends JFrame{
 				int row = tablaAnimales.rowAtPoint(e.getPoint());
 				int col = tablaAnimales.columnAtPoint(e.getPoint());
 				
-				System.out.println(String.format("Se ha hecho click con el botÃ³n %d en la fila %d, columna %d", e.getButton(), row, col));
+				System.out.println(String.format("Se ha hecho click con el boton %d en la fila %d, columna %d", e.getButton(), row, col));
 			}
 			
 			@Override
@@ -160,12 +211,27 @@ public class VentanaAcoger extends JFrame{
 			
 		});
 		
+		tablaAnimales.addMouseMotionListener(new MouseMotionAdapter() {
+			
+			@Override
+			public void mouseMoved(MouseEvent e) {
+				int row = tablaAnimales.rowAtPoint(e.getPoint());
+				int col = tablaAnimales.columnAtPoint(e.getPoint());
+				
+				mouseRow = row;
+				mouseCol = col;
+				
+				repaint();
+
+			}
+		});
+		
+		
 	}
 	
-	// Corregir el metodo loadAnimal 
 	
 	private void loadAnimal() {
-		//Se borran los datos del modelo de datos
+		//Se borran los datos del modelo de datos Animales
 		this.modeloDatosAnimales.setRowCount(0);
 		
 		//Se aÃ±ade al modelo una fila de datos por cada comic
@@ -173,6 +239,43 @@ public class VentanaAcoger extends JFrame{
 			System.out.println("animales" + a);
 			this.modeloDatosAnimales.addRow( new Object[] {a.getId(), a.getTipo(), a.getFechaNac(),  a.getRaza(), a.getEspecial()} );
 		}		
+	}
+	
+	public HashMap<String, ArrayList<Animal>> recorrer(ArrayList<Cliente> clientes) {
+		
+		System.err.println(clientes);
+		
+		HashMap<String, ArrayList<Animal>> animales = new HashMap<String, ArrayList<Animal>>();
+		animales.put("Acogidos", new ArrayList<Animal>());
+		animales.put("Adoptados", new ArrayList<Animal>());
+		
+		for (Cliente cliente : clientes) {
+			ArrayList<Animal> Acogida = cliente.getAnimalesAcogidos();
+			for (Animal animal : Acogida) {
+				animales.get("Acogidos").add(animal);
+			}
+			ArrayList<Animal> Adoptados = cliente.getAnimalesAdoptados();
+			for (Animal animal2 : Adoptados) {
+				animales.get("Adoptados").add(animal2);
+			}
+		}
+		System.err.println(animales);
+		return animales;
+		
+	}
+	
+	public void holis(HashMap<String, ArrayList<Animal>> animalesMap, ArrayList<Animal> animales ) {
+		
+		ArrayList<Animal> listaAco = animalesMap.get("Acogidos");
+		ArrayList<Animal> listaAdo = animalesMap.get("Adoptados");
+		
+		for (Animal animal : animales) {
+			if(listaAco.contains(animal)) {
+				animales.remove(animal);
+			} else if(listaAdo.contains(animal)) {
+				animales.remove(animal);
+			}
+		}
 	}
 }
 

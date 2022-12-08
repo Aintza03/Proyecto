@@ -48,7 +48,7 @@ public class VentanaCliente extends JFrame{
 			// TODO Auto-generated method stub
 			String res = encontrarCliente(DNI.getText(), gestorV);
 			if (res.equals("Se ha encontrado el cliente")) {
-			v3 = new VentanaAcoger(gestorV.obtenerDatosAnimal((ArrayList<Cliente>) gestorV.obtenerDatosCliente()).get(0), idioma);
+			v3 = new VentanaAcoger(gestorV, idioma, DNI.getText());
 			setVisible(false);
 			} else if (res.equals("El cliente no existe")) {
 			v2 = new VentanaIntroducirCliente(gestorV,idioma);
