@@ -1,6 +1,7 @@
 package General;
 
 import java.util.Date;
+import java.util.Objects;
 
 public class Animal {
 	protected int id;
@@ -48,9 +49,28 @@ public class Animal {
 	public void setFechaNac(Date fechaNac) {
 		this.fechaNac = fechaNac;
 	}
+	
 	@Override
 	public String toString() {
-		return tipo + " " + raza +  ", nacido en " + fechaNac + "??"+ especial;
+		return id + " " +tipo + " " + raza +  ", nacido en " + fechaNac + "??"+ especial;
+	}
+
+	@Override
+	public int hashCode() {
+		return Objects.hash(especial, id, raza, tipo);
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Animal other = (Animal) obj;
+		return Objects.equals(especial, other.especial) && id == other.id && Objects.equals(raza, other.raza)
+				&& Objects.equals(tipo, other.tipo);
 	}
 	
 }

@@ -47,9 +47,7 @@ public class VentanaAcoger extends JFrame{
 	protected int mouseCol = -1;
 	
 	public VentanaAcoger(GestorBD v, Properties p, String dni) {
-		
-		this.animales = v.obtenerDatosAnimal((ArrayList<Cliente>) v.obtenerDatosCliente()).get(0);
-		holis(recorrer((ArrayList<Cliente>) v.obtenerDatosCliente()), animales ) ;
+		this.animales = holis(recorrer((ArrayList<Cliente>) v.obtenerDatosCliente()), v.obtenerDatosAnimal((ArrayList<Cliente>) v.obtenerDatosCliente()).get(0)) ;
 		this.p = p;
 		Container cp = this.getContentPane();
 		
@@ -236,14 +234,11 @@ public class VentanaAcoger extends JFrame{
 		
 		//Se aÃ±ade al modelo una fila de datos por cada comic
 		for (Animal a : this.animales) {
-			System.out.println("animales" + a);
 			this.modeloDatosAnimales.addRow( new Object[] {a.getId(), a.getTipo(), a.getFechaNac(),  a.getRaza(), a.getEspecial()} );
 		}		
 	}
 	
 	public HashMap<String, ArrayList<Animal>> recorrer(ArrayList<Cliente> clientes) {
-		
-		System.err.println(clientes);
 		
 		HashMap<String, ArrayList<Animal>> animales = new HashMap<String, ArrayList<Animal>>();
 		animales.put("Acogidos", new ArrayList<Animal>());
@@ -259,23 +254,34 @@ public class VentanaAcoger extends JFrame{
 				animales.get("Adoptados").add(animal2);
 			}
 		}
-		System.err.println(animales);
 		return animales;
 		
 	}
 	
-	public void holis(HashMap<String, ArrayList<Animal>> animalesMap, ArrayList<Animal> animales ) {
-		
+	
+	public static ArrayList<Animal> holis(HashMap<String, ArrayList<Animal>> animalesMap, ArrayList<Animal> animales ) {
+		ArrayList<Animal> res = new ArrayList<Animal>();
 		ArrayList<Animal> listaAco = animalesMap.get("Acogidos");
 		ArrayList<Animal> listaAdo = animalesMap.get("Adoptados");
-		
 		for (Animal animal : animales) {
-			if(listaAco.contains(animal)) {
-				animales.remove(animal);
-			} else if(listaAdo.contains(animal)) {
-				animales.remove(animal);
+			boolean listaAd = true;
+			boolean listaAc = true;
+			for (Animal animal2 : listaAdo) {
+				if (animal.equals(animal2)) {
+					listaAd = false;
+				}
+			}
+			for (Animal animal3 : listaAco) {
+				if (animal.equals(animal3)) {
+					listaAc = false;
+				}
+			}
+			if (listaAd && listaAc) {
+				res.add(animal);
 			}
 		}
+		return res;
 	}
+
 }
 

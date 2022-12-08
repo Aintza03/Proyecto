@@ -47,7 +47,7 @@ public class GestorBD {
      		+ "DIR TEXT,\n"
      		+ "NOMBRE TEXT\n" + ");";
      String sql2 = "CREATE TABLE IF NOT EXISTS ANIMAL(\n"
-     		+"ID INTEGER PRIMARY KEY AUTOINCREMENT,\n"
+     		+"ID INTEGER PRIMARY KEY,\n"
      		+"TIPO TEXT,\n"
      		+"FECHA_NAC TEXT,\n"
      		+"ESPECIAL TEXT,\n"
@@ -167,13 +167,13 @@ public class GestorBD {
 		try (Connection con = DriverManager.getConnection(CONNECTION_STRING);
 		     Statement stmt = con.createStatement()) {
 			//Se define la plantilla de la sentencia SQL
-			String sql = "INSERT INTO ANIMAL (TIPO,FECHA_NAC,ESPECIAL,RAZA) VALUES ('%s','%s','%s','%s');";
+			String sql = "INSERT INTO ANIMAL (ID,TIPO,FECHA_NAC,ESPECIAL,RAZA) VALUES ('%d','%s','%s','%s','%s');";
 			
 			System.out.println("- Insertando Animales...");
 			
 			//Se recorren los clientes y se insertan uno a uno
 			for (Animal c : animales) {
-				if (1 == stmt.executeUpdate(String.format(sql ,c.getTipo(),c.getFechaNac(),c.getEspecial(), c.getRaza()))) {					
+				if (1 == stmt.executeUpdate(String.format(sql ,c.getId(),c.getTipo(),c.getFechaNac(),c.getEspecial(), c.getRaza()))) {					
 					System.out.println(String.format(" - Animal insertado: %s", c.toString()));
 				} else {
 					System.out.println(String.format(" - No se ha insertado el animal: %s", c.toString()));
@@ -221,7 +221,6 @@ public class GestorBD {
 	}
 	public List<Cliente> obtenerDatosCliente() {
 		List<Cliente> clientes = new ArrayList<>();
-		
 		//Se abre la conexiÃ³n y se obtiene el Statement
 		try (Connection con = DriverManager.getConnection(CONNECTION_STRING);
 		     Statement stmt = con.createStatement()) {
@@ -252,7 +251,7 @@ public class GestorBD {
 			System.err.println(String.format("* Error al obtener datos de la BBDD: %s", ex.getMessage()));
 			ex.printStackTrace();						
 		}		
-		
+		obtenerDatosAnimal((ArrayList<Cliente>) clientes);
 		return clientes;
 	}
 	
@@ -272,7 +271,6 @@ public class GestorBD {
 			
 			//Se recorre el ResultSet y se crean objetos Cliente
 			while (rs.next()) {
-				System.out.println(rs.getInt("ID"));
 				animal = new Animal(rs.getInt("ID"),rs.getString("RAZA"),rs.getString("ESPECIAL"),rs.getString("TIPO"), new Date() );
 				
 				if (!rs.getString("DNIC_AC").equals("noAcogido")) {
@@ -326,28 +324,16 @@ public class GestorBD {
 			ex.printStackTrace();						
 		}		
 	}	
-	public void update( Animal animal, String DniC, String DniD) {
-		
-		ArrayList<Cliente> clienteBBDD = (ArrayList<Cliente>) obtenerDatosCliente();
-		List<ArrayList> animalesTabla = obtenerDatosAnimal(clienteBBDD);
-		ArrayList<Animal> animalesBBDD = animalesTabla.get(0);
-		for (Animal animalA : animalesBBDD) {
-			int id = animalA.getId();
-			if (animal.getId() == id) {
-				this.actualizarAnimal(animal,DniC,DniD);
-			}
-		}
-	}
 	
 	public void actualizarAnimal(Animal animal, String Dni_AC, String Dni_AD) {
 		try (Connection con = DriverManager.getConnection(CONNECTION_STRING);
 			     Statement stmt = con.createStatement()) {
 				//Se ejecuta la sentencia de borrado de datos
-				String sql = "UPDATE ANIMAL SET DNIC_AD = '%s', DNIC_AD = '%s'  WHERE ID = %d;";
+				String sql = "UPDATE ANIMAL SET DNIC_AC = '%s', DNIC_AD = '%s'  WHERE ID = '%d';";
 				
 				int result = stmt.executeUpdate(String.format(sql, Dni_AC, Dni_AD, animal.getId()));
 				
-				System.out.println(String.format("- Se ha actulizado %d animales", result));
+				System.out.println(String.format("- Se ha actualizado %d animales", result));
 			} catch (Exception ex) {
 				System.err.println(String.format("* Error actualizando datos de la BBDD: %s", ex.getMessage()));
 				ex.printStackTrace();						

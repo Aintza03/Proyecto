@@ -1,60 +1,60 @@
-﻿Especie;Fecha_Nac;Raza;Necesidades_Espec
-Gato;20/01/2018;Blanco;nada
-Gato;21/01/2019;Blanco;nada
-Gato;22/01/2018;Siames;nada
-Gato;23/01/2018;Siames;nada
-Gato;24/01/2018;Siames;nada
-Gato;25/01/2018;Blanco;nada
-Gato;26/01/2018;Blanco;nada
-Gato;27/01/2018;Blanco;nada
-Gato;28/01/2018;Blanco;nada
-Gato;29/01/2018;Blanco;nada
-Gato;02/06/2019;Blanco;nada
-Gato;03/06/2019;Tricolor;nada
-Gato;04/06/2019;Tricolor;nada
-Gato;05/06/2019;Tricolor;nada
-Gato;06/06/2019;Tricolor;nada
-Gato;07/06/2019;Tricolor;nada
-Gato;08/06/2019;Negro;nada
-Gato;09/06/2019;Negro;nada
-Gato;10/06/2019;Negro;nada
-Gato;11/06/2019;Negro;nada
-Gato;12/06/2019;Negro;nada
-Gato;13/06/2019;Negro;nada
-Gato;16/04/2020;Negro;nada
-Gato;17/04/2020;Naranja;nada
-Gato;18/04/2020;Naranja;nada
-Gato;19/04/2020;Naranja;nada
-Gato;20/04/2020;Naranja;nada
-Gato;21/04/2020;Naranja;nada
-Gato;22/04/2020;Naranja;nada
-Perro;23/04/2020;Dalmata;nada
-Perro;24/04/2020;Pastor Aleman;nada
-Perro;25/04/2020;Bulldog;nada
-Perro;26/04/2020;Dalmata;nada
-Perro;27/04/2020;Akita Inu;nada
-Perro;28/04/2020;Bulldog;nada
-Perro;29/04/2020;Negro;nada
-Perro;30/04/2020;Pastor Aleman;nada
-Perro;01/05/2020;Galgo;nada
-Perro;09/03/2018;Galgo;nada
-Perro;10/03/2018;Bulldog;nada
-Perro;11/03/2018;Galgo;nada
-Perro;12/03/2018;Galgo;nada
-Perro;13/03/2018;Pastor Aleman;nada
-Perro;14/03/2018;Bulldog;nada
-Perro;15/03/2018;Border Collie;nada
-Perro;06/03/2018;Border Collie;nada
-Perro;07/03/2018;Dalmata;nada
-Perro;08/03/2021;Labrador;nada
-Perro;09/03/2021;Pastor Aleman;nada
-Perro;10/03/2021;Labrador;nada
-Perro;11/03/2021;Labrador;nada
-Perro;12/03/2021;Dalmata;nada
-Perro;13/03/2021;Pastor Aleman;nada
-Perro;14/03/2021;Labrador;nada
-Perro;15/03/2021;Pastor Aleman;nada
-Perro;16/03/2021;Bulldog;nada
-Perro;17/03/2021;Dalmata;nada
-Perro;18/03/2021;Pastor Aleman;nada
-Perro;19/03/2021;Border Collie;nada
+﻿Id;Especie;Fecha_Nac;Raza;Necesidades_Espec
+1;Gato;20/01/2018;Blanco;nada
+2;Gato;21/01/2019;Blanco;nada
+3;Gato;22/01/2018;Siames;nada
+4;Gato;23/01/2018;Siames;nada
+5;Gato;24/01/2018;Siames;nada
+6;Gato;25/01/2018;Blanco;nada
+7;Gato;26/01/2018;Blanco;nada
+8;Gato;27/01/2018;Blanco;nada
+9;Gato;28/01/2018;Blanco;nada
+10;Gato;29/01/2018;Blanco;nada
+11;Gato;02/06/2019;Blanco;nada
+12;Gato;03/06/2019;Tricolor;nada
+13;Gato;04/06/2019;Tricolor;nada
+14;Gato;05/06/2019;Tricolor;nada
+15;Gato;06/06/2019;Tricolor;nada
+16;Gato;07/06/2019;Tricolor;nada
+17;Gato;08/06/2019;Negro;nada
+18;Gato;09/06/2019;Negro;nada
+19;Gato;10/06/2019;Negro;nada
+20;Gato;11/06/2019;Negro;nada
+21;Gato;12/06/2019;Negro;nada
+22;Gato;13/06/2019;Negro;nada
+23;Gato;16/04/2020;Negro;nada
+24;Gato;17/04/2020;Naranja;nada
+25;Gato;18/04/2020;Naranja;nada
+26;Gato;19/04/2020;Naranja;nada
+27;Gato;20/04/2020;Naranja;nada
+28;Gato;21/04/2020;Naranja;nada
+29;Gato;22/04/2020;Naranja;nada
+30;Perro;23/04/2020;Dalmata;nada
+31;Perro;24/04/2020;Pastor Aleman;nada
+32;Perro;25/04/2020;Bulldog;nada
+33;Perro;26/04/2020;Dalmata;nada
+34;Perro;27/04/2020;Akita Inu;nada
+35;Perro;28/04/2020;Bulldog;nada
+36;Perro;29/04/2020;Negro;nada
+37;Perro;30/04/2020;Pastor Aleman;nada
+38;Perro;01/05/2020;Galgo;nada
+39;Perro;09/03/2018;Galgo;nada
+40;Perro;10/03/2018;Bulldog;nada
+41;Perro;11/03/2018;Galgo;nada
+42;Perro;12/03/2018;Galgo;nada
+43;Perro;13/03/2018;Pastor Aleman;nada
+44;Perro;14/03/2018;Bulldog;nada
+45;Perro;15/03/2018;Border Collie;nada
+46;Perro;06/03/2018;Border Collie;nada
+47;Perro;07/03/2018;Dalmata;nada
+48;Perro;08/03/2021;Labrador;nada
+49;Perro;09/03/2021;Pastor Aleman;nada
+50;Perro;10/03/2021;Labrador;nada
+51;Perro;11/03/2021;Labrador;nada
+52;Perro;12/03/2021;Dalmata;nada
+53;Perro;13/03/2021;Pastor Aleman;nada
+54;Perro;14/03/2021;Labrador;nada
+55;Perro;15/03/2021;Pastor Aleman;nada
+56;Perro;16/03/2021;Bulldog;nada
+57;Perro;17/03/2021;Dalmata;nada
+58;Perro;18/03/2021;Pastor Aleman;nada
+59;Perro;19/03/2021;Border Collie;nada

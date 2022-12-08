@@ -112,17 +112,18 @@ public class Inits {
 				Animal animal = new Animal(0,null,null,null,new Date());
 				String linea = sc.nextLine();
 				String[] campos = linea.split(";");
-				animal.setTipo(campos[0]);
+				animal.setId(Integer.parseInt(campos[0]));
+				animal.setTipo(campos[1]);
 				SimpleDateFormat formato = new SimpleDateFormat("dd/MM/yyyy");
 				
 				try {
-					animal.setFechaNac(formato.parse(campos[1]));
+					animal.setFechaNac(formato.parse(campos[2]));
 				} catch (ParseException e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}
-				animal.setRaza(campos[2]);
-				animal.setEspecial(campos[3]);
+				animal.setRaza(campos[3]);
+				animal.setEspecial(campos[4]);
 				animales.add(animal);
 				
 			}
