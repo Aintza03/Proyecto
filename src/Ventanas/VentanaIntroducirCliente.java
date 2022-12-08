@@ -1,8 +1,12 @@
 package Ventanas;
 
+import java.util.ArrayList;
 import java.util.Properties;
 
 import javax.swing.*;
+
+import General.Cliente;
+
 import java.awt.*;
 import java.awt.event.*;
 import bbdd.GestorBD;
@@ -61,5 +65,74 @@ public class VentanaIntroducirCliente extends JFrame {
 		this.setSize(300,100);
 		this.setTitle("Introducir nuevo cliente");
 		this.setLocationRelativeTo(null);
-}
+
+	registrarCliente.addActionListener(new ActionListener() {
+
+		@Override
+		public void actionPerformed(ActionEvent e) {
+		// TODO Auto-generated method stub
+		String dniC = null;
+		int telefonoC = 0;
+		String direccionC = null;
+		String nombreC = null;
+		Cliente cliente = null;
+		try {
+		if (dni.getText().length() == 9 && DNIAPTO(dni.getText())) {
+		dniC = dni.getText();
+		if (telefono.getText().length() == 9){
+		System.out.println(telefono.getText());
+		telefonoC = Integer.parseInt(telefono.getText());
+		if (direccion.getText().length() != 0) {
+		direccionC = direccion.getText();
+		if (nombre.getText().length() != 0) {
+		nombreC = nombre.getText();
+		} else {
+		Error.setText("El campo de nombre esta vacio");
+		}
+		} else {
+		Error.setText("El campo de direccion esta vacio");
+		}
+		} else {
+		Error.setText("El numero de telefono tiene que tener 9 digitos");
+		}
+		} else {
+		Error.setText("El DNI no es un DNI valido");
+		}
+		if (dniC != null && direccionC != null && telefonoC != 0 && nombreC != null) {
+		//si el if se cumple significara que se ha podido crear el cliente
+		cliente = new Cliente(dniC,direccionC,telefonoC,nombreC);
+		//Error.setText("Cliente Registrado");
+		v.insertarDatosCliente(cliente);
+		v3 = new VentanaAcoger(v.obtenerDatosAnimal((ArrayList<Cliente>) v.obtenerDatosCliente()).get(0), idioma);
+
+		}
+
+		} catch (Exception e2) {
+		// TODO: handle exception
+		System.err.println("El telefono introducido tiene letras");
+		Error.setText("El telefono introducido tiene letras");
+		e2.printStackTrace();
+		}
+		}
+		});
+		}
+		public boolean DNIAPTO(String dni) {
+		//Comprueba que el dni empieza por 8 digitos y 1 letra
+		String finaliza = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+		String comienza = "1234567890";
+		boolean res = true;
+		String letra = "" + dni.charAt(8);
+		if (finaliza.contains(letra)) {
+		for(int i = 0; i < 8; i++) {
+		letra = "" + dni.charAt(i);
+		if (!(comienza.contains(letra))){
+		res = false;
+		break;
+		}
+		}
+		} else {
+		res = false;
+		}
+		return res;
+		}
 	}
