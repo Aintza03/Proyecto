@@ -1,18 +1,21 @@
 package Ventanas;
+
 import java.awt.*;
 import java.awt.event.*;
 import java.util.Properties;
 
 import javax.swing.*;
+import bbdd.GestorBD;
 
-public class ventanaCliente extends JFrame{
+public class VentanaCliente extends JFrame{
 	protected JTextField DNI;
 	protected JLabel ErrorCliente;
 	protected JButton Buscar;
 	protected JLabel dni;
 	//para concatenar las ventanas
 	protected VentanaAcoger v3;
-	public ventanaCliente(Properties idioma) {
+	protected VentanaIntroducirCliente v2;
+	public VentanaCliente(Properties idioma, GestorBD gestorV) {
 		Container cp = this.getContentPane();
 		DNI = new JTextField();
 		ErrorCliente = new JLabel("");
@@ -36,4 +39,4 @@ public class ventanaCliente extends JFrame{
 		this.setTitle("Introducir Cliente");
 		this.setLocationRelativeTo(null);
 	}
-}
+	}

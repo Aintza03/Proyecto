@@ -33,7 +33,7 @@ public class VentanaPrincipal extends JFrame{
 		//variables parte del Properties;
 		protected Properties i;
 		//para la ventanaCliente
-		protected ventanaCliente v2;
+		protected VentanaCliente v2;
 	public VentanaPrincipal() {
 		//Inicializar y declarar el cp
 		Container cp = this.getContentPane();
@@ -78,7 +78,7 @@ public class VentanaPrincipal extends JFrame{
 					contra = Integer.parseInt(stringC);
 					String verificacion = verificarUsuario(u,contra);
 					if (verificacion.equals("Usuario encontrado")) {
-						v2 = new ventanaCliente(i);
+						v2 = new VentanaCliente(i,gestorV);
 						setVisible(false);
 					} else {
 						Error.setText(verificacion);
@@ -187,9 +187,9 @@ public class VentanaPrincipal extends JFrame{
 			v.gestorV.insertarDatosAnimal(animales.toArray(new Animal[animales.size()]));
 			
 		}
-		
-		VentanaAcoger a = new VentanaAcoger(v.gestorV.obtenerDatosAnimal((ArrayList<Cliente>) v.gestorV.obtenerDatosCliente()).get(0), v.i);
-		
+		//para hacer pruebas
+		//VentanaAcoger a = new VentanaAcoger(v.gestorV.obtenerDatosAnimal((ArrayList<Cliente>) v.gestorV.obtenerDatosCliente()).get(0), v.i);
+		//VentanaIntroducirCliente b = new VentanaIntroducirCliente(v.gestorV,v.i);
 	}
 
 }
