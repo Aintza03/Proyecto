@@ -4,10 +4,13 @@ import static org.junit.Assert.*;
 import java.sql.Date;
 
 import org.junit.After;
+import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 
+import General.Adopcion;
 import General.Animal;
+import General.Cliente;
 
 public class AnimalTest {
 
@@ -99,7 +102,20 @@ public class AnimalTest {
 
 	@Test
 	public void testToString() {
-		String toString = tipo + " " + raza +  ", nacido en " + fechaNac + "??"+ especial;
+		String toString = id + " " + tipo + " " + raza +  ", nacido en " + fechaNac + "??"+ especial;
 		assertEquals(toString,animal.toString());
 	}
-}
+	
+	@Test
+	public void testHashCode() {
+		Animal a = new Animal(1,"p","a","n", null);
+		Assert.assertTrue(a.hashCode() == animal.hashCode());
+	}
+	
+	@Test
+	public void testEquals() {
+		Animal a = new Animal(1,"p","a","n", null);
+		Assert.assertTrue(a.equals(animal) && animal.equals(a));
+	}
+	}
+
