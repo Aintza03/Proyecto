@@ -19,7 +19,7 @@ public class AnimalTest {
 	protected String raza= "p";
 	protected String especial = "a";
 	protected String tipo = "n";
-	protected Date fechaNac = null;
+	protected String fechaNac = null;
 	@Before
 	public void setUp() throws Exception {
 		animal = new Animal(id, raza,especial, tipo, fechaNac);
@@ -95,7 +95,7 @@ public class AnimalTest {
 
 	@Test
 	public void testSetFechaNac() {
-		Date i = null;
+		String i = null;
 		animal.setFechaNac(i);
 		assertEquals(i,animal.getFechaNac());
 	}

@@ -7,6 +7,7 @@ import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.Statement;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -271,7 +272,7 @@ public class GestorBD {
 			
 			//Se recorre el ResultSet y se crean objetos Cliente
 			while (rs.next()) {
-				animal = new Animal(rs.getInt("ID"),rs.getString("RAZA"),rs.getString("ESPECIAL"),rs.getString("TIPO"), new Date() );
+				animal = new Animal(rs.getInt("ID"),rs.getString("RAZA"),rs.getString("ESPECIAL"),rs.getString("TIPO"), rs.getString("Fecha_Nac"));
 				
 				if (!rs.getString("DNIC_AC").equals("noAcogido")) {
 					for (Cliente cliente : clientes) {
@@ -339,7 +340,6 @@ public class GestorBD {
 				ex.printStackTrace();						
 			}		
 		}
-		
-	}
+}
 		
 

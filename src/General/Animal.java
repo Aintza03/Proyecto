@@ -8,8 +8,8 @@ public class Animal {
 	protected String raza;
 	protected String especial;
 	protected String tipo;
-	protected Date fechaNac;
-	public Animal(int id, String raza, String especial, String tipo, Date fechaNac) {
+	protected String fechaNac;
+	public Animal(int id, String raza, String especial, String tipo, String fechaNac) {
 		super();
 		this.id = id;
 		this.raza = raza;
@@ -43,10 +43,10 @@ public class Animal {
 	public void setTipo(String tipo) {
 		this.tipo = tipo;
 	}
-	public Date getFechaNac() {
+	public String getFechaNac() {
 		return fechaNac;
 	}
-	public void setFechaNac(Date fechaNac) {
+	public void setFechaNac(String fechaNac) {
 		this.fechaNac = fechaNac;
 	}
 	
