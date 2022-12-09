@@ -22,8 +22,8 @@ public class VentanaCliente extends JFrame{
 		Container cp = this.getContentPane();
 		DNI = new JTextField();
 		ErrorCliente = new JLabel("");
-		Buscar = new JButton("Buscar");
-		dni = new JLabel("DNI");//constante en todos los idiomas
+		Buscar = new JButton(idioma.get("buscar").toString());
+		dni = new JLabel(idioma.get("dni").toString());
 		
 		JScrollPane textoError = new JScrollPane(ErrorCliente);
 		JPanel arriba = new JPanel();
@@ -46,7 +46,7 @@ public class VentanaCliente extends JFrame{
 			@Override
 			public void actionPerformed(ActionEvent e) {
 			// TODO Auto-generated method stub
-			String res = encontrarCliente(DNI.getText(), gestorV);
+			String res = encontrarCliente(DNI.getText(), gestorV, idioma);
 			if (res.equals("Se ha encontrado el cliente")) {
 			v3 = new VentanaAcoger(gestorV, idioma, DNI.getText());
 			setVisible(false);
@@ -59,7 +59,7 @@ public class VentanaCliente extends JFrame{
 			}
 			});
 			}
-			public String encontrarCliente(String DNIA, GestorBD gestorV) {
+			public String encontrarCliente(String DNIA, GestorBD gestorV, Properties idioma) {
 			String resultado = "";
 			ArrayList<Cliente> clientes = (ArrayList<Cliente>) gestorV.obtenerDatosCliente();
 			for (Cliente cliente : clientes) {
@@ -67,7 +67,7 @@ public class VentanaCliente extends JFrame{
 			if (cliente.isPermiso()) {
 			resultado = "Se ha encontrado el cliente";
 			} else {
-			resultado = "El cliente no tiene permitido adoptar";
+			resultado = idioma.get("mes3").toString();
 			}
 			break;
 			} else {
