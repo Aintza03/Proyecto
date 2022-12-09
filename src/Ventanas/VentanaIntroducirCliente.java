@@ -27,17 +27,17 @@ public class VentanaIntroducirCliente extends JFrame {
 	protected VentanaAcoger v3;
 	public VentanaIntroducirCliente(GestorBD v,Properties idioma) {
 		Container cp = this.getContentPane();
-		DNI = new JLabel("DNI:");
-		NOMBRE = new JLabel("Nombre:");
-		TELEFONO = new JLabel("Telefono:");
-		DIRECCION = new JLabel("Direccion:");
+		DNI = new JLabel(idioma.get("dni1").toString());
+		NOMBRE = new JLabel(idioma.get("nombre").toString());
+		TELEFONO = new JLabel(idioma.get("tel").toString());
+		DIRECCION = new JLabel(idioma.get("dir").toString());
 		Error = new JLabel("");
 		
 		dni = new JTextField("");
 		nombre = new JTextField("");
 		telefono = new JTextField("");
 		direccion = new JTextField("");
-		registrarCliente = new JButton("Registrar Cliente");
+		registrarCliente = new JButton(idioma.get("regi").toString());
 		JPanel arriba = new JPanel();
 		arriba.setLayout(new GridLayout(2,4));
 		JPanel abajo = new JPanel();
@@ -87,16 +87,16 @@ public class VentanaIntroducirCliente extends JFrame {
 		if (nombre.getText().length() != 0) {
 		nombreC = nombre.getText();
 		} else {
-		Error.setText("El campo de nombre esta vacio");
+		Error.setText(idioma.get("mes4").toString());
 		}
 		} else {
-		Error.setText("El campo de direccion esta vacio");
+		Error.setText(idioma.get("mes5").toString());
 		}
 		} else {
-		Error.setText("El numero de telefono tiene que tener 9 digitos");
+		Error.setText(idioma.get("mes6").toString());
 		}
 		} else {
-		Error.setText("El DNI no es un DNI valido");
+		Error.setText(idioma.get("mes7").toString());
 		}
 		if (dniC != null && direccionC != null && telefonoC != 0 && nombreC != null) {
 		//si el if se cumple significara que se ha podido crear el cliente
@@ -110,7 +110,7 @@ public class VentanaIntroducirCliente extends JFrame {
 		} catch (Exception e2) {
 		// TODO: handle exception
 		System.err.println("El telefono introducido tiene letras");
-		Error.setText("El telefono introducido tiene letras");
+		Error.setText(idioma.get("mes8").toString());
 		e2.printStackTrace();
 		}
 		}
