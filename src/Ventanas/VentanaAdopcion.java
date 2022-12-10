@@ -43,7 +43,7 @@ public class VentanaAdopcion extends JFrame {
 		botonAtras = new JButton("<--");
 		
 		
-		acogidos.add(new JLabel("Acogidos:"), BorderLayout.NORTH);
+		acogidos.add(new JLabel("Animales acogidos:"), BorderLayout.NORTH);
 		acogidos.add(scrollAcogidos, BorderLayout.CENTER);
 		acogidos.add(botonAtras, BorderLayout.SOUTH);
 		
