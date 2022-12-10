@@ -23,6 +23,7 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
+import javax.swing.ListSelectionModel;
 import javax.swing.WindowConstants;
 import javax.swing.border.TitledBorder;
 import javax.swing.table.DefaultTableCellRenderer;
@@ -45,6 +46,8 @@ public class VentanaAcoger extends JFrame{
 	
 	protected int mouseRow = -1;
 	protected int mouseCol = -1;
+	
+	protected VentanaAdopcion v1;
 	
 	public VentanaAcoger(GestorBD v, Properties p, String dni) {
 		this.animales = holis(recorrer((ArrayList<Cliente>) v.obtenerDatosCliente()), v.obtenerDatosAnimal((ArrayList<Cliente>) v.obtenerDatosCliente()).get(0)) ;
@@ -97,6 +100,8 @@ public class VentanaAcoger extends JFrame{
 				for (Animal animal : animales) {
 					if(animal.getId() == d) {
 						v.actualizarAnimal(animal, dni, null);
+						v1 = new VentanaAdopcion(p,v,dni);
+						setVisible(false);
 						
 					}
 				}
@@ -113,6 +118,7 @@ public class VentanaAcoger extends JFrame{
 		this.modeloDatosAnimales = new DefaultTableModel(new Vector<Vector<Object>>(), cabeceraAnimales);
 		//Se crea la tabla de comics con el modelo de datos		
 		this.tablaAnimales = new JTable(this.modeloDatosAnimales);
+		tablaAnimales.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 		
 		//Render para las celdas de la Editorial se define como un Label un logo
 		DefaultTableCellRenderer a = new DefaultTableCellRenderer() {

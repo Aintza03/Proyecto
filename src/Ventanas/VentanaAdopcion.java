@@ -5,6 +5,7 @@ import java.awt.Container;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.Properties;
 
 import javax.swing.DefaultListModel;
 import javax.swing.JButton;
@@ -16,6 +17,7 @@ import javax.swing.JScrollPane;
 import javax.swing.ListSelectionModel;
 
 import General.Animal;
+import bbdd.GestorBD;
 
 
 public class VentanaAdopcion extends JFrame {
@@ -27,12 +29,12 @@ public class VentanaAdopcion extends JFrame {
 	protected JButton botonDevolver;
 	protected JButton botonAtras;
 		
-	public VentanaAdopcion() {
+	public VentanaAdopcion(Properties p, GestorBD b, String dni) {
 		Container cp = this.getContentPane();
 		cp.setLayout(new GridLayout(1, 3));
 		
 		JPanel acogidos = new JPanel(new BorderLayout());
-		JPanel botonesCentro = new JPanel(new BorderLayout());
+		JPanel botonesCentro = new JPanel(new GridLayout(4,1));
 		JPanel adoptados = new JPanel(new BorderLayout());
 		
 		modeloAcogido = new DefaultListModel<Animal>();
@@ -40,7 +42,7 @@ public class VentanaAdopcion extends JFrame {
 		listaAcogido.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 		JScrollPane scrollAcogidos = new JScrollPane(listaAcogido);
 		
-		botonAtras = new JButton("<--");
+		botonAtras = new JButton("<-Volver");
 		
 		
 		acogidos.add(new JLabel("Animales acogidos:"), BorderLayout.NORTH);
@@ -49,8 +51,8 @@ public class VentanaAdopcion extends JFrame {
 		
 		
 		
-		botonAdoptar = new JButton("Adoptar");
-		botonDevolver= new JButton("Devolver");
+		botonAdoptar = new JButton("Adoptar->");
+		botonDevolver= new JButton("<-Devolver");
 		
 		botonAdoptar.addActionListener(new ActionListener() {
 			@Override
@@ -72,16 +74,17 @@ public class VentanaAdopcion extends JFrame {
 			}
 		});
 		
-
-		botonesCentro.add(botonAdoptar, BorderLayout.WEST);
-		botonesCentro.add(botonDevolver, BorderLayout.EAST);
+		botonesCentro.add(new JLabel(""));
+		botonesCentro.add(botonAdoptar);
+		botonesCentro.add(botonDevolver);
+		botonesCentro.add(new JLabel(""));
 		
 		modeloAdoptado = new DefaultListModel<Animal>();
 		listaAdoptado = new JList(modeloAdoptado);
 		listaAcogido.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 		JScrollPane scrollAdoptado = new JScrollPane(listaAdoptado);
 
-		adoptados.add(new JLabel("Animales adoptados;"), BorderLayout.NORTH);
+		adoptados.add(new JLabel("Animales adoptados:"), BorderLayout.NORTH);
 		adoptados.add(scrollAdoptado, BorderLayout.CENTER);	
 		
 		
@@ -91,8 +94,9 @@ public class VentanaAdopcion extends JFrame {
 		
 		this.setTitle("Adopcion");
 		this.setSize(800, 600);
-		this.setDefaultCloseOperation(HIDE_ON_CLOSE);
-		this.setVisible(false);
+		this.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
+		this.setVisible(true);
+		this.setLocationRelativeTo(null);
 	}
 	
 	public void recargarModelos() {
