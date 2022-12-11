@@ -144,6 +144,39 @@ public class VentanaPrincipal extends JFrame{
 		});
 		//El idioma por defecto es español
 		español.doClick();
+		
+		Thread hilo = new Thread(new Runnable() {
+			
+			@Override
+			public void run() {
+				int b = 0;
+				boolean cambio = true;
+				while(true) {
+					if(!(b==255) && cambio) {
+						b++;
+					}else if(b == 255) {
+						b--;
+						cambio = false;
+					}else if(b == 0) {
+						b++;
+						cambio = true;
+					}else {
+						b--;
+					}
+					Color color = new Color(0,0,b);
+					Error.setForeground(color);
+					usuarioIdioma.setForeground(color);
+					contraseñaIdioma.setForeground(color);
+					try {
+						Thread.sleep(25);
+					}catch (InterruptedException e) {
+						e.printStackTrace();
+					}
+				}
+				
+			}
+		});
+		hilo.start();
 		//se escoge el modo de cierre de la ventana, su apariencia y nombre
 		this.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
 		this.setVisible(true);

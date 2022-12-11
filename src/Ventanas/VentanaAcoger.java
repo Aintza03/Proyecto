@@ -94,19 +94,23 @@ public class VentanaAcoger extends JFrame{
 			
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				
-				int d = 0; 
-				d = Integer.parseInt(modeloDatosAnimales.getValueAt(tablaAnimales.getSelectedRow(), 0).toString());
-				for (Animal animal : animales) {
-					if(animal.getId() == d) {
-						v.actualizarAnimal(animal, dni, null);
+						try {
+							int d = 0; 
+							d = Integer.parseInt(modeloDatosAnimales.getValueAt(tablaAnimales.getSelectedRow(), 0).toString());
+							for (Animal animal : animales) {
+								if(animal.getId() == d) {
+							v.actualizarAnimal(animal, dni, null);
+								}
+								}
+						} catch (Exception e2) {
+							System.err.println("No se ha escogido animal");
+						}
 						v1 = new VentanaAdopcion(p,v,dni);
 						setVisible(false);
 						
 					}
-				}
-				
-			}
+		
+			
 		});
 		
 	}
