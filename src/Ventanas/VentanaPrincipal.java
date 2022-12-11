@@ -145,13 +145,20 @@ public class VentanaPrincipal extends JFrame{
 		//El idioma por defecto es español
 		español.doClick();
 		
+		//se escoge el modo de cierre de la ventana, su apariencia y nombre
+				this.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
+				this.setVisible(true);
+				this.setSize(300,150);
+				this.setTitle("Inicio de Sesión");
+				this.setLocationRelativeTo(null);
+				
 		Thread hilo = new Thread(new Runnable() {
 			
 			@Override
 			public void run() {
 				int b = 0;
 				boolean cambio = true;
-				while(true) {
+				while(isVisible()) {
 					if(!(b==255) && cambio) {
 						b++;
 					}else if(b == 255) {
@@ -177,12 +184,7 @@ public class VentanaPrincipal extends JFrame{
 			}
 		});
 		hilo.start();
-		//se escoge el modo de cierre de la ventana, su apariencia y nombre
-		this.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
-		this.setVisible(true);
-		this.setSize(300,150);
-		this.setTitle("Inicio de Sesión");
-		this.setLocationRelativeTo(null);
+		
 	}
 	public String verificarUsuario(String u, int contraseña) {
 		ArrayList<Usuario> usuario = (ArrayList<Usuario>) gestorV.obtenerDatosUsuario();

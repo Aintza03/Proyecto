@@ -115,6 +115,41 @@ public class VentanaIntroducirCliente extends JFrame {
 		}
 		}
 		});
+		Thread hilo1 = new Thread(new Runnable() {
+			
+			@Override
+			public void run() {
+				// TODO Auto-generated method stub
+				int b = 0;
+				boolean cambio = true;
+				while(isVisible()) {
+					if(!(b == 255) && cambio) {
+						b++;
+					}else if(b == 255) {
+						b--;
+						cambio = false;
+					}else if (b==0) {
+						b++;
+						cambio = true;
+					}else {
+						b--;
+					}
+					Color color = new Color(0,0,b);
+					DNI.setForeground(color);
+					NOMBRE.setForeground(color);
+					TELEFONO.setForeground(color);
+					DIRECCION.setForeground(color);
+					Error.setForeground(color);
+					try {
+						Thread.sleep(25);
+					} catch (InterruptedException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
+				}
+			}
+		});
+		hilo1.start();
 		}
 		public boolean DNIAPTO(String dni) {
 		//Comprueba que el dni empieza por 8 digitos y 1 letra
