@@ -1,6 +1,7 @@
 package Ventanas;
 
 import java.awt.BorderLayout;
+import java.awt.Color;
 import java.awt.Container;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
@@ -54,14 +55,14 @@ public class VentanaAdopcion extends JFrame {
 		listaAcogido.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 		JScrollPane scrollAcogidos = new JScrollPane(listaAcogido);
 		
-		botonAtras = new JButton("<-Volver");
-		
-		acogidos.add(new JLabel("Animales acogidos:"), BorderLayout.NORTH);
+		botonAtras = new JButton("<-" + p.getProperty("volver"));
+		JLabel acoger = new JLabel(p.getProperty("acoger") + ":");
+		acogidos.add(acoger, BorderLayout.NORTH);
 		acogidos.add(scrollAcogidos, BorderLayout.CENTER);
 		acogidos.add(botonAtras, BorderLayout.SOUTH);
 		
-		botonAdoptar = new JButton("Adoptar->");
-		botonDevolver= new JButton("<-Devolver");
+		botonAdoptar = new JButton(p.getProperty("botonadoptar")+"->");
+		botonDevolver= new JButton("<-"+p.getProperty("devolver"));
 		
 		botonAdoptar.addActionListener(new ActionListener() {
 			@Override
@@ -94,7 +95,8 @@ public class VentanaAdopcion extends JFrame {
 			public void actionPerformed(ActionEvent arg0) {
 				ArrayList<Animal> listaAdo = new ArrayList<Animal>();
 				ArrayList<Animal> listaAdoSi = new ArrayList<Animal>();
-				if(!(listaAcogido.isSelectionEmpty())) {
+				try {
+					if (!modeloAcogido.isEmpty()) {
 					for (int i = 0; i< modeloAcogido.size(); i++) {
 						if(!(listaAcogido.getSelectedValue().equals(modeloAcogido.get(i)))) {
 						listaAdo.add(modeloAcogido.get(i));
@@ -103,7 +105,16 @@ public class VentanaAdopcion extends JFrame {
 					b.actualizarAnimal(listaAcogido.getSelectedValue(), "noAcogido","noAdoptado");
 					modeloAcogido.removeAllElements();
 					modeloAcogido.addAll(listaAdo);
-				} else if(!(listaAdoptado.isSelectionEmpty())) {
+					}else {
+						System.err.println("La lista de Animales acogidos esta vacia");
+					}
+				} catch (Exception e) {
+					// TODO: handle exception
+					System.err.println("No se ha selecionado nada en la lista de Acogida");
+				}
+				 
+				try {
+					if (!modeloAdoptado.isEmpty()) {
 					for (int i = 0; i< modeloAdoptado.size(); i++) {
 						if(!(listaAdoptado.getSelectedValue().equals(modeloAdoptado.get(i)))) {
 						listaAdoSi.add(modeloAdoptado.get(i));
@@ -112,7 +123,14 @@ public class VentanaAdopcion extends JFrame {
 					b.actualizarAnimal(listaAdoptado.getSelectedValue(), "noAcogido" , "noAdoptado");
 					modeloAdoptado.removeAllElements();
 					modeloAdoptado.addAll(listaAdoSi);
+					} else {
+						System.err.println("La lista de animales adoptados esta vacia");
+					}
+				} catch (Exception e) {
+					// TODO: handle exception
+					System.err.println("No se ha selecionado nada en la lista de Adopcion");
 				}
+				
 			}
 		});
 		
@@ -134,8 +152,8 @@ public class VentanaAdopcion extends JFrame {
 		listaAdoptado = new JList(modeloAdoptado);
 		listaAcogido.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 		JScrollPane scrollAdoptado = new JScrollPane(listaAdoptado);
-
-		adoptados.add(new JLabel("Animales adoptados:"), BorderLayout.NORTH);
+		JLabel adoptar = new JLabel(p.getProperty("adoptar") + ":");
+		adoptados.add(adoptar, BorderLayout.NORTH);
 		adoptados.add(scrollAdoptado, BorderLayout.CENTER);	
 		
 		
@@ -143,13 +161,46 @@ public class VentanaAdopcion extends JFrame {
 		cp.add(botonesCentro);
 		cp.add(adoptados);
 		
-		this.setTitle("Adopción");
+		this.setTitle(p.getProperty("ventanaAdoptar"));
 		this.setSize(800, 600);
 		this.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
 		this.setVisible(true);
 		this.setLocationRelativeTo(null);
+		
+		Thread hilo = new Thread(new Runnable() {
+			
+			@Override
+			public void run() {
+				// TODO Auto-generated method stub
+				int b = 0;
+				boolean cambio = true;
+				while(isVisible()) {
+					if(!(b==255) && cambio) {
+						b++;
+					}else if(b == 255) {
+						b--;
+						cambio = false;
+					} else if(b== 0) {
+						b++;
+						cambio = true;
+					}else {
+						b--;
+					}
+					Color color = new Color(0,0,b);
+					acoger.setForeground(color);
+					adoptar.setForeground(color);
+					try {
+						Thread.sleep(25);
+					} catch (InterruptedException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
+				}
+			}
+		});
+		hilo.start();
 	}
-	
+	//borrar
 	public void recargarModelos() {
 		modeloAcogido.removeAllElements();
 		

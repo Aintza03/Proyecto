@@ -104,8 +104,8 @@ public class VentanaPrincipal extends JFrame{
 					usuarioIdioma.setText(i.get("usuario").toString()+ ":");
 					contraseñaIdioma.setText(i.get("contrasena").toString() + ":");
 					continuar.setText(i.get("continuar").toString() + " ->");
-					
-					
+					setTitle(i.get("inicio").toString());
+					idioma.setText(i.get("idioma").toString());
 				} catch (FileNotFoundException e1) {
 					// TODO Auto-generated catch block
 					System.out.println("No se puede encontrar el fichero config/castellano.properties");
@@ -130,7 +130,8 @@ public class VentanaPrincipal extends JFrame{
 					usuarioIdioma.setText(i.get("usuario").toString()+ ":");
 					contraseñaIdioma.setText(i.get("contrasena").toString() + ":");
 					continuar.setText(i.get("continuar").toString() + " ->");
-					
+					setTitle(i.get("inicio").toString());
+					idioma.setText(i.get("idioma").toString());
 				} catch (FileNotFoundException e1) {
 					// TODO Auto-generated catch block
 					System.out.println("No se puede encontrar el fichero config/euskera.properties");
@@ -149,7 +150,7 @@ public class VentanaPrincipal extends JFrame{
 				this.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
 				this.setVisible(true);
 				this.setSize(300,150);
-				this.setTitle("Inicio de Sesión");
+				this.setTitle("Inicio de sesion");
 				this.setLocationRelativeTo(null);
 				
 		Thread hilo = new Thread(new Runnable() {

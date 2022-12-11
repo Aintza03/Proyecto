@@ -50,7 +50,7 @@ public class VentanaAcoger extends JFrame{
 	protected VentanaAdopcion v1;
 	
 	public VentanaAcoger(GestorBD v, Properties p, String dni) {
-		this.animales = holis(recorrer((ArrayList<Cliente>) v.obtenerDatosCliente()), v.obtenerDatosAnimal((ArrayList<Cliente>) v.obtenerDatosCliente()).get(0)) ;
+		this.animales = recorrerdos(recorrer((ArrayList<Cliente>) v.obtenerDatosCliente()), v.obtenerDatosAnimal((ArrayList<Cliente>) v.obtenerDatosCliente()).get(0)) ;
 		this.p = p;
 		Container cp = this.getContentPane();
 		
@@ -83,9 +83,8 @@ public class VentanaAcoger extends JFrame{
 		cp.add(scrollPaneAnimales);
 		
 		cp.add(cosa);
-		this.setTitle("Ventana Acoger");		
+		this.setTitle(p.getProperty("ventanaAcoger"));		
 		this.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
-
 		this.setSize(800, 600);
 		this.setLocationRelativeTo(null);
 		this.setVisible(true);	
@@ -269,7 +268,7 @@ public class VentanaAcoger extends JFrame{
 	}
 	
 	
-	public static ArrayList<Animal> holis(HashMap<String, ArrayList<Animal>> animalesMap, ArrayList<Animal> animales ) {
+	public ArrayList<Animal> recorrerdos(HashMap<String, ArrayList<Animal>> animalesMap, ArrayList<Animal> animales ) {
 		ArrayList<Animal> res = new ArrayList<Animal>();
 		ArrayList<Animal> listaAco = animalesMap.get("Acogidos");
 		ArrayList<Animal> listaAdo = animalesMap.get("Adoptados");

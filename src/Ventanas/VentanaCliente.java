@@ -39,7 +39,7 @@ public class VentanaCliente extends JFrame{
 		this.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
 		this.setVisible(true);
 		this.setSize(300,100);
-		this.setTitle("Introducir Cliente");
+		this.setTitle(idioma.getProperty("introducir"));
 		this.setLocationRelativeTo(null);
 		Buscar.addActionListener(new ActionListener() {
 
@@ -58,6 +58,38 @@ public class VentanaCliente extends JFrame{
 			}
 			}
 			});
+			Thread hilo = new Thread(new Runnable() {
+				
+				@Override
+				public void run() {
+					// TODO Auto-generated method stub
+					int b = 0;
+					boolean cambio = true;
+					while(isVisible()) {
+						if(!(b == 255) && cambio) {
+							b++;
+						}else if(b == 255) {
+							b--;
+							cambio = false;
+						}else if (b==0) {
+							b++;
+							cambio = true;
+						}else {
+							b--;
+						}
+						Color color = new Color(0,0,b);
+						ErrorCliente.setForeground(color);
+						dni.setForeground(color);
+						try {
+							Thread.sleep(25);
+						} catch (InterruptedException e) {
+							// TODO Auto-generated catch block
+							e.printStackTrace();
+						}
+					}
+				}
+			});
+			hilo.start();
 			}
 			public String encontrarCliente(String DNIA, GestorBD gestorV, Properties idioma) {
 			String resultado = "";

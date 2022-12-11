@@ -63,7 +63,7 @@ public class VentanaIntroducirCliente extends JFrame {
 		this.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
 		this.setVisible(true);
 		this.setSize(300,100);
-		this.setTitle("Introducir nuevo cliente");
+		this.setTitle(idioma.getProperty("nuevo"));
 		this.setLocationRelativeTo(null);
 
 	registrarCliente.addActionListener(new ActionListener() {
