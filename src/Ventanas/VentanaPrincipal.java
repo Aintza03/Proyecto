@@ -34,10 +34,8 @@ public class VentanaPrincipal extends JFrame{
 		protected Properties i;
 		//para la ventanaCliente
 		protected VentanaCliente v2;
-		protected VentanaInstruc v3;
 	public VentanaPrincipal() {
 		//Inicializar y declarar el cp
-		v3 = new VentanaInstruc();
 		Container cp = this.getContentPane();
 		cp.setLayout(new GridLayout(3,3));
 		//Inicializar los componentes previamente declarados
@@ -82,7 +80,6 @@ public class VentanaPrincipal extends JFrame{
 					if (verificacion.equals("Usuario encontrado")) {
 						v2 = new VentanaCliente(i,gestorV);
 						setVisible(false);
-						VentanaInstruc.Ventana = 1;
 					} else {
 						Error.setText(verificacion);
 					}
@@ -109,9 +106,6 @@ public class VentanaPrincipal extends JFrame{
 					continuar.setText(i.get("continuar").toString() + " ->");
 					setTitle(i.get("inicio").toString());
 					idioma.setText(i.get("idioma").toString());
-					v3.setTitle(i.get("ventanaInstru").toString());
-					v3.idioma = i;
-					v3.hilo.start();
 				} catch (FileNotFoundException e1) {
 					// TODO Auto-generated catch block
 					System.out.println("No se puede encontrar el fichero config/castellano.properties");
@@ -138,8 +132,6 @@ public class VentanaPrincipal extends JFrame{
 					continuar.setText(i.get("continuar").toString() + " ->");
 					setTitle(i.get("inicio").toString());
 					idioma.setText(i.get("idioma").toString());
-					v3.setTitle(i.get("ventanaInstru").toString());
-					v3.idioma = i;
 				} catch (FileNotFoundException e1) {
 					// TODO Auto-generated catch block
 					System.out.println("No se puede encontrar el fichero config/euskera.properties");
