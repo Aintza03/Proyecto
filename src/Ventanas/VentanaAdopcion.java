@@ -21,7 +21,6 @@ public class VentanaAdopcion extends JFrame {
 	protected JButton botonDevolver;
 	protected VentanaAcoger v2;
 	
-		
 	public VentanaAdopcion(Properties p, GestorBD b, String dni) {
 		Container cp = this.getContentPane();
 		cp.setLayout(new GridLayout(1, 3));
@@ -182,6 +181,7 @@ public class VentanaAdopcion extends JFrame {
 				if(e.getKeyCode()== KeyEvent.VK_BACK_SPACE) {
 					v2 = new VentanaAcoger(b, p, dni);
 					setVisible(false);
+					VentanaInstruc.Ventana = 3;
 				}
 				if (e.isAltDown()) {
 					b.actualizarCliente(dni, 0);

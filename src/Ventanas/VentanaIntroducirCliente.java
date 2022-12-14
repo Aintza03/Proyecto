@@ -25,6 +25,7 @@ public class VentanaIntroducirCliente extends JFrame {
 	protected JLabel Error;
 	protected JButton registrarCliente;
 	protected VentanaAcoger v3;
+
 	public VentanaIntroducirCliente(GestorBD v,Properties idioma) {
 		Container cp = this.getContentPane();
 		DNI = new JLabel(idioma.get("dni1").toString());
@@ -104,6 +105,7 @@ public class VentanaIntroducirCliente extends JFrame {
 		//Error.setText("Cliente Registrado");
 		v.insertarDatosCliente(cliente);
 		v3 = new VentanaAcoger(v , idioma, dni.getText());
+		VentanaInstruc.Ventana = 4;
 
 		}
 
@@ -174,6 +176,9 @@ public class VentanaIntroducirCliente extends JFrame {
 				System.exit(0);
 			}
 		});
+		
+		
+		
 		}
 		
 		public boolean DNIAPTO(String dni) {

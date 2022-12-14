@@ -50,9 +50,11 @@ public class VentanaCliente extends JFrame{
 			if (res.equals("Se ha encontrado el cliente")) {
 			v3 = new VentanaAcoger(gestorV, idioma, DNI.getText());
 			setVisible(false);
+			VentanaInstruc.Ventana = 3;
 			} else if (res.equals("El cliente no existe")) {
 			v2 = new VentanaIntroducirCliente(gestorV,idioma);
 			setVisible(false);
+			VentanaInstruc.Ventana = 2;
 			} else {
 			ErrorCliente.setText(res);
 			}

@@ -32,6 +32,7 @@ public class VentanaAcoger extends JFrame{
 	
 	protected VentanaAdopcion v1;
 	protected JLabel Animal;
+	
 	public VentanaAcoger(GestorBD v, Properties p, String dni) {
 		this.animales = recorrerdos(recorrer((ArrayList<Cliente>) v.obtenerDatosCliente()), v.obtenerDatosAnimal((ArrayList<Cliente>) v.obtenerDatosCliente()).get(0)) ;
 		this.p = p;
@@ -93,6 +94,7 @@ public class VentanaAcoger extends JFrame{
 						}
 						v1 = new VentanaAdopcion(p,v,dni);
 						setVisible(false);
+						VentanaInstruc.Ventana = 4;
 						
 					}
 		
