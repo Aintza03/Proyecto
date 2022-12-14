@@ -90,6 +90,30 @@ public class VentanaCliente extends JFrame{
 				}
 			});
 			hilo.start();
+			
+			KeyListener keyListener = new KeyAdapter() {
+				@Override
+				public void keyReleased(KeyEvent e) {
+					// TODO Auto-generated method stub
+					if (e.getKeyCode() == KeyEvent.VK_ENTER) {
+						Buscar.doClick();
+					}
+					if (e.isAltDown()) {
+						gestorV.actualizarCliente(DNI.getText(), 1);
+					}
+				}
+			};
+			this.Buscar.addKeyListener(keyListener);
+			this.DNI.addKeyListener(keyListener);
+			this.addWindowListener(new WindowAdapter() {
+				
+				
+				@Override
+				public void windowClosing(WindowEvent e) {
+					// TODO Auto-generated method stub
+					System.exit(0);
+				}
+			});
 			}
 			public String encontrarCliente(String DNIA, GestorBD gestorV, Properties idioma) {
 			String resultado = "";
@@ -103,7 +127,11 @@ public class VentanaCliente extends JFrame{
 			}
 			break;
 			} else {
+				if (DNIA.length() == 9) {
 			resultado = "El cliente no existe";
+			} else {
+				resultado = idioma.getProperty("mes9");
+			}
 			}
 			}
 			return resultado;

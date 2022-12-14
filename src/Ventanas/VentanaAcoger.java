@@ -1,30 +1,13 @@
 package Ventanas;
-
-import java.awt.Color;
-import java.awt.Component;
-import java.awt.Container;
-import java.awt.GridLayout;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
-import java.awt.event.MouseMotionAdapter;
-import java.awt.event.MouseMotionListener;
+import java.awt.*;
+import java.awt.event.*;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Properties;
 import java.util.Vector;
 
-import javax.swing.JButton;
-import javax.swing.JFrame;
-import javax.swing.JLabel;
-import javax.swing.JPanel;
-import javax.swing.JScrollPane;
-import javax.swing.JTable;
-import javax.swing.ListSelectionModel;
-import javax.swing.WindowConstants;
+import javax.swing.*;
 import javax.swing.border.TitledBorder;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
@@ -48,7 +31,7 @@ public class VentanaAcoger extends JFrame{
 	protected int mouseCol = -1;
 	
 	protected VentanaAdopcion v1;
-	
+	protected JLabel Animal;
 	public VentanaAcoger(GestorBD v, Properties p, String dni) {
 		this.animales = recorrerdos(recorrer((ArrayList<Cliente>) v.obtenerDatosCliente()), v.obtenerDatosAnimal((ArrayList<Cliente>) v.obtenerDatosCliente()).get(0)) ;
 		this.p = p;
@@ -58,37 +41,41 @@ public class VentanaAcoger extends JFrame{
 		this.loadAnimal();
 		
 		boton = new JButton("->");
-		
+		Animal = new JLabel("");
 		//La tabla de comics se inserta en un panel con scroll
 		JScrollPane scrollPaneAnimales = new JScrollPane(this.tablaAnimales);
 		scrollPaneAnimales.setBorder(new TitledBorder(p.get("acoger").toString()));
 		JPanel cosa = new JPanel();
-		cosa.setLayout(new GridLayout(3,3));
-		cosa.add(new JLabel(""));
-		cosa.add(new JLabel(""));
-		cosa.add(new JLabel(""));
+		cosa.setLayout(new GridLayout(2,3));
 		cosa.add(new JLabel(""));
 		cosa.add(boton);
 		cosa.add(new JLabel(""));
 		cosa.add(new JLabel(""));
 		cosa.add(new JLabel(""));
 		cosa.add(new JLabel(""));
-		
-		
+		JPanel abajo = new JPanel();
+		abajo.setLayout(new GridLayout(2,1));
+		abajo.add(Animal);
+		abajo.add(cosa);
 		this.tablaAnimales.setFillsViewportHeight(true);
 		
 		
 		
 		cp.setLayout(new GridLayout(2,1));
 		cp.add(scrollPaneAnimales);
-		
-		cp.add(cosa);
+		cp.add(abajo);
 		this.setTitle(p.getProperty("ventanaAcoger"));		
 		this.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
 		this.setSize(800, 600);
 		this.setLocationRelativeTo(null);
 		this.setVisible(true);	
-		
+		this.addWindowListener(new WindowAdapter() {
+			@Override
+			public void windowClosing(WindowEvent e) {
+				// TODO Auto-generated method stub
+				System.exit(0);
+			}
+		});
 		boton.addActionListener(new ActionListener() {
 			
 			@Override
@@ -111,14 +98,66 @@ public class VentanaAcoger extends JFrame{
 		
 			
 		});
+		KeyListener keyListener = new KeyAdapter() {
+			
+			@Override
+			public void keyReleased(KeyEvent e) {
+				// TODO Auto-generated method stub
+				if (e.getKeyCode() == KeyEvent.VK_SHIFT) {
+					boton.doClick();
+				}
+				if (e.isControlDown() && e.getKeyCode()== KeyEvent.VK_A) {
+					tablaAnimales.clearSelection();
+				}
+			}
+		};
+		this.tablaAnimales.addKeyListener(keyListener);
+		this.boton.addKeyListener(keyListener);
 		
+		Thread hilo = new Thread(new Runnable() {
+			
+			@Override
+			public void run() {
+				// TODO Auto-generated method stub
+				int b = 0;
+				boolean cambio = true;
+				while(isVisible()) {
+					if(!(b == 255) && cambio) {
+						b++;
+					} else if (b == 255) {
+						b--;
+						cambio = false;
+					}else if (b == 0) {
+						b++;
+						cambio = true;
+					} else {
+						b--;
+					}
+					Color color = new Color(0,0,b);
+					Animal.setForeground(color);
+					try {
+						Thread.sleep(25);
+					} catch (InterruptedException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
+				}
+			}
+		});
+		hilo.start();
 	}
 	
 	private void initTable() {
 		//Cabecera del modelo de datos
 		Vector<String> cabeceraAnimales = new Vector<String>(Arrays.asList( "ID", p.get("tipo").toString() , p.get("fecha_nac").toString(), p.get("raza").toString(), p.get("especial").toString()));				
 		//Se crea el modelo de datos para la tabla de comics sÃ³lo con la cabecera		
-		this.modeloDatosAnimales = new DefaultTableModel(new Vector<Vector<Object>>(), cabeceraAnimales);
+		this.modeloDatosAnimales = new DefaultTableModel(new Vector<Vector<Object>>(), cabeceraAnimales) {
+			@Override
+			public boolean isCellEditable(int row, int column) {
+				// TODO Auto-generated method stub
+				return false;
+			}
+		};
 		//Se crea la tabla de comics con el modelo de datos		
 		this.tablaAnimales = new JTable(this.modeloDatosAnimales);
 		tablaAnimales.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
@@ -126,7 +165,6 @@ public class VentanaAcoger extends JFrame{
 		//Render para las celdas de la Editorial se define como un Label un logo
 		DefaultTableCellRenderer a = new DefaultTableCellRenderer() {
 			private static final long serialVersionUID = 1L;
-			
 			@Override
 			public Component getTableCellRendererComponent(JTable table, Object value, boolean isSelected, boolean hasFocus, int row, int column) {
 				JLabel label = new JLabel(value.toString());
@@ -153,6 +191,7 @@ public class VentanaAcoger extends JFrame{
 				if (isSelected) {
 					label.setBackground(table.getSelectionBackground().BLUE);
 					label.setForeground(table.getSelectionForeground().WHITE);
+					Animal.setText("Id: " + modeloDatosAnimales.getValueAt(tablaAnimales.getSelectedRow(),0) + " Tipo: " + modeloDatosAnimales.getValueAt(tablaAnimales.getSelectedRow(),1) + " " + modeloDatosAnimales.getValueAt(tablaAnimales.getSelectedRow(), 3) + " (" + modeloDatosAnimales.getValueAt(tablaAnimales.getSelectedRow(), 2) + ") Necesidades Especiales: " + modeloDatosAnimales.getValueAt(tablaAnimales.getSelectedRow(),4));
 				}
 
 				//Es necesaria esta sentencia para pintar correctamente el color de fondo
@@ -167,8 +206,7 @@ public class VentanaAcoger extends JFrame{
 			this.tablaAnimales.getColumnModel().getColumn(i).setCellRenderer(a);
 			
 		}
-				
-			
+					
 			
 		this.tablaAnimales.addMouseListener(new MouseAdapter() {						
 			@Override
@@ -232,8 +270,6 @@ public class VentanaAcoger extends JFrame{
 
 			}
 		});
-		
-		
 	}
 	
 	

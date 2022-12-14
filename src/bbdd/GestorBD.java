@@ -340,6 +340,17 @@ public class GestorBD {
 				ex.printStackTrace();						
 			}		
 		}
+	public void actualizarCliente(String DNI_C, int permiso) {
+		try (Connection con = DriverManager.getConnection(CONNECTION_STRING);
+			 Statement stmt = con.createStatement()){
+			String sql = "UPDATE CLIENTE SET PERMISO = '%d' WHERE DNI = '%s';";
+			int result = stmt.executeUpdate(String.format(sql,permiso, DNI_C));
+			System.out.println(String.format("- Se ha actualizado %d clientes",result));
+		} catch (Exception e) {
+			// TODO: handle exception
+			System.out.println(String.format("*Error actualizando datos de la BBDD: %s",e.getMessage()));
+		}
+	}
 }
 		
 

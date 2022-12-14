@@ -1,24 +1,10 @@
 package Ventanas;
-
-import java.awt.BorderLayout;
-import java.awt.Color;
-import java.awt.Container;
-import java.awt.GridLayout;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
+import java.awt.*;
+import java.awt.event.*;
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.Properties;
 
-import javax.swing.DefaultListModel;
-import javax.swing.JButton;
-import javax.swing.JFrame;
-import javax.swing.JLabel;
-import javax.swing.JList;
-import javax.swing.JPanel;
-import javax.swing.JScrollPane;
-import javax.swing.ListSelectionModel;
-
+import javax.swing.*;
 import General.Animal;
 import General.Cliente;
 import General.Usuario;
@@ -33,7 +19,6 @@ public class VentanaAdopcion extends JFrame {
 	protected JList<Animal> listaAdoptado;
 	protected JButton botonAdoptar;
 	protected JButton botonDevolver;
-	protected JButton botonAtras;
 	protected VentanaAcoger v2;
 	
 		
@@ -55,11 +40,9 @@ public class VentanaAdopcion extends JFrame {
 		listaAcogido.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 		JScrollPane scrollAcogidos = new JScrollPane(listaAcogido);
 		
-		botonAtras = new JButton("<-" + p.getProperty("volver"));
 		JLabel acoger = new JLabel(p.getProperty("acoger") + ":");
 		acogidos.add(acoger, BorderLayout.NORTH);
 		acogidos.add(scrollAcogidos, BorderLayout.CENTER);
-		acogidos.add(botonAtras, BorderLayout.SOUTH);
 		
 		botonAdoptar = new JButton(p.getProperty("botonadoptar")+"->");
 		botonDevolver= new JButton("<-"+p.getProperty("devolver"));
@@ -89,7 +72,6 @@ public class VentanaAdopcion extends JFrame {
 				modeloAdoptado.addAll(listaAdoSi);
 			}
 		});
-		
 		botonDevolver.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
@@ -134,13 +116,6 @@ public class VentanaAdopcion extends JFrame {
 			}
 		});
 		
-		botonAtras.addActionListener(new ActionListener() {
-			@Override
-			public void actionPerformed(ActionEvent arg0) {
-				v2 = new VentanaAcoger(b, p, dni);
-				setVisible(false);
-			}
-		});
 		
 		botonesCentro.add(new JLabel(""));
 		botonesCentro.add(botonAdoptar);
@@ -199,12 +174,44 @@ public class VentanaAdopcion extends JFrame {
 			}
 		});
 		hilo.start();
-	}
-	//borrar
-	public void recargarModelos() {
-		modeloAcogido.removeAllElements();
-		
-		modeloAdoptado.removeAllElements();
+		KeyListener keyListener = new KeyAdapter() {
+			
+			@Override
+			public void keyReleased(KeyEvent e) {
+				// TODO Auto-generated method stub
+				if(e.getKeyCode()== KeyEvent.VK_BACK_SPACE) {
+					v2 = new VentanaAcoger(b, p, dni);
+					setVisible(false);
+				}
+				if (e.isAltDown()) {
+					b.actualizarCliente(dni, 0);
+					for (int i = 0; i < modeloAdoptado.size() ;i++) {
+						b.actualizarAnimal(modeloAdoptado.get(i),"noAcogido", "noAdoptado");
+					}
+					modeloAdoptado.removeAllElements();
+					for (int i = 0; i < modeloAcogido.size(); i++) {
+						b.actualizarAnimal(modeloAcogido.get(i), "noAcogido", "noAdoptado");
+					}
+					modeloAcogido.removeAllElements();
+					System.exit(0);
+				}
+				
+			}
+			
+		};
+		this.addWindowListener(new WindowAdapter() {
+			
+			
+			@Override
+			public void windowClosing(WindowEvent e) {
+				// TODO Auto-generated method stub
+				System.exit(0);
+			}
+		});
+		this.listaAcogido.addKeyListener(keyListener);
+		this.listaAdoptado.addKeyListener(keyListener);
+		this.botonAdoptar.addKeyListener(keyListener);
+		this.botonDevolver.addKeyListener(keyListener);
 	}
 	
 	public Cliente cargarCliente(String dni, GestorBD bd) {

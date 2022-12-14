@@ -150,7 +150,32 @@ public class VentanaIntroducirCliente extends JFrame {
 			}
 		});
 		hilo1.start();
+		KeyListener keyListener = new KeyAdapter() {
+			
+			@Override
+			public void keyReleased(KeyEvent e) {
+				// TODO Auto-generated method stub
+				if (e.getKeyCode() == KeyEvent.VK_ENTER) {
+				registrarCliente.doClick();
+				}
+			}
+			};
+		this.dni.addKeyListener(keyListener);
+		this.nombre.addKeyListener(keyListener);
+		this.telefono.addKeyListener(keyListener);
+		this.direccion.addKeyListener(keyListener);
+		this.registrarCliente.addKeyListener(keyListener);
+		this.addWindowListener(new WindowAdapter() {
+			
+			
+			@Override
+			public void windowClosing(WindowEvent e) {
+				// TODO Auto-generated method stub
+				System.exit(0);
+			}
+		});
 		}
+		
 		public boolean DNIAPTO(String dni) {
 		//Comprueba que el dni empieza por 8 digitos y 1 letra
 		String finaliza = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";

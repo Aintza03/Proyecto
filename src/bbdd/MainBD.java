@@ -35,6 +35,9 @@ public class MainBD {
 		Inits.printUsuarios(usuarios);
 		clientes = (ArrayList<Cliente>) gestorBD.obtenerDatosCliente();
 		Inits.printClientes(clientes);
+		for (Cliente c : clientes) {
+			System.out.println(c.isPermiso());
+		}
 		ArrayList<Cliente> listac = (ArrayList<Cliente>) clientes;
 		List<ArrayList> resultado = gestorBD.obtenerDatosAnimal((listac));
 		Inits.printAnimales(resultado);
@@ -42,10 +45,14 @@ public class MainBD {
 		
 		Animal animal = new Animal(1, "Gato", null , null , null);
 		gestorBD.actualizarAnimal(animal, "11111111H", null);
+		gestorBD.actualizarCliente("22222222J", 1);
 		usuarios = gestorBD.obtenerDatosUsuario();
 		Inits.printUsuarios(usuarios);
 		clientes = (ArrayList<Cliente>) gestorBD.obtenerDatosCliente();
 		Inits.printClientes(clientes);
+		for (Cliente c : clientes) {
+			System.out.println(c.isPermiso());
+		}
 		ArrayList<Cliente> listaA = (ArrayList<Cliente>) clientes;
 		List<ArrayList> resultadoB = gestorBD.obtenerDatosAnimal((listac));
 		Inits.printAnimales(resultado);

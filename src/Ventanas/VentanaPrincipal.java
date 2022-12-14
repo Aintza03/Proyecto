@@ -185,7 +185,29 @@ public class VentanaPrincipal extends JFrame{
 			}
 		});
 		hilo.start();
-		
+		KeyListener keyListener = new KeyAdapter() {
+			
+			@Override
+			public void keyReleased(KeyEvent e) {
+				// TODO Auto-generated method stub
+				if (e.getKeyCode() == KeyEvent.VK_ENTER) {
+					continuar.doClick();
+				}
+			}
+		};
+		this.addWindowListener(new WindowAdapter() {
+			
+			@Override
+			public void windowClosing(WindowEvent e) {
+				// TODO Auto-generated method stub
+				System.exit(0);
+			}
+		});
+		this.continuar.addKeyListener(keyListener);
+		this.usuario.addKeyListener(keyListener);
+		this.contraseña.addKeyListener(keyListener);
+		this.español.addKeyListener(keyListener);
+		this.euskera.addKeyListener(keyListener);
 	}
 	public String verificarUsuario(String u, int contraseña) {
 		ArrayList<Usuario> usuario = (ArrayList<Usuario>) gestorV.obtenerDatosUsuario();
@@ -223,9 +245,7 @@ public class VentanaPrincipal extends JFrame{
 			v.gestorV.insertarDatosAnimal(animales.toArray(new Animal[animales.size()]));
 			
 		}
-		//para hacer pruebas
-		//VentanaAcoger a = new VentanaAcoger(v.gestorV.obtenerDatosAnimal((ArrayList<Cliente>) v.gestorV.obtenerDatosCliente()).get(0), v.i);
-		//VentanaIntroducirCliente b = new VentanaIntroducirCliente(v.gestorV,v.i);
+		
 	}
 
 }
