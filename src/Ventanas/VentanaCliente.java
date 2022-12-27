@@ -3,10 +3,17 @@ package Ventanas;
 import java.awt.*;
 import java.awt.event.*;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Properties;
 
 import javax.swing.*;
+import javax.swing.event.ChangeEvent;
+import javax.swing.event.ChangeListener;
+import javax.swing.tree.DefaultMutableTreeNode;
+import javax.swing.tree.DefaultTreeModel;
+import javax.swing.tree.MutableTreeNode;
 
+import General.Animal;
 import General.Cliente;
 import bbdd.GestorBD;
 
@@ -15,6 +22,11 @@ public class VentanaCliente extends JFrame{
 	protected JLabel ErrorCliente;
 	protected JButton Buscar;
 	protected JLabel dni;
+	//pestañas y JTree
+	protected JTabbedPane pestaña;
+	protected JTree tr1;
+	protected JTree tr2;
+	
 	//para concatenar las ventanas
 	protected VentanaAcoger v3;
 	protected VentanaIntroducirCliente v2;
@@ -24,18 +36,69 @@ public class VentanaCliente extends JFrame{
 		ErrorCliente = new JLabel("");
 		Buscar = new JButton(idioma.get("buscar").toString());
 		dni = new JLabel(idioma.get("dni").toString());
+		pestaña = new JTabbedPane();
 		
 		JScrollPane textoError = new JScrollPane(ErrorCliente);
 		JPanel arriba = new JPanel();
 		JPanel abajo = new JPanel();
 		
-		cp.setLayout(new GridLayout(2,2));
+		JPanel cp1 = new JPanel();
+		cp1.setLayout(new GridLayout(2,2));
 		
-		cp.add(dni);
-		cp.add(DNI);
-		cp.add(textoError);
-		cp.add(Buscar);
+		cp1.add(dni);
+		cp1.add(DNI);
+		cp1.add(textoError);
+		cp1.add(Buscar);
+		pestaña.addTab("Introducir", cp1);		
+		cp.add(pestaña);
 		
+		
+		JPanel cp2 = new JPanel();
+		DefaultMutableTreeNode Adoptado = new DefaultMutableTreeNode("Adopción");
+		DefaultTreeModel modelo = new DefaultTreeModel(Adoptado);
+		tr1 = new JTree(modelo);
+		cp2.setLayout(new GridLayout(2,1));
+		HashMap<Cliente, ArrayList<Animal>> hs1= hmadoptados(gestorV);
+		for (Cliente c : hs1.keySet()) {
+			DefaultMutableTreeNode adop = new DefaultMutableTreeNode(c.getNombre());
+			if (hs1.get(c).size() != 0) {
+			adop.add(new DefaultMutableTreeNode(hs1.get(c)));
+			}
+			Adoptado.add(adop);
+		}
+		cp2.add(tr1);
+		pestaña.addTab("Adoptar", cp2);	
+		
+		JPanel cp3 = new JPanel();
+		DefaultMutableTreeNode Acogido = new DefaultMutableTreeNode("Acogida");
+		DefaultTreeModel modelo1 = new DefaultTreeModel(Acogido);
+		HashMap<Cliente, ArrayList<Animal>> hs2= hmacogidos(gestorV);
+		tr2 = new JTree(modelo1);
+		cp3.setLayout(new GridLayout(2,1));
+		cp3.add(tr2);
+		pestaña.addTab("Acoger", cp3);
+		for(Cliente cl: hs2.keySet()) {
+			DefaultMutableTreeNode acog = new DefaultMutableTreeNode(cl.getNombre());
+			if(hs2.get(cl).size() != 0) {
+				acog.add(new DefaultMutableTreeNode(hs2.get(cl)));
+			}
+			Acogido.add(acog);
+		}
+		pestaña.addChangeListener(new ChangeListener() {
+			
+			@Override
+			public void stateChanged(ChangeEvent e) {
+				// TODO Auto-generated method stub
+				if(pestaña.getSelectedIndex() == 0) {
+					setSize(300,100);
+				}else if (pestaña.getSelectedIndex() == 1) {
+					setSize(300,300);
+				} else if (pestaña.getSelectedIndex() == 2) {
+					setSize(300,300);
+				}
+			}
+		});
+
 		this.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
 		this.setVisible(true);
 		this.setSize(300,100);
@@ -136,4 +199,23 @@ public class VentanaCliente extends JFrame{
 			}
 			return resultado;
 			}
+			public HashMap<Cliente, ArrayList<Animal>> hmadoptados(GestorBD gestorV){
+				HashMap<Cliente, ArrayList<Animal>> ret= new HashMap<Cliente, ArrayList<Animal>>() ;
+				ArrayList<Cliente> alcliente = (ArrayList<Cliente>) gestorV.obtenerDatosCliente();
+				for(Cliente u: alcliente ) {
+					ret.put(u, u.getAnimalesAdoptados());	
+				}
+				return ret;
+				
+			}
+			public HashMap<Cliente, ArrayList<Animal>> hmacogidos(GestorBD gestorV){
+				HashMap<Cliente, ArrayList<Animal>> ret= new HashMap<Cliente, ArrayList<Animal>>() ;
+				ArrayList<Cliente> alcliente = (ArrayList<Cliente>) gestorV.obtenerDatosCliente();
+				for(Cliente u: alcliente ) {
+					ret.put(u, u.getAnimalesAcogidos());	
+				}
+				return ret;
+				
+			}
+			
 			}
