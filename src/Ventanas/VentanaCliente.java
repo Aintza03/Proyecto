@@ -10,6 +10,7 @@ import javax.swing.*;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 import javax.swing.tree.DefaultMutableTreeNode;
+import javax.swing.tree.DefaultTreeCellRenderer;
 import javax.swing.tree.DefaultTreeModel;
 import javax.swing.tree.MutableTreeNode;
 
@@ -67,6 +68,36 @@ public class VentanaCliente extends JFrame{
 			Adoptado.add(adop);
 		}
 		cp2.add(tr1);
+		DefaultTreeCellRenderer a = new DefaultTreeCellRenderer() {
+			private static final long serialVersionUID = 1L;
+			public Component getTreeCellRendererComponent(JTree tree,Object value,boolean selected,boolean expanded,boolean leaf,int row,boolean hasFocus) {
+				JLabel label = new JLabel(value.toString());
+				if (selected) {
+					label.setForeground(Color.BLUE);
+				}
+				if(expanded && !selected) {
+					label.setForeground(Color.GRAY);
+				}
+				if(leaf && !selected) {
+					label.setForeground(Color.CYAN);
+					for (Cliente t : hs1.keySet()) {
+						if (value.toString().equals(t.getNombre()) && hs1.get(t).size() == 0) {
+							if(t.isPermiso()) {
+							label.setForeground(Color.YELLOW);
+					}else {
+						label.setForeground(Color.RED);
+					}
+						}
+				}
+					}
+				setOpaque(false);
+				
+				return label;
+			}
+		};
+		
+		tr1.setCellRenderer(a);
+		
 		pestaña.addTab("Adoptar", cp2);	
 		
 		JPanel cp3 = new JPanel();
@@ -84,6 +115,36 @@ public class VentanaCliente extends JFrame{
 			}
 			Acogido.add(acog);
 		}
+		DefaultTreeCellRenderer b = new DefaultTreeCellRenderer() {
+			private static final long serialVersionUID = 1L;
+			public Component getTreeCellRendererComponent(JTree tree,Object value,boolean selected,boolean expanded,boolean leaf,int row,boolean hasFocus) {
+				JLabel label = new JLabel(value.toString());
+				if (selected) {
+					label.setForeground(Color.BLUE);
+				}
+				if(expanded && !selected) {
+					label.setForeground(Color.GRAY);
+				}
+				if(leaf && !selected) {
+					label.setForeground(Color.CYAN);
+					for (Cliente t : hs2.keySet()) {
+						if (value.toString().equals(t.getNombre()) && hs2.get(t).size() == 0) {
+							if(t.isPermiso()) {
+							label.setForeground(Color.YELLOW);
+					}else {
+						label.setForeground(Color.RED);
+					}
+						}
+				}
+					}
+				setOpaque(false);
+				
+				return label;
+			}
+		};
+		
+		tr2.setCellRenderer(a);
+		
 		pestaña.addChangeListener(new ChangeListener() {
 			
 			@Override
