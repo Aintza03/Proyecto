@@ -13,9 +13,9 @@ import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
 
 import General.Animal;
+import General.Animal.tipo;
 import General.Cliente;
 import bbdd.GestorBD;
-
 
 public class VentanaAcoger extends JFrame{
 	
@@ -26,6 +26,7 @@ public class VentanaAcoger extends JFrame{
 	protected DefaultTableModel modeloDatosAnimales;
 	
 	protected JButton boton;
+	protected JTabbedPane pestaña;
 	
 	protected int mouseRow = -1;
 	protected int mouseCol = -1;
@@ -33,6 +34,7 @@ public class VentanaAcoger extends JFrame{
 	protected VentanaAdopcion v1;
 	protected JLabel Animal;
 	public VentanaAcoger(GestorBD v, Properties p, String dni) {
+	
 		this.animales = recorrerdos(recorrer((ArrayList<Cliente>) v.obtenerDatosCliente()), v.obtenerDatosAnimal((ArrayList<Cliente>) v.obtenerDatosCliente()).get(0)) ;
 		this.p = p;
 		Container cp = this.getContentPane();
@@ -42,9 +44,11 @@ public class VentanaAcoger extends JFrame{
 		
 		boton = new JButton("->");
 		Animal = new JLabel("");
+		
 		//La tabla de comics se inserta en un panel con scroll
 		JScrollPane scrollPaneAnimales = new JScrollPane(this.tablaAnimales);
 		scrollPaneAnimales.setBorder(new TitledBorder(p.get("acoger").toString()));
+		
 		JPanel cosa = new JPanel();
 		cosa.setLayout(new GridLayout(2,3));
 		cosa.add(new JLabel(""));
@@ -53,6 +57,7 @@ public class VentanaAcoger extends JFrame{
 		cosa.add(new JLabel(""));
 		cosa.add(new JLabel(""));
 		cosa.add(new JLabel(""));
+		
 		JPanel abajo = new JPanel();
 		abajo.setLayout(new GridLayout(2,1));
 		abajo.add(Animal);
@@ -60,7 +65,7 @@ public class VentanaAcoger extends JFrame{
 		this.tablaAnimales.setFillsViewportHeight(true);
 		
 		
-		
+		//cp.add(pestaña);
 		cp.setLayout(new GridLayout(2,1));
 		cp.add(scrollPaneAnimales);
 		cp.add(abajo);
@@ -168,6 +173,10 @@ public class VentanaAcoger extends JFrame{
 			@Override
 			public Component getTableCellRendererComponent(JTable table, Object value, boolean isSelected, boolean hasFocus, int row, int column) {
 				JLabel label = new JLabel(value.toString());
+				
+				//Cambiar el texto de tipo Gato/Perro por imagenes 
+				//tipo tipo = (tipo) value;	
+				//label.setIcon(new ImageIcon(tipo.getIcon()));
 	
 				//El label se alinea a la izquierda
 				label.setHorizontalAlignment(JLabel.LEFT);

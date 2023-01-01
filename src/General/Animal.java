@@ -4,6 +4,21 @@ import java.util.Date;
 import java.util.Objects;
 
 public class Animal {
+	
+	public enum tipo {
+		GATO("images/Gato.png"), 
+		PERRO("images/Perro.png");
+		
+		tipo(String icon) {
+			this.icon = icon;
+		}
+		
+		private String icon;
+		
+		public String getIcon() {
+			return this.icon;
+		}
+	}
 	protected int id;
 	protected String raza;
 	protected String especial;
