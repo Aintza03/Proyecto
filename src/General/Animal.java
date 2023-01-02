@@ -5,11 +5,11 @@ import java.util.Objects;
 
 public class Animal {
 	
-	public enum tipo {
+	public enum tipo2 {
 		GATO("images/Gato.png"), 
 		PERRO("images/Perro.png");
 		
-		tipo(String icon) {
+		tipo2(String icon) {
 			this.icon = icon;
 		}
 		

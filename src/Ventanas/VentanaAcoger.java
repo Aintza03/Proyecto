@@ -4,6 +4,7 @@ import java.awt.event.*;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
+import java.util.LinkedList;
 import java.util.Properties;
 import java.util.Vector;
 
@@ -11,9 +12,11 @@ import javax.swing.*;
 import javax.swing.border.TitledBorder;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableModel;
+import javax.swing.table.TableRowSorter;
 
 import General.Animal;
-import General.Animal.tipo;
+import General.Animal.tipo2;
 import General.Cliente;
 import bbdd.GestorBD;
 
@@ -27,6 +30,7 @@ public class VentanaAcoger extends JFrame{
 	
 	protected JButton boton;
 	protected JTabbedPane pestaña;
+	protected JComboBox combo;
 	
 	protected int mouseRow = -1;
 	protected int mouseCol = -1;
@@ -39,11 +43,63 @@ public class VentanaAcoger extends JFrame{
 		this.p = p;
 		Container cp = this.getContentPane();
 		
-		this.initTable();
+		this.initTable(v, dni);
 		this.loadAnimal();
+		
 		
 		boton = new JButton("->");
 		Animal = new JLabel("");
+		combo = new JComboBox();
+		combo.addItem("Gato");
+		combo.addItem("Perro");
+		combo.addItem("Sin Filtro");
+		
+		 RowFilter<Object,Object> startsWithAFilter = new RowFilter<Object,Object>() {
+			   public boolean include(Entry<? extends Object, ? extends Object> entry) {
+			     
+			       if (entry.getStringValue(1).equals("Gato")) {
+			         // The value starts with "a", include it
+			         return true;
+			       }else {
+			     
+			     // None of the columns start with "a"; return false so that this
+			     // entry is not shown
+			     return false;
+			       }
+			   }
+			 };
+			 RowFilter<Object,Object> startsWithAFilter1 = new RowFilter<Object,Object>() {
+				   public boolean include(Entry<? extends Object, ? extends Object> entry) {
+				     
+				       if (entry.getStringValue(1).equals("Perro")) {
+				         // The value starts with "a", include it
+				         return true;
+				       }else {
+				     
+				     // None of the columns start with "a"; return false so that this
+				     // entry is not shown
+				     return false;
+				       }
+				   }
+				 };
+			 combo.addActionListener(new ActionListener() {
+					
+					@Override
+					public void actionPerformed(ActionEvent e) {
+						if(combo.getSelectedIndex() == 0) {
+							TableRowSorter<TableModel> sorter = new TableRowSorter<TableModel>(modeloDatosAnimales);
+							sorter.setRowFilter(startsWithAFilter);
+							tablaAnimales.setRowSorter(sorter);
+						}else if(combo.getSelectedIndex() == 1){
+							TableRowSorter<TableModel> sorter = new TableRowSorter<TableModel>(modeloDatosAnimales);
+							sorter.setRowFilter(startsWithAFilter1);
+							tablaAnimales.setRowSorter(sorter);
+						}else {
+							tablaAnimales.setRowSorter(null);
+						}
+						}	
+					
+				});
 		
 		//La tabla de comics se inserta en un panel con scroll
 		JScrollPane scrollPaneAnimales = new JScrollPane(this.tablaAnimales);
@@ -59,8 +115,9 @@ public class VentanaAcoger extends JFrame{
 		cosa.add(new JLabel(""));
 		
 		JPanel abajo = new JPanel();
-		abajo.setLayout(new GridLayout(2,1));
+		abajo.setLayout(new GridLayout(2,2));
 		abajo.add(Animal);
+		abajo.add(combo);
 		abajo.add(cosa);
 		this.tablaAnimales.setFillsViewportHeight(true);
 		
@@ -74,6 +131,9 @@ public class VentanaAcoger extends JFrame{
 		this.setSize(800, 600);
 		this.setLocationRelativeTo(null);
 		this.setVisible(true);	
+		
+		
+		
 		this.addWindowListener(new WindowAdapter() {
 			@Override
 			public void windowClosing(WindowEvent e) {
@@ -85,17 +145,7 @@ public class VentanaAcoger extends JFrame{
 			
 			@Override
 			public void actionPerformed(ActionEvent e) {
-						try {
-							int d = 0; 
-							d = Integer.parseInt(modeloDatosAnimales.getValueAt(tablaAnimales.getSelectedRow(), 0).toString());
-							for (Animal animal : animales) {
-								if(animal.getId() == d) {
-							v.actualizarAnimal(animal, dni, null);
-								}
-								}
-						} catch (Exception e2) {
-							System.err.println("No se ha escogido animal");
-						}
+						
 						v1 = new VentanaAdopcion(p,v,dni);
 						setVisible(false);
 						
@@ -152,11 +202,13 @@ public class VentanaAcoger extends JFrame{
 		hilo.start();
 	}
 	
-	private void initTable() {
+	private void initTable(GestorBD v, String dni ) {
 		//Cabecera del modelo de datos
-		Vector<String> cabeceraAnimales = new Vector<String>(Arrays.asList( "ID", p.get("tipo").toString() , p.get("fecha_nac").toString(), p.get("raza").toString(), p.get("especial").toString()));				
-		//Se crea el modelo de datos para la tabla de comics sÃ³lo con la cabecera		
+		Vector<String> cabeceraAnimales = new Vector<String>(Arrays.asList( "ID", p.get("tipo").toString() , p.get("fecha_nac").toString(), p.get("raza").toString(), p.get("especial").toString(), "Acoger"));				
+		//Se crea el modelo de datos para la tabla de comics sÃ³lo con la cabecera	
+		
 		this.modeloDatosAnimales = new DefaultTableModel(new Vector<Vector<Object>>(), cabeceraAnimales) {
+			
 			@Override
 			public boolean isCellEditable(int row, int column) {
 				// TODO Auto-generated method stub
@@ -172,14 +224,17 @@ public class VentanaAcoger extends JFrame{
 			private static final long serialVersionUID = 1L;
 			@Override
 			public Component getTableCellRendererComponent(JTable table, Object value, boolean isSelected, boolean hasFocus, int row, int column) {
+				
+				if(!(value instanceof JButton)) {
 				JLabel label = new JLabel(value.toString());
 				
-				//Cambiar el texto de tipo Gato/Perro por imagenes 
-				//tipo tipo = (tipo) value;	
-				//label.setIcon(new ImageIcon(tipo.getIcon()));
-	
+				if(label.getText().equals("Gato")) {
+					label.setIcon(new ImageIcon(tipo2.GATO.getIcon()));
+				} else if(label.getText().equals("Perro")) {
+					label.setIcon(new ImageIcon(tipo2.PERRO.getIcon()));
+				}
 				//El label se alinea a la izquierda
-				label.setHorizontalAlignment(JLabel.LEFT);
+				label.setHorizontalAlignment(JLabel.CENTER);
 						
 				//Se diferencia el color de fondo en filas pares e impares
 				if (row % 2 == 0) {
@@ -207,7 +262,12 @@ public class VentanaAcoger extends JFrame{
 				label.setOpaque(true);
 				
 				return label;
+				} else {
+					JButton boton1 = (JButton) value;
+					return boton1;
+				}
 			}
+			
 			
 		};
 		
@@ -239,6 +299,22 @@ public class VentanaAcoger extends JFrame{
 			public void mouseClicked(MouseEvent e) {
 				int row = tablaAnimales.rowAtPoint(e.getPoint());
 				int col = tablaAnimales.columnAtPoint(e.getPoint());
+				
+				if(col == 5) {
+					try {
+						int d = 0; 
+						d = Integer.parseInt(modeloDatosAnimales.getValueAt(tablaAnimales.getSelectedRow(), 0).toString());
+						for (Animal animal : animales) {
+							if(animal.getId() == d) {
+						v.actualizarAnimal(animal, dni, null);
+						modeloDatosAnimales.removeRow(row);
+							}
+							}
+					} catch (Exception e2) {
+						System.err.println("No se ha escogido animal");
+					}
+					
+				}
 				
 				System.out.println(String.format("Se ha hecho click con el boton %d en la fila %d, columna %d", e.getButton(), row, col));
 			}
@@ -279,6 +355,8 @@ public class VentanaAcoger extends JFrame{
 
 			}
 		});
+		
+		
 	}
 	
 	
@@ -288,7 +366,7 @@ public class VentanaAcoger extends JFrame{
 		
 		//Se aÃ±ade al modelo una fila de datos por cada comic
 		for (Animal a : this.animales) {
-			this.modeloDatosAnimales.addRow( new Object[] {a.getId(), a.getTipo(), a.getFechaNac(),  a.getRaza(), a.getEspecial()} );
+			this.modeloDatosAnimales.addRow( new Object[] {a.getId(), a.getTipo(), a.getFechaNac(),  a.getRaza(), a.getEspecial(), new JButton("->")} );
 		}		
 	}
 	
@@ -337,5 +415,7 @@ public class VentanaAcoger extends JFrame{
 		return res;
 	}
 
+	
+	
 }
 
