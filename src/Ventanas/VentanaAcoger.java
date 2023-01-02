@@ -10,6 +10,8 @@ import java.util.Vector;
 
 import javax.swing.*;
 import javax.swing.border.TitledBorder;
+import javax.swing.event.ChangeEvent;
+import javax.swing.event.ChangeListener;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableModel;
@@ -28,7 +30,20 @@ public class VentanaAcoger extends JFrame{
 	protected JTable tablaAnimales;
 	protected DefaultTableModel modeloDatosAnimales;
 	
+	protected JLabel TIPO;
+	protected JLabel FECHA_NAC;
+	protected JLabel RAZA;
+	protected JLabel ESPECIAL;
+	protected JLabel Error;
+	
+	protected JTextField tipo;
+	protected JTextField fecha_nac;
+	protected JTextField raza;
+	protected JTextField especial;
+	
+	
 	protected JButton boton;
+	protected JButton boton33;
 	protected JTabbedPane pestaña;
 	protected JComboBox combo;
 	
@@ -41,6 +56,7 @@ public class VentanaAcoger extends JFrame{
 	
 		this.animales = recorrerdos(recorrer((ArrayList<Cliente>) v.obtenerDatosCliente()), v.obtenerDatosAnimal((ArrayList<Cliente>) v.obtenerDatosCliente()).get(0)) ;
 		this.p = p;
+		this.pestaña = new JTabbedPane();
 		Container cp = this.getContentPane();
 		
 		this.initTable(v, dni);
@@ -48,6 +64,7 @@ public class VentanaAcoger extends JFrame{
 		
 		
 		boton = new JButton("->");
+		boton33 = new JButton("->");
 		Animal = new JLabel("");
 		combo = new JComboBox();
 		combo.addItem("Gato");
@@ -122,16 +139,91 @@ public class VentanaAcoger extends JFrame{
 		this.tablaAnimales.setFillsViewportHeight(true);
 		
 		
-		//cp.add(pestaña);
-		cp.setLayout(new GridLayout(2,1));
-		cp.add(scrollPaneAnimales);
-		cp.add(abajo);
+		
+		JPanel cp1 = new JPanel();
+		cp1.setLayout(new GridLayout(2,1));
+		cp1.add(scrollPaneAnimales);
+		cp1.add(abajo);
+		JPanel cp2 = new JPanel();
+		TIPO = new JLabel(p.get("tipo").toString());
+		FECHA_NAC = new JLabel(p.get("fecha_nac").toString());
+		RAZA = new JLabel(p.get("raza").toString());
+		ESPECIAL = new JLabel(p.get("especial").toString());
+		Error = new JLabel("");
+		tipo = new JTextField("");
+		fecha_nac = new JTextField("");
+		raza = new JTextField("");
+		especial = new JTextField("");
+		cp2.setLayout(new GridLayout(3,4));
+		cp2.add(TIPO);
+		cp2.add(tipo);
+		cp2.add(FECHA_NAC);
+		cp2.add(fecha_nac);
+		cp2.add(RAZA);
+		cp2.add(raza);
+		cp2.add(ESPECIAL);
+		cp2.add(especial);
+		cp2.add(Error);
+		cp2.add(boton33);
+		
+		boton33.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				
+						if(tipo.getText().equals("Gato")||tipo.getText().equals("Perro")) {
+							if(fecha_nac.getText().length() == 10 ) {
+								if(!(raza.getText().isEmpty())) {
+									if(especial.getText().isEmpty()) {
+										v.insertarDatosAnimal(new Animal (v.obtenerDatosAnimal((ArrayList<Cliente>) v.obtenerDatosCliente()).get(0).size() + 1, raza.getText(), especial.getText(), tipo.getText(), fecha_nac.getText() ));
+										Error.setText("");
+									}else {
+										v.insertarDatosAnimal(new Animal (v.obtenerDatosAnimal((ArrayList<Cliente>) v.obtenerDatosCliente()).get(0).size() + 1, raza.getText(), "nada", tipo.getText(), fecha_nac.getText() ));
+										Error.setText("");
+									}
+								}else {
+									Error.setText("No se admite que raza este vacio.");
+								}
+							}else {
+								Error.setText("No se admite esa fecha de nacimiento o que el campo este vacio.");
+							}
+						}else {
+							Error.setText("No se admite ese tipo de animal o que el campo este vacio.");
+						}
+						
+						
+					}
+		
+			
+		});
+		
+		pestaña.addChangeListener(new ChangeListener() {
+			
+			@Override
+			public void stateChanged(ChangeEvent e) {
+				// TODO Auto-generated method stub
+				if(pestaña.getSelectedIndex() == 0) {
+					setSize(800,600);
+					for(int i = 0; i<modeloDatosAnimales.getRowCount(); i++) {
+						modeloDatosAnimales.removeRow(i);
+					}
+					loadAnimal();
+				}else if (pestaña.getSelectedIndex() == 1) {
+					setSize(680,150);
+				} 
+			}
+		});
+		
 		this.setTitle(p.getProperty("ventanaAcoger"));		
 		this.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
 		this.setSize(800, 600);
 		this.setLocationRelativeTo(null);
 		this.setVisible(true);	
 		
+		cp.setLayout(new GridLayout(1,1));
+		pestaña.addTab("Tabla Animales", cp1);
+		pestaña.addTab("Introducir Animal", cp2);
+		cp.add(pestaña);
 		
 		
 		this.addWindowListener(new WindowAdapter() {
