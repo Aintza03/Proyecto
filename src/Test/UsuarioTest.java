@@ -13,9 +13,10 @@ public class UsuarioTest {
 	protected Usuario usuario;
 	protected int contraseña = 5;
 	protected String us = "a";
+	protected boolean admin = false;
 	@Before
 	public void setUp() throws Exception {
-		usuario = new Usuario(contraseña,us);
+		usuario = new Usuario(contraseña,us,admin);
 	}
 
 	@After
@@ -25,7 +26,7 @@ public class UsuarioTest {
 
 	@Test
 	public void testHashCode() {
-		Usuario us2 = new Usuario(5,"a");
+		Usuario us2 = new Usuario(5,"a",false);
 		Assert.assertTrue(us2.hashCode() == usuario.hashCode());
 	}
 
@@ -38,7 +39,7 @@ public class UsuarioTest {
 
 	@Test
 	public void testEqualsObject() {
-		Usuario us2 = new Usuario(5,"a");
+		Usuario us2 = new Usuario(5,"a",false);
 		Assert.assertTrue(us2.equals(usuario) && usuario.equals(us2));
 		}
 
@@ -65,10 +66,21 @@ public class UsuarioTest {
 		usuario.setUsuario(a);
 		assertEquals(a,usuario.getUsuario());
 	}
+	@Test
+	public void testIsAdmin() {
+		assertEquals(admin,usuario.isAdmin());
+	}
 
 	@Test
+	public void testSetAdmin() {
+		boolean a = false;
+		usuario.setAdmin(a);
+		assertEquals(a,usuario.isAdmin());
+	}
+	
+	@Test
 	public void testToString() {
-		String toString = "Usuario: " + us;
+		String toString = "Usuario: " + us + " admin: " + admin;
 		assertEquals(toString,usuario.toString());
 	}
 

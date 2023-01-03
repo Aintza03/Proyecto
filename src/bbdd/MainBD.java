@@ -56,9 +56,9 @@ public class MainBD {
 		ArrayList<Cliente> listaA = (ArrayList<Cliente>) clientes;
 		List<ArrayList> resultadoB = gestorBD.obtenerDatosAnimal((listac));
 		Inits.printAnimales(resultado);
-		//DELETE: Se borran datos de la BBDD (No vamos a usar borrarDatos() por lo tanto es solo un ejemplo)
-	    gestorBD.borrarDatos();
-		
+		//DELETE: Se borra usuario concreto de la BD
+	    gestorBD.borrarDatosUsuario("Aintzane");
+		System.out.println(gestorBD.obtenerDatosUsuario());
 		//DROP DATABASE: Se borra la BBDD (No vamos a usarlo en el proyecto)
 		 gestorBD.borrarBBDDUsuario();
 	}

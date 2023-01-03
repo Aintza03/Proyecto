@@ -1,5 +1,5 @@
-﻿Contraseña;Usuario
-1234;Aintzane
-5678;Irea
-1249;Egoitz
-6892;Haizea
+Contraseña;Usuario;Admin;
+1234;Aintzane;true;
+5678;Irea;false;
+1249;Egoitz;false;
+6892;Haizea;true;

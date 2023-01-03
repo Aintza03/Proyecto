@@ -76,12 +76,12 @@ public class VentanaPrincipal extends JFrame{
 				try {
 					u = usuario.getText();
 					contra = Integer.parseInt(stringC);
-					String verificacion = verificarUsuario(u,contra);
-					if (verificacion.equals("Usuario encontrado")) {
-						v2 = new VentanaCliente(i,gestorV);
+					ArrayList verificacion = verificarUsuario(u,contra);
+					if (verificacion.get(0).equals("Usuario encontrado")) {
+						v2 = new VentanaCliente(i,gestorV,((Usuario) verificacion.get(1)).isAdmin());
 						setVisible(false);
 					} else {
-						Error.setText(verificacion);
+						Error.setText((String) verificacion.get(0));
 					}
 					
 				} catch (Exception e1) {
@@ -209,14 +209,17 @@ public class VentanaPrincipal extends JFrame{
 		this.español.addKeyListener(keyListener);
 		this.euskera.addKeyListener(keyListener);
 	}
-	public String verificarUsuario(String u, int contraseña) {
+	public ArrayList verificarUsuario(String u, int contraseña) {
 		ArrayList<Usuario> usuario = (ArrayList<Usuario>) gestorV.obtenerDatosUsuario();
 		//ArrayList<Usuario> usuario = new ArrayList(); usuario.add(new Usuario(12,"Hola"));
+		ArrayList resultados = new ArrayList();
 		String resultado = "";
+		Usuario coincide = new Usuario(0,"",false);
 		for (Usuario usuario2 : usuario) {
 			if (usuario2.getUsuario().equals(u)) {
 				if (usuario2.getContraseña() == contraseña) {
 					resultado = "Usuario encontrado";
+					coincide = usuario2;
 				} else {
 					resultado = i.getProperty("errorUno");
 					}
@@ -226,7 +229,9 @@ public class VentanaPrincipal extends JFrame{
 				}
 			
 		} 
-		return resultado;
+		resultados.add(resultado);
+		resultados.add(coincide);
+		return resultados;
 	}
 	public static void main(String[] args) {//temporalmente localizado aqui para hacer pruebas
 		VentanaPrincipal v = new VentanaPrincipal();

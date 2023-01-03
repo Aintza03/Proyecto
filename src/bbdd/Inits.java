@@ -2,12 +2,14 @@ package bbdd;
 
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.io.PrintWriter;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Scanner;
+import java.util.logging.Level;
 
 import General.Animal;
 import General.Cliente;
@@ -38,11 +40,16 @@ public class Inits {
 			Scanner sc = new Scanner(fichero);
 			sc.nextLine();
 			while(sc.hasNextLine()) {
-				Usuario usuario = new Usuario(0,null);
+				Usuario usuario = new Usuario(0,null,false);
 				String linea = sc.nextLine();
 				String[] campos = linea.split(";");
 				usuario.setContraseña(Integer.parseInt(campos[0]));
 				usuario.setUsuario(campos[1]);
+				if (campos[2].equals("true")) {
+				usuario.setAdmin(true);
+				}else {
+					usuario.setAdmin(false);
+				}
 				usuarios.add(usuario);
 				
 			}

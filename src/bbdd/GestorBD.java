@@ -39,7 +39,8 @@ public class GestorBD {
 		//Al abrir la conexiÃ³n, si no existÃ­a el fichero, se crea la base de datos
 	String sql = "CREATE TABLE IF NOT EXISTS USUARIO (\n"
                 + " USUARIO TEXT PRIMARY KEY,\n"
-                + " CONTRASEÑA INTEGER\n"
+                + " CONTRASEÑA INTEGER UNIQUE,\n"
+                + "ADMIN TEXT\n"
                 + ");";
      String sql1 = "CREATE TABLE IF NOT EXISTS CLIENTE(\n"
      		+ "DNI TEXT NOT NULL PRIMARY KEY,\n"
@@ -112,13 +113,13 @@ public class GestorBD {
 		try (Connection con = DriverManager.getConnection(CONNECTION_STRING);
 		     Statement stmt = con.createStatement()) {
 			//Se define la plantilla de la sentencia SQL
-			String sql = "INSERT INTO USUARIO (USUARIO, CONTRASEÑA) VALUES ('%s', '%s');";
+			String sql = "INSERT INTO USUARIO (USUARIO, CONTRASEÑA,ADMIN) VALUES ('%s', '%s','%s');";
 			
 			System.out.println("- Insertando usuarios...");
 			
 			//Se recorren los clientes y se insertan uno a uno
 			for (Usuario c : Usuarios) {
-				if (1 == stmt.executeUpdate(String.format(sql, c.getUsuario(), c.getContraseña() ))) {					
+				if (1 == stmt.executeUpdate(String.format(sql, c.getUsuario(), c.getContraseña(),c.isAdmin() ))) {					
 					System.out.println(String.format(" - Usuario insertado: %s", c.toString()));
 				} else {
 					System.out.println(String.format(" - No se ha insertado el usuario: %s", c.toString()));
@@ -200,11 +201,15 @@ public class GestorBD {
 			
 			//Se recorre el ResultSet y se crean objetos Cliente
 			while (rs.next()) {
-				usuario = new Usuario(0, sql);
+				usuario = new Usuario(0, "a",false);
 				
 				usuario.setUsuario(rs.getString("USUARIO"));
 				usuario.setContraseña(rs.getInt("CONTRASEÑA"));
-				
+				if (rs.getString("ADMIN").equals("true")) {
+				usuario.setAdmin(true);
+				} else {
+					usuario.setAdmin(false);
+				}
 				//Se inserta cada nuevo cliente en la lista de clientes
 				usuarios.add(usuario);
 			}
@@ -311,18 +316,24 @@ public class GestorBD {
 	
 	
 	
-	public void borrarDatos() {
+	public boolean borrarDatosUsuario(String usuario) {
 		//Se abre la conexiÃ³n y se obtiene el Statement
 		try (Connection con = DriverManager.getConnection(CONNECTION_STRING);
 		     Statement stmt = con.createStatement()) {
 			//Se ejecuta la sentencia de borrado de datos
-			String sql = "DELETE FROM CLIENTE;";			
-			int result = stmt.executeUpdate(sql);
+			String sql = "DELETE FROM USUARIO WHERE USUARIO = '%s';";			
+			int result = stmt.executeUpdate(String.format(sql, usuario));
 			
 			System.out.println(String.format("- Se han borrado %d clientes", result));
+			if (result == 1) {
+			return true;
+			} else {
+				return false;
+			}
 		} catch (Exception ex) {
 			System.err.println(String.format("* Error al borrar datos de la BBDD: %s", ex.getMessage()));
-			ex.printStackTrace();						
+			ex.printStackTrace();
+			return false;
 		}		
 	}	
 	

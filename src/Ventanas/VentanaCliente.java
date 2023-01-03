@@ -31,28 +31,44 @@ public class VentanaCliente extends JFrame{
 	//para concatenar las ventanas
 	protected VentanaAcoger v3;
 	protected VentanaIntroducirCliente v2;
-	public VentanaCliente(Properties idioma, GestorBD gestorV) {
+	protected VentanaUsuarios vus;
+	public VentanaCliente(Properties idioma, GestorBD gestorV, boolean admin) {
 		Container cp = this.getContentPane();
 		DNI = new JTextField();
 		ErrorCliente = new JLabel("");
 		Buscar = new JButton(idioma.get("buscar").toString());
 		dni = new JLabel(idioma.get("dni").toString());
 		pestaña = new JTabbedPane();
-		
+		JButton administrador = new JButton("Editar Usuarios");
+		JButton editarCliente = new JButton ("Editar Cliente");
 		JScrollPane textoError = new JScrollPane(ErrorCliente);
 		JPanel arriba = new JPanel();
 		JPanel abajo = new JPanel();
 		
 		JPanel cp1 = new JPanel();
-		cp1.setLayout(new GridLayout(2,2));
+		cp1.setLayout(new GridLayout(3,2));
 		
 		cp1.add(dni);
 		cp1.add(DNI);
 		cp1.add(textoError);
 		cp1.add(Buscar);
+		cp1.add(administrador);
+		cp1.add(editarCliente);
+		
+		if (!admin) {
+			administrador.setEnabled(false);
+		}
 		pestaña.addTab("Introducir", cp1);		
 		cp.add(pestaña);
-		
+		administrador.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				// TODO Auto-generated method stub
+				vus = new VentanaUsuarios(gestorV,idioma);
+				setVisible(false);
+			}
+		});
 		
 		JPanel cp2 = new JPanel();
 		DefaultMutableTreeNode Adoptado = new DefaultMutableTreeNode("Adopción");
@@ -151,7 +167,7 @@ public class VentanaCliente extends JFrame{
 			public void stateChanged(ChangeEvent e) {
 				// TODO Auto-generated method stub
 				if(pestaña.getSelectedIndex() == 0) {
-					setSize(300,100);
+					setSize(300,200);
 				}else if (pestaña.getSelectedIndex() == 1) {
 					setSize(300,300);
 				} else if (pestaña.getSelectedIndex() == 2) {
@@ -162,7 +178,7 @@ public class VentanaCliente extends JFrame{
 
 		this.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
 		this.setVisible(true);
-		this.setSize(300,100);
+		this.setSize(300,200);
 		this.setTitle(idioma.getProperty("introducir"));
 		this.setLocationRelativeTo(null);
 		Buscar.addActionListener(new ActionListener() {

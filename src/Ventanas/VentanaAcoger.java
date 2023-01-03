@@ -130,11 +130,13 @@ public class VentanaAcoger extends JFrame{
 		cosa.add(new JLabel(""));
 		cosa.add(new JLabel(""));
 		cosa.add(new JLabel(""));
-		
+		JPanel centro = new JPanel();
+		centro.setLayout(new GridLayout(2,1));
 		JPanel abajo = new JPanel();
 		abajo.setLayout(new GridLayout(2,2));
-		abajo.add(Animal);
-		abajo.add(combo);
+		centro.add(combo);
+		centro.add(Animal);
+		abajo.add(centro);
 		abajo.add(cosa);
 		this.tablaAnimales.setFillsViewportHeight(true);
 		
@@ -145,8 +147,11 @@ public class VentanaAcoger extends JFrame{
 		cp1.add(scrollPaneAnimales);
 		cp1.add(abajo);
 		JPanel cp2 = new JPanel();
+		JPanel arriba2 = new JPanel();
+		JPanel centro2 = new JPanel();
+		JPanel abajo2 = new JPanel();
 		TIPO = new JLabel(p.get("tipo").toString());
-		FECHA_NAC = new JLabel(p.get("fecha_nac").toString());
+		FECHA_NAC = new JLabel(p.get("fecha_nac").toString() + " (DD/MM/YYYY)");
 		RAZA = new JLabel(p.get("raza").toString());
 		ESPECIAL = new JLabel(p.get("especial").toString());
 		Error = new JLabel("");
@@ -154,17 +159,23 @@ public class VentanaAcoger extends JFrame{
 		fecha_nac = new JTextField("");
 		raza = new JTextField("");
 		especial = new JTextField("");
-		cp2.setLayout(new GridLayout(3,4));
-		cp2.add(TIPO);
-		cp2.add(tipo);
-		cp2.add(FECHA_NAC);
-		cp2.add(fecha_nac);
-		cp2.add(RAZA);
-		cp2.add(raza);
-		cp2.add(ESPECIAL);
-		cp2.add(especial);
-		cp2.add(Error);
-		cp2.add(boton33);
+		cp2.setLayout(new GridLayout(3,1));
+		arriba2.setLayout(new GridLayout(1,4));
+		centro2.setLayout(new GridLayout(1,4));
+		abajo2.setLayout(new GridLayout(1,2));
+		arriba2.add(TIPO);
+		arriba2.add(tipo);
+		arriba2.add(FECHA_NAC);
+		arriba2.add(fecha_nac);
+		centro2.add(RAZA);
+		centro2.add(raza);
+		centro2.add(ESPECIAL);
+		centro2.add(especial);
+		abajo2.add(Error);
+		abajo2.add(boton33);
+		cp2.add(arriba2);
+		cp2.add(centro2);
+		cp2.add(abajo2);
 		
 		boton33.addActionListener(new ActionListener() {
 			
@@ -174,11 +185,16 @@ public class VentanaAcoger extends JFrame{
 						if(tipo.getText().equals("Gato")||tipo.getText().equals("Perro")) {
 							if(fecha_nac.getText().length() == 10 ) {
 								if(!(raza.getText().isEmpty())) {
-									if(especial.getText().isEmpty()) {
-										v.insertarDatosAnimal(new Animal (v.obtenerDatosAnimal((ArrayList<Cliente>) v.obtenerDatosCliente()).get(0).size() + 1, raza.getText(), especial.getText(), tipo.getText(), fecha_nac.getText() ));
+									if(!(especial.getText().isEmpty())) {
+										Animal a = new Animal (v.obtenerDatosAnimal((ArrayList<Cliente>) v.obtenerDatosCliente()).get(0).size() + 1, raza.getText(), especial.getText(), tipo.getText(), fecha_nac.getText());
+										v.insertarDatosAnimal(a);
 										Error.setText("");
+										modeloDatosAnimales.addRow( new Object[] {a.getId(), a.getTipo(), a.getFechaNac(),  a.getRaza(), a.getEspecial(), new JButton("->")});
 									}else {
-										v.insertarDatosAnimal(new Animal (v.obtenerDatosAnimal((ArrayList<Cliente>) v.obtenerDatosCliente()).get(0).size() + 1, raza.getText(), "nada", tipo.getText(), fecha_nac.getText() ));
+										Animal a = new Animal (v.obtenerDatosAnimal((ArrayList<Cliente>) v.obtenerDatosCliente()).get(0).size() + 1, raza.getText(), "nada", tipo.getText(), fecha_nac.getText());
+										v.insertarDatosAnimal(a);
+										modeloDatosAnimales.addRow( new Object[] {a.getId(), a.getTipo(), a.getFechaNac(),  a.getRaza(), a.getEspecial(), new JButton("->")});
+										
 										Error.setText("");
 									}
 								}else {
@@ -204,12 +220,9 @@ public class VentanaAcoger extends JFrame{
 				// TODO Auto-generated method stub
 				if(pestaña.getSelectedIndex() == 0) {
 					setSize(800,600);
-					for(int i = 0; i<modeloDatosAnimales.getRowCount(); i++) {
-						modeloDatosAnimales.removeRow(i);
-					}
-					loadAnimal();
+					
 				}else if (pestaña.getSelectedIndex() == 1) {
-					setSize(680,150);
+					setSize(800,150);
 				} 
 			}
 		});
@@ -282,6 +295,12 @@ public class VentanaAcoger extends JFrame{
 					}
 					Color color = new Color(0,0,b);
 					Animal.setForeground(color);
+					TIPO.setForeground(color);
+					FECHA_NAC.setForeground(color);
+					RAZA.setForeground(color);
+					ESPECIAL.setForeground(color);
+					Error.setForeground(color);
+					
 					try {
 						Thread.sleep(25);
 					} catch (InterruptedException e) {
