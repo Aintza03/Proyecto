@@ -32,6 +32,7 @@ public class VentanaCliente extends JFrame{
 	protected VentanaAcoger v3;
 	protected VentanaIntroducirCliente v2;
 	protected VentanaUsuarios vus;
+	protected VentanaEditarCliente ved;
 	public VentanaCliente(Properties idioma, GestorBD gestorV, boolean admin) {
 		Container cp = this.getContentPane();
 		DNI = new JTextField();
@@ -66,6 +67,16 @@ public class VentanaCliente extends JFrame{
 			public void actionPerformed(ActionEvent e) {
 				// TODO Auto-generated method stub
 				vus = new VentanaUsuarios(gestorV,idioma);
+				setVisible(false);
+			}
+		});
+		
+		editarCliente.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				// TODO Auto-generated method stub
+				ved = new VentanaEditarCliente(gestorV,idioma);
 				setVisible(false);
 			}
 		});
