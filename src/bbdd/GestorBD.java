@@ -324,6 +324,28 @@ public class GestorBD {
 			String sql = "DELETE FROM USUARIO WHERE USUARIO = '%s';";			
 			int result = stmt.executeUpdate(String.format(sql, usuario));
 			
+			System.out.println(String.format("- Se han borrado %d usuarios", result));
+			if (result == 1) {
+			return true;
+			} else {
+				return false;
+			}
+		} catch (Exception ex) {
+			System.err.println(String.format("* Error al borrar datos de la BBDD: %s", ex.getMessage()));
+			ex.printStackTrace();
+			return false;
+		}		
+	}	
+	
+	//Metodo creado para usar en la ventana EditarCliente
+	public boolean borrarDatosCliente(String dni) {
+		//Se abre la conexiÃ³n y se obtiene el Statement
+		try (Connection con = DriverManager.getConnection(CONNECTION_STRING);
+		     Statement stmt = con.createStatement()) {
+			//Se ejecuta la sentencia de borrado de datos
+			String sql = "DELETE FROM CLIENTE WHERE DNI = '%s';";			
+			int result = stmt.executeUpdate(String.format(sql, dni));
+			
 			System.out.println(String.format("- Se han borrado %d clientes", result));
 			if (result == 1) {
 			return true;
@@ -351,6 +373,7 @@ public class GestorBD {
 				ex.printStackTrace();						
 			}		
 		}
+	
 	public void actualizarCliente(String DNI_C, int permiso) {
 		try (Connection con = DriverManager.getConnection(CONNECTION_STRING);
 			 Statement stmt = con.createStatement()){
@@ -362,6 +385,19 @@ public class GestorBD {
 			System.out.println(String.format("*Error actualizando datos de la BBDD: %s",e.getMessage()));
 		}
 	}
+	//Metodo creado para usar en la ventana EditarCliente
+	public void actualizarClienteYaExistente(String DNI_C, int permiso) {
+		try (Connection con = DriverManager.getConnection(CONNECTION_STRING);
+			 Statement stmt = con.createStatement()){
+			String sql = "UPDATE CLIENTE SET PERMISO = '%d' WHERE DNI = '%s';";
+			int result = stmt.executeUpdate(String.format(sql,permiso, DNI_C));
+			System.out.println(String.format("- Se ha actualizado %d clientes",result));
+		} catch (Exception e) {
+			// TODO: handle exception
+			System.out.println(String.format("*Error actualizando datos de la BBDD: %s",e.getMessage()));
+		}
+	}
+	
 }
 		
 

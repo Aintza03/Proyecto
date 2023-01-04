@@ -2,6 +2,10 @@ package Ventanas;
 
 import java.awt.Container;
 import java.awt.GridLayout;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 import java.util.Properties;
 
 import javax.swing.JButton;
@@ -16,18 +20,23 @@ import javax.swing.JTextField;
 import bbdd.GestorBD;
 
 public class VentanaEditarCliente extends JFrame{
+	
 	protected JLabel DNI;
+	protected JLabel DNI2;
 	protected JLabel NOMBRE;
 	protected JLabel TELEFONO;
 	protected JLabel DIRECCION;
 	
 	protected JTextField dni;
+	protected JTextField dni2;
 	protected JTextField nombre;
 	protected JTextField telefono;
 	protected JTextField direccion;
 	
 	protected JLabel Error;
+	protected JLabel Error2;
 	protected JButton registrarCliente;
+	protected JButton eliminarCliente;
 	
 	protected JTabbedPane pestaña;
 	
@@ -42,17 +51,17 @@ public class VentanaEditarCliente extends JFrame{
 		JPanel abajo = new JPanel();
 		abajo.setLayout(new GridLayout(1,2));
 		
-		DNI = new JLabel("Usuario: ");
-		NOMBRE = new JLabel("Contraseña: ");
-		TELEFONO = new JLabel("Admin: ");
-		DIRECCION = new JLabel("Admin: ");
+		DNI = new JLabel("DNI: ");
+		NOMBRE = new JLabel("Nombre: ");
+		TELEFONO = new JLabel("Telefono: ");
+		DIRECCION = new JLabel("Direccion: ");
 		Error = new JLabel("");
 		
 		dni = new JTextField("");
 		nombre = new JPasswordField("");
 		telefono = new JTextField("");
 		direccion = new JTextField("");
-		registrarCliente = new JButton("Añadir Usuario");
+		registrarCliente = new JButton("Editar Cliente");
 		
 		arriba.add(DNI);
 		arriba.add(dni);
@@ -69,18 +78,50 @@ public class VentanaEditarCliente extends JFrame{
 		
 		JPanel cp2 = new JPanel();
 		cp2.setLayout(new GridLayout(2,2));
-		Usuario2 = new JLabel("Usuario: ");
+		DNI2 = new JLabel("DNI: ");
 		Error2 = new JLabel("");
 		JScrollPane b = new JScrollPane(Error2);
 		
-		borrado = new JTextField();
-		eliminar = new JButton("Eliminar");
-		cp2.add(Usuario2);
-		cp2.add(borrado);
+		dni2 = new JTextField();
+		eliminarCliente = new JButton("Eliminar");
+		cp2.add(DNI2);
+		cp2.add(dni2);
 		cp2.add(b);
-		cp2.add(eliminar);	
-		pestaña.addTab("Añadir Usuarios", cp1);
-		pestaña.addTab("Eliminar Usuarios", cp2);
+		cp2.add(eliminarCliente);	
+		pestaña.addTab("Editar Cliente", cp1);
+		pestaña.addTab("Eliminar Cliente", cp2);
 		cp.add(pestaña);
+		
+		eliminarCliente.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				// TODO Auto-generated method stub
+				boolean ocurre = v.borrarDatosCliente(dni2.getText());
+				if (ocurre) {
+					Error2.setText("Se ha borrado el Cliente");
+				} else {
+					Error2.setText("No se ha encontrado el Cliente");
+				}
+			}
+		});
+		
+		this.addWindowListener(new WindowAdapter() {
+			
+			@Override
+			public void windowClosing(WindowEvent e) {
+				// TODO Auto-generated method stub
+				System.exit(0);
+			}
+			
+			
+		});
+		
+		this.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
+		this.setVisible(true);
+		this.setSize(500,150);
+		this.setTitle("Editar/Eliminar Clientes");
+		this.setLocationRelativeTo(null);
+		
 	}
 }
