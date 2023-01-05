@@ -6,6 +6,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
+import java.util.ArrayList;
 import java.util.Properties;
 
 import javax.swing.JButton;
@@ -17,19 +18,19 @@ import javax.swing.JScrollPane;
 import javax.swing.JTabbedPane;
 import javax.swing.JTextField;
 
+import General.Animal;
+import General.Cliente;
 import bbdd.GestorBD;
 
 public class VentanaEditarCliente extends JFrame{
 	
 	protected JLabel DNI;
 	protected JLabel DNI2;
-	protected JLabel NOMBRE;
 	protected JLabel TELEFONO;
 	protected JLabel DIRECCION;
 	
 	protected JTextField dni;
 	protected JTextField dni2;
-	protected JTextField nombre;
 	protected JTextField telefono;
 	protected JTextField direccion;
 	
@@ -52,21 +53,17 @@ public class VentanaEditarCliente extends JFrame{
 		abajo.setLayout(new GridLayout(1,2));
 		
 		DNI = new JLabel("DNI: ");
-		NOMBRE = new JLabel("Nombre: ");
 		TELEFONO = new JLabel("Telefono: ");
 		DIRECCION = new JLabel("Direccion: ");
 		Error = new JLabel("");
 		
 		dni = new JTextField("");
-		nombre = new JTextField("");
 		telefono = new JTextField("");
 		direccion = new JTextField("");
 		registrarCliente = new JButton("Editar Cliente");
 		
 		arriba.add(DNI);
 		arriba.add(dni);
-		arriba.add(NOMBRE);
-		arriba.add(nombre);
 		arriba.add(TELEFONO);
 		arriba.add(telefono);
 		arriba.add(DIRECCION);
@@ -106,6 +103,32 @@ public class VentanaEditarCliente extends JFrame{
 			}
 		});
 		
+		registrarCliente.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				String res = encontrarCliente(dni.getText(),v , p);
+				String a = telefono.getText();
+				int b = Integer.parseInt(a);
+				if(res.equals("Se ha encontrado el cliente")) {
+					if(telefono.getText().length() == 9) {
+						if(direccion.getText().length() != 0) {
+							v.actualizarClienteYaExistente(dni.getText(), b, direccion.getText());
+						}else {
+							Error.setText("No se admite esa dirección.");
+						}
+					}else {
+						Error.setText("No se admite ese número de telefono.");
+					}
+				}else {
+					Error.setText("No existe ese Cliente.");
+				}
+				
+				
+			}
+		});
+		
+		
 		this.addWindowListener(new WindowAdapter() {
 			
 			@Override
@@ -124,4 +147,26 @@ public class VentanaEditarCliente extends JFrame{
 		this.setLocationRelativeTo(null);
 		
 	}
+	
+	public String encontrarCliente(String DNIA, GestorBD gestorV, Properties idioma) {
+		String resultado = "";
+		ArrayList<Cliente> clientes = (ArrayList<Cliente>) gestorV.obtenerDatosCliente();
+		for (Cliente cliente : clientes) {
+		if (cliente.getDni().equals(DNIA)) {
+		if (cliente.isPermiso()) {
+		resultado = "Se ha encontrado el cliente";
+		} else {
+		resultado = idioma.get("mes3").toString();
+		}
+		break;
+		} else {
+			if (DNIA.length() == 9) {
+		resultado = "El cliente no existe";
+		} else {
+			resultado = idioma.getProperty("mes9");
+		}
+		}
+		}
+		return resultado;
+		}
 }

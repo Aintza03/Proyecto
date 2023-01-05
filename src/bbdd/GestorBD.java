@@ -407,11 +407,11 @@ public class GestorBD {
 		}
 	}
 	//Metodo creado para usar en la ventana EditarCliente
-	public void actualizarClienteYaExistente(String DNI_C, int permiso) {
+	public void actualizarClienteYaExistente(String DNI_C, int tel, String dir) {
 		try (Connection con = DriverManager.getConnection(CONNECTION_STRING);
 			 Statement stmt = con.createStatement()){
-			String sql = "UPDATE CLIENTE SET PERMISO = '%d' WHERE DNI = '%s';";
-			int result = stmt.executeUpdate(String.format(sql,permiso, DNI_C));
+			String sql = "UPDATE CLIENTE SET TEL = '%d', DIR = '%s' WHERE DNI = '%s';";
+			int result = stmt.executeUpdate(String.format(sql,tel,dir, DNI_C));
 			System.out.println(String.format("- Se ha actualizado %d clientes",result));
 		} catch (Exception e) {
 			// TODO: handle exception
