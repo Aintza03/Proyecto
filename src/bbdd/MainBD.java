@@ -59,6 +59,10 @@ public class MainBD {
 		//DELETE: Se borra usuario concreto de la BD
 	    gestorBD.borrarDatosUsuario("Aintzane");
 		System.out.println(gestorBD.obtenerDatosUsuario());
+		gestorBD.borrarDatosCliente("11111111H");
+		System.out.println(gestorBD.obtenerDatosCliente());
+		gestorBD.borrarDatosAnimal(1);
+		System.out.println(gestorBD.obtenerDatosAnimal(listac)); 
 		//DROP DATABASE: Se borra la BBDD (No vamos a usarlo en el proyecto)
 		 gestorBD.borrarBBDDUsuario();
 	}

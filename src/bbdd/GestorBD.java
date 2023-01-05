@@ -359,6 +359,27 @@ public class GestorBD {
 		}		
 	}	
 	
+	public boolean borrarDatosAnimal(int id) {
+		//Se abre la conexiÃ³n y se obtiene el Statement
+		try (Connection con = DriverManager.getConnection(CONNECTION_STRING);
+		     Statement stmt = con.createStatement()) {
+			//Se ejecuta la sentencia de borrado de datos
+			String sql = "DELETE FROM ANIMAL WHERE ID = '%d';";			
+			int result = stmt.executeUpdate(String.format(sql, id));
+			
+			System.out.println(String.format("- Se han borrado %d animales", result));
+			if (result == 1) {
+			return true;
+			} else {
+				return false;
+			}
+		} catch (Exception ex) {
+			System.err.println(String.format("* Error al borrar datos de la BBDD: %s", ex.getMessage()));
+			ex.printStackTrace();
+			return false;
+		}		
+	}	
+	
 	public void actualizarAnimal(Animal animal, String Dni_AC, String Dni_AD) {
 		try (Connection con = DriverManager.getConnection(CONNECTION_STRING);
 			     Statement stmt = con.createStatement()) {

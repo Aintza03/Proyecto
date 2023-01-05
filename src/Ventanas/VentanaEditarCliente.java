@@ -58,7 +58,7 @@ public class VentanaEditarCliente extends JFrame{
 		Error = new JLabel("");
 		
 		dni = new JTextField("");
-		nombre = new JPasswordField("");
+		nombre = new JTextField("");
 		telefono = new JTextField("");
 		direccion = new JTextField("");
 		registrarCliente = new JButton("Editar Cliente");

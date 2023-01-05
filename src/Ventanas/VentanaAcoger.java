@@ -35,15 +35,19 @@ public class VentanaAcoger extends JFrame{
 	protected JLabel RAZA;
 	protected JLabel ESPECIAL;
 	protected JLabel Error;
+	protected JLabel Error2;
+	protected JLabel ID;
 	
 	protected JTextField tipo;
 	protected JTextField fecha_nac;
 	protected JTextField raza;
 	protected JTextField especial;
+	protected JTextField id;
 	
 	
 	protected JButton boton;
 	protected JButton boton33;
+	protected JButton eliminarAnimal;
 	protected JTabbedPane pestaña;
 	protected JComboBox combo;
 	
@@ -177,6 +181,20 @@ public class VentanaAcoger extends JFrame{
 		cp2.add(centro2);
 		cp2.add(abajo2);
 		
+		JPanel cp3 = new JPanel();
+		cp3.setLayout(new GridLayout(2,2));
+		ID = new JLabel("ID: ");
+		Error2 = new JLabel("");
+		JScrollPane b = new JScrollPane(Error2);
+		id = new JTextField();
+		eliminarAnimal = new JButton("Eliminar");
+		
+		cp3.add(ID);
+		cp3.add(id);
+		cp3.add(b);
+		cp3.add(eliminarAnimal);
+		
+		
 		boton33.addActionListener(new ActionListener() {
 			
 			@Override
@@ -212,6 +230,21 @@ public class VentanaAcoger extends JFrame{
 		
 			
 		});
+		eliminarAnimal.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				// TODO Auto-generated method stub
+				String a = id.getText();
+				int b = Integer.parseInt(a);
+				boolean ocurre = v.borrarDatosAnimal(b);
+				if (ocurre) {
+					Error2.setText("Se ha borrado el Animal");
+				} else {
+					Error2.setText("No se ha encontrado el Animal");
+				}
+			}
+		});
 		
 		pestaña.addChangeListener(new ChangeListener() {
 			
@@ -223,7 +256,9 @@ public class VentanaAcoger extends JFrame{
 					
 				}else if (pestaña.getSelectedIndex() == 1) {
 					setSize(800,150);
-				} 
+				}else if (pestaña.getSelectedIndex() == 2) {
+					setSize(800, 150);
+				}
 			}
 		});
 		
@@ -236,6 +271,7 @@ public class VentanaAcoger extends JFrame{
 		cp.setLayout(new GridLayout(1,1));
 		pestaña.addTab("Tabla Animales", cp1);
 		pestaña.addTab("Introducir Animal", cp2);
+		pestaña.addTab("Eliminar Animal", cp3);
 		cp.add(pestaña);
 		
 		
