@@ -406,16 +406,22 @@ public class GestorBD {
 			System.out.println(String.format("*Error actualizando datos de la BBDD: %s",e.getMessage()));
 		}
 	}
-	//Metodo creado para usar en la ventana EditarCliente
-	public void actualizarClienteYaExistente(String DNI_C, int tel, String dir) {
+	//Metodo creado para usar en la ventana EditarCliente solo permite actualizar 1 cliente por llamada
+	public boolean actualizarClienteYaExistente(String DNI_C, int tel, String dir) {
 		try (Connection con = DriverManager.getConnection(CONNECTION_STRING);
 			 Statement stmt = con.createStatement()){
 			String sql = "UPDATE CLIENTE SET TEL = '%d', DIR = '%s' WHERE DNI = '%s';";
 			int result = stmt.executeUpdate(String.format(sql,tel,dir, DNI_C));
 			System.out.println(String.format("- Se ha actualizado %d clientes",result));
+			if (result != 1) {
+				return false;
+			} else {
+				return true;
+			}
 		} catch (Exception e) {
 			// TODO: handle exception
 			System.out.println(String.format("*Error actualizando datos de la BBDD: %s",e.getMessage()));
+			return false;
 		}
 	}
 	

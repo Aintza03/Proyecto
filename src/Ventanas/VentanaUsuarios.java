@@ -184,6 +184,26 @@ public class VentanaUsuarios extends JFrame {
 			}
 			}
 		});
+		KeyListener keyListener = new KeyAdapter() {
+			
+			@Override
+			public void keyPressed(KeyEvent e) {
+				// TODO Auto-generated method stub
+				if (e.getKeyCode() == KeyEvent.VK_ENTER) {
+					if (pestaña.getSelectedIndex() == 0) {
+						continuar.doClick();
+					}else {
+						eliminar.doClick();
+					}
+				}
+			}
+		};
+		this.usuario.addKeyListener(keyListener);
+		this.pestaña.addKeyListener(keyListener);
+		this.contraseña.addKeyListener(keyListener);
+		this.admin.addKeyListener(keyListener);
+		this.borrado.addKeyListener(keyListener);
+		
 		this.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
 		this.setVisible(true);
 		this.setSize(500,150);

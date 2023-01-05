@@ -268,6 +268,8 @@ public class VentanaCliente extends JFrame{
 			}
 			public String encontrarCliente(String DNIA, GestorBD gestorV, Properties idioma) {
 			String resultado = "";
+			boolean valido = VentanaIntroducirCliente.DNIAPTO(DNIA);
+			if (valido) {
 			ArrayList<Cliente> clientes = (ArrayList<Cliente>) gestorV.obtenerDatosCliente();
 			for (Cliente cliente : clientes) {
 			if (cliente.getDni().equals(DNIA)) {
@@ -284,6 +286,9 @@ public class VentanaCliente extends JFrame{
 				resultado = idioma.getProperty("mes9");
 			}
 			}
+			}
+			}else {
+				resultado = "El DNI introducido no es valido";
 			}
 			return resultado;
 			}

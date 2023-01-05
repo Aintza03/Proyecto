@@ -1,25 +1,11 @@
 package Ventanas;
 
-import java.awt.Container;
-import java.awt.GridLayout;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.awt.event.WindowAdapter;
-import java.awt.event.WindowEvent;
-import java.util.ArrayList;
+import java.awt.*;
+import java.awt.event.*;
 import java.util.Properties;
 
-import javax.swing.JButton;
-import javax.swing.JFrame;
-import javax.swing.JLabel;
-import javax.swing.JPanel;
-import javax.swing.JPasswordField;
-import javax.swing.JScrollPane;
-import javax.swing.JTabbedPane;
-import javax.swing.JTextField;
+import javax.swing.*;
 
-import General.Animal;
-import General.Cliente;
 import bbdd.GestorBD;
 
 public class VentanaEditarCliente extends JFrame{
@@ -94,10 +80,13 @@ public class VentanaEditarCliente extends JFrame{
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				// TODO Auto-generated method stub
+				boolean apto = VentanaIntroducirCliente.DNIAPTO(dni2.getText());
 				boolean ocurre = v.borrarDatosCliente(dni2.getText());
-				if (ocurre) {
+				if (ocurre && apto) {
 					Error2.setText("Se ha borrado el Cliente");
-				} else {
+				}else if (!apto){
+					Error2.setText("El DNI introducido no es apto");
+				} else if (!ocurre) {
 					Error2.setText("No se ha encontrado el Cliente");
 				}
 			}
@@ -107,28 +96,96 @@ public class VentanaEditarCliente extends JFrame{
 			
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				String res = encontrarCliente(dni.getText(),v , p);
+				try {
+					
 				String a = telefono.getText();
 				int b = Integer.parseInt(a);
-				if(res.equals("Se ha encontrado el cliente")) {
+				if(dni.getText().length() == 9) {
+					boolean cliente = VentanaIntroducirCliente.DNIAPTO(dni.getText());
+					if (cliente) {
 					if(telefono.getText().length() == 9) {
 						if(direccion.getText().length() != 0) {
-							v.actualizarClienteYaExistente(dni.getText(), b, direccion.getText());
+							boolean ocurre = v.actualizarClienteYaExistente(dni.getText(), b, direccion.getText());
+							if (ocurre) {
+								Error.setText("Se ha actualizado el cliente");
+							} else {
+								Error.setText("El cliente no se ha actualizado.");
+							}
 						}else {
 							Error.setText("No se admite esa dirección.");
 						}
 					}else {
 						Error.setText("No se admite ese número de telefono.");
 					}
-				}else {
-					Error.setText("No existe ese Cliente.");
+					} else {
+						Error.setText("El DNI introducido no es valido.");
+					}
+				}else{
+					Error.setText("El DNI introducido no es valido.");
+				}
+					
+				} catch (Exception e2) {
+					// TODO: handle exception
+					Error.setText("No se admite ese número de telefono.");
 				}
 				
 				
 			}
 		});
+		KeyListener keyListener = new KeyAdapter() {
+			
+			@Override
+			public void keyPressed(KeyEvent e) {
+				// TODO Auto-generated method stub
+				if (e.getKeyCode() == KeyEvent.VK_ENTER) {
+					if (pestaña.getSelectedIndex() == 0) {
+						registrarCliente.doClick();
+					}else {
+						eliminarCliente.doClick();
+					}
+				}
+			}
+		};
+		this.dni.addKeyListener(keyListener);
+		this.pestaña.addKeyListener(keyListener);
+		this.dni2.addKeyListener(keyListener);
+		this.telefono.addKeyListener(keyListener);
+		this.direccion.addKeyListener(keyListener);
 		
-		
+		Thread hilo = new Thread(new Runnable() {
+			
+			@Override
+			public void run() {
+				// TODO Auto-generated method stub
+				int b = 0;
+				boolean cambio = true;
+				while(isVisible()) {
+					if(!(b==255) && cambio) {
+						b++;
+					}else if(b == 255) {
+						b--;
+						cambio = false;
+					}else if(b == 0) {
+						b++;
+						cambio = true;
+					}else {
+						b--;
+					}
+					Color color = new Color(0,0,b);
+					Error.setForeground(color);
+					Error2.setForeground(color);
+					DNI.setForeground(color);
+					DNI2.setForeground(color);
+					TELEFONO.setForeground(color);
+					DIRECCION.setForeground(color);
+					try {
+						Thread.sleep(25);
+					}catch (InterruptedException e) {
+						e.printStackTrace();
+					}
+				}
+			}
+		});
 		this.addWindowListener(new WindowAdapter() {
 			
 			@Override
@@ -145,28 +202,8 @@ public class VentanaEditarCliente extends JFrame{
 		this.setSize(500,150);
 		this.setTitle("Editar/Eliminar Clientes");
 		this.setLocationRelativeTo(null);
-		
+		hilo.start();
 	}
 	
-	public String encontrarCliente(String DNIA, GestorBD gestorV, Properties idioma) {
-		String resultado = "";
-		ArrayList<Cliente> clientes = (ArrayList<Cliente>) gestorV.obtenerDatosCliente();
-		for (Cliente cliente : clientes) {
-		if (cliente.getDni().equals(DNIA)) {
-		if (cliente.isPermiso()) {
-		resultado = "Se ha encontrado el cliente";
-		} else {
-		resultado = idioma.get("mes3").toString();
-		}
-		break;
-		} else {
-			if (DNIA.length() == 9) {
-		resultado = "El cliente no existe";
-		} else {
-			resultado = idioma.getProperty("mes9");
-		}
-		}
-		}
-		return resultado;
-		}
+	
 }

@@ -63,6 +63,8 @@ public class MainBD {
 		System.out.println(gestorBD.obtenerDatosCliente());
 		gestorBD.borrarDatosAnimal(1);
 		System.out.println(gestorBD.obtenerDatosAnimal(listac)); 
+		gestorBD.actualizarClienteYaExistente("22222222J", 99999999, "Jamaica");
+		System.out.println(gestorBD.obtenerDatosCliente());
 		//DROP DATABASE: Se borra la BBDD (No vamos a usarlo en el proyecto)
 		 gestorBD.borrarBBDDUsuario();
 	}

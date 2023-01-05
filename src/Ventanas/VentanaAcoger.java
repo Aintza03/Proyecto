@@ -235,15 +235,26 @@ public class VentanaAcoger extends JFrame{
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				// TODO Auto-generated method stub
+				try {
 				String a = id.getText();
 				int b = Integer.parseInt(a);
 				boolean ocurre = v.borrarDatosAnimal(b);
 				if (ocurre) {
 					Error2.setText("Se ha borrado el Animal");
+					for (int i = 0; i < modeloDatosAnimales.getRowCount(); i++) {
+						String c = modeloDatosAnimales.getValueAt(i, 0).toString();
+						int d = Integer.parseInt(c);
+						if (b == d) {
+							modeloDatosAnimales.removeRow(i);
+						}
+					}
 				} else {
 					Error2.setText("No se ha encontrado el Animal");
 				}
+			}catch(Exception e1) {
+				Error2.setText("El id esta vacio o no es valido.");
 			}
+			} 
 		});
 		
 		pestaña.addChangeListener(new ChangeListener() {
@@ -267,7 +278,7 @@ public class VentanaAcoger extends JFrame{
 		this.setSize(800, 600);
 		this.setLocationRelativeTo(null);
 		this.setVisible(true);	
-		
+		combo.setSelectedIndex(2);
 		cp.setLayout(new GridLayout(1,1));
 		pestaña.addTab("Tabla Animales", cp1);
 		pestaña.addTab("Introducir Animal", cp2);
@@ -297,19 +308,33 @@ public class VentanaAcoger extends JFrame{
 		KeyListener keyListener = new KeyAdapter() {
 			
 			@Override
-			public void keyReleased(KeyEvent e) {
+			public void keyPressed(KeyEvent e) {
 				// TODO Auto-generated method stub
-				if (e.getKeyCode() == KeyEvent.VK_SHIFT) {
+				if (e.getKeyCode() == KeyEvent.VK_ENTER) {
+				if (pestaña.getSelectedIndex() == 0) {
 					boton.doClick();
+				} else if (pestaña.getSelectedIndex() == 1) {
+					boton33.doClick();
+				} else {
+					eliminarAnimal.doClick();
 				}
-				if (e.isControlDown() && e.getKeyCode()== KeyEvent.VK_A) {
+				}
+				
+			if (e.isControlDown() && e.getKeyCode()== KeyEvent.VK_A) {
+				if (pestaña.getSelectedIndex() == 0) {
 					tablaAnimales.clearSelection();
+				}
 				}
 			}
 		};
 		this.tablaAnimales.addKeyListener(keyListener);
-		this.boton.addKeyListener(keyListener);
-		
+		this.pestaña.addKeyListener(keyListener);
+		this.tipo.addKeyListener(keyListener);
+		this.fecha_nac.addKeyListener(keyListener);
+		this.raza.addKeyListener(keyListener);
+		this.especial.addKeyListener(keyListener);
+		this.id.addKeyListener(keyListener);
+		this.combo.addKeyListener(keyListener);
 		Thread hilo = new Thread(new Runnable() {
 			
 			@Override
@@ -336,6 +361,8 @@ public class VentanaAcoger extends JFrame{
 					RAZA.setForeground(color);
 					ESPECIAL.setForeground(color);
 					Error.setForeground(color);
+					ID.setForeground(color);
+					Error2.setForeground(color);
 					
 					try {
 						Thread.sleep(25);

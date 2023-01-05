@@ -176,13 +176,14 @@ public class VentanaIntroducirCliente extends JFrame {
 		});
 		}
 		
-		public boolean DNIAPTO(String dni) {
+		public static boolean DNIAPTO(String dni) {
 		//Comprueba que el dni empieza por 8 digitos y 1 letra
 		String finaliza = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
 		String comienza = "1234567890";
 		boolean res = true;
+		if (dni.length() == 9) {
 		String letra = "" + dni.charAt(8);
-		if (finaliza.contains(letra)) {
+		if (finaliza.contains(letra) ) {
 		for(int i = 0; i < 8; i++) {
 		letra = "" + dni.charAt(i);
 		if (!(comienza.contains(letra))){
@@ -192,6 +193,9 @@ public class VentanaIntroducirCliente extends JFrame {
 		}
 		} else {
 		res = false;
+		}
+		} else {
+			res = false;
 		}
 		return res;
 		}
