@@ -40,8 +40,8 @@ public class VentanaCliente extends JFrame{
 		Buscar = new JButton(idioma.get("buscar").toString());
 		dni = new JLabel(idioma.get("dni").toString());
 		pestaña = new JTabbedPane();
-		JButton administrador = new JButton("Editar Usuarios");
-		JButton editarCliente = new JButton ("Editar Cliente");
+		JButton administrador = new JButton(idioma.getProperty("editUsu"));
+		JButton editarCliente = new JButton (idioma.getProperty("editCli"));
 		JScrollPane textoError = new JScrollPane(ErrorCliente);
 		JPanel arriba = new JPanel();
 		JPanel abajo = new JPanel();
@@ -59,7 +59,7 @@ public class VentanaCliente extends JFrame{
 		if (!admin) {
 			administrador.setEnabled(false);
 		}
-		pestaña.addTab("Introducir", cp1);		
+		pestaña.addTab(idioma.getProperty("introducir"), cp1);		
 		cp.add(pestaña);
 		administrador.addActionListener(new ActionListener() {
 			
@@ -125,7 +125,7 @@ public class VentanaCliente extends JFrame{
 		
 		tr1.setCellRenderer(a);
 		
-		pestaña.addTab("Adoptar", cp2);	
+		pestaña.addTab(idioma.getProperty("botonadoptar"), cp2);	
 		
 		JPanel cp3 = new JPanel();
 		DefaultMutableTreeNode Acogido = new DefaultMutableTreeNode("Acogida");
@@ -134,7 +134,7 @@ public class VentanaCliente extends JFrame{
 		tr2 = new JTree(modelo1);
 		cp3.setLayout(new GridLayout(2,1));
 		cp3.add(tr2);
-		pestaña.addTab("Acoger", cp3);
+		pestaña.addTab(idioma.getProperty("Acoger"), cp3);
 		for(Cliente cl: hs2.keySet()) {
 			DefaultMutableTreeNode acog = new DefaultMutableTreeNode(cl.getNombre());
 			if(hs2.get(cl).size() != 0) {

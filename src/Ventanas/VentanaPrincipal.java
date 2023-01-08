@@ -237,7 +237,7 @@ public class VentanaPrincipal extends JFrame{
 		VentanaPrincipal v = new VentanaPrincipal();
 		
 		v.gestorV = new GestorBD();
-		v.gestorV.borrarBBDDUsuario(); //para comprobaciones de la BD
+		//v.gestorV.borrarBBDDUsuario(); //para comprobaciones de la BD
 		//CREATE DATABASE: Se crea la BBDD
 		v.gestorV.crearBBDDUsuario();
 		//INSERT: Insertar datos en la BBDD	inicial	

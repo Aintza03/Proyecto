@@ -38,15 +38,15 @@ public class VentanaEditarCliente extends JFrame{
 		JPanel abajo = new JPanel();
 		abajo.setLayout(new GridLayout(1,2));
 		
-		DNI = new JLabel("DNI: ");
-		TELEFONO = new JLabel("Telefono: ");
-		DIRECCION = new JLabel("Direccion: ");
+		DNI = new JLabel(p.getProperty("dni") + ": ");
+		TELEFONO = new JLabel(p.getProperty("tel") + " ");
+		DIRECCION = new JLabel(p.getProperty("dir") + " ");
 		Error = new JLabel("");
 		
 		dni = new JTextField("");
 		telefono = new JTextField("");
 		direccion = new JTextField("");
-		registrarCliente = new JButton("Editar Cliente");
+		registrarCliente = new JButton(p.getProperty("editCli"));
 		
 		arriba.add(DNI);
 		arriba.add(dni);
@@ -61,18 +61,18 @@ public class VentanaEditarCliente extends JFrame{
 		
 		JPanel cp2 = new JPanel();
 		cp2.setLayout(new GridLayout(2,2));
-		DNI2 = new JLabel("DNI: ");
+		DNI2 = new JLabel(p.getProperty("dni"));
 		Error2 = new JLabel("");
 		JScrollPane b = new JScrollPane(Error2);
 		
 		dni2 = new JTextField();
-		eliminarCliente = new JButton("Eliminar");
+		eliminarCliente = new JButton(p.getProperty("Elimi"));
 		cp2.add(DNI2);
 		cp2.add(dni2);
 		cp2.add(b);
 		cp2.add(eliminarCliente);	
-		pestaña.addTab("Editar Cliente", cp1);
-		pestaña.addTab("Eliminar Cliente", cp2);
+		pestaña.addTab(p.getProperty("editCli"), cp1);
+		pestaña.addTab(p.getProperty("elimCli"), cp2);
 		cp.add(pestaña);
 		
 		eliminarCliente.addActionListener(new ActionListener() {
@@ -200,7 +200,7 @@ public class VentanaEditarCliente extends JFrame{
 		this.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
 		this.setVisible(true);
 		this.setSize(500,150);
-		this.setTitle("Editar/Eliminar Clientes");
+		this.setTitle(p.getProperty("Editar/EliminarClientes"));
 		this.setLocationRelativeTo(null);
 		hilo.start();
 	}

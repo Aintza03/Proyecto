@@ -34,15 +34,15 @@ public class VentanaUsuarios extends JFrame {
 		JPanel abajo = new JPanel();
 		abajo.setLayout(new GridLayout(1,2));
 		
-		Usuario = new JLabel("Usuario: ");
-		Contraseña = new JLabel("Contraseña: ");
+		Usuario = new JLabel(p.getProperty("usuario") + ":");
+		Contraseña = new JLabel(p.getProperty("contrasena") + ":");
 		Admin = new JLabel("Admin: ");
 		Error = new JLabel("");
 		
 		usuario = new JTextField("");
 		contraseña = new JPasswordField("");
 		admin = new JTextField("");
-		continuar = new JButton("Añadir Usuario");
+		continuar = new JButton(p.getProperty("AnaUsu"));
 		
 		arriba.add(Usuario);
 		arriba.add(usuario);
@@ -57,18 +57,18 @@ public class VentanaUsuarios extends JFrame {
 		
 		JPanel cp2 = new JPanel();
 		cp2.setLayout(new GridLayout(2,2));
-		Usuario2 = new JLabel("Usuario: ");
+		Usuario2 = new JLabel(p.getProperty("usuario") + ": ");
 		Error2 = new JLabel("");
 		JScrollPane b = new JScrollPane(Error2);
 		
 		borrado = new JTextField();
-		eliminar = new JButton("Eliminar");
+		eliminar = new JButton(p.getProperty("Elimi"));
 		cp2.add(Usuario2);
 		cp2.add(borrado);
 		cp2.add(b);
 		cp2.add(eliminar);	
-		pestaña.addTab("Añadir Usuarios", cp1);
-		pestaña.addTab("Eliminar Usuarios", cp2);
+		pestaña.addTab(p.getProperty("AnaUsu"), cp1);
+		pestaña.addTab(p.getProperty("elimUsu"), cp2);
 		cp.add(pestaña);
 		continuar.addActionListener(new ActionListener() {
 			
@@ -207,7 +207,7 @@ public class VentanaUsuarios extends JFrame {
 		this.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
 		this.setVisible(true);
 		this.setSize(500,150);
-		this.setTitle("Añadir/Eliminar Usuarios");
+		this.setTitle(p.getProperty("Anadir/EliminarUsuarios"));
 		this.setLocationRelativeTo(null);
 		hilo.start();
 		

@@ -124,7 +124,7 @@ public class VentanaAcoger extends JFrame{
 		
 		//La tabla de comics se inserta en un panel con scroll
 		JScrollPane scrollPaneAnimales = new JScrollPane(this.tablaAnimales);
-		scrollPaneAnimales.setBorder(new TitledBorder(p.get("acoger").toString()));
+		scrollPaneAnimales.setBorder(new TitledBorder(p.get("acoger1").toString()));
 		
 		JPanel cosa = new JPanel();
 		cosa.setLayout(new GridLayout(2,3));
