@@ -38,7 +38,7 @@ public class VentanaUsuarios extends JFrame {
 		Contraseña = new JLabel(p.getProperty("contrasena") + ":");
 		Admin = new JLabel("Admin: ");
 		Error = new JLabel("");
-		
+		JScrollPane c = new JScrollPane(Error);
 		usuario = new JTextField("");
 		contraseña = new JPasswordField("");
 		admin = new JTextField("");
@@ -50,7 +50,7 @@ public class VentanaUsuarios extends JFrame {
 		arriba.add(contraseña);
 		arriba.add(Admin);
 		arriba.add(admin);
-		abajo.add(Error);
+		abajo.add(c);
 		abajo.add(continuar);
 		cp1.add(arriba);
 		cp1.add(abajo);
@@ -93,21 +93,23 @@ public class VentanaUsuarios extends JFrame {
 							ad = false;
 							guardable = true;
 						}else {
-							Error.setText("El campo administrador debe contener o Si o No");
+							Error.setText(p.getProperty("error23"));
 						}
 						if (guardable) {
 							boolean e3 = v.insertarDatosUsuario(new General.Usuario(contra,u,ad));
 							if (!e3) {
-								Error.setText("La contraseña o el Usuario no son validos");
+								Error.setText(p.getProperty("error24"));
+							} else {
+								Error.setText("");
 							}
 						}
 					} catch (Exception e2) {
 						// TODO: handle exception
 						System.err.println("La contraseña tiene letras");
-						Error.setText("La contraseña no debe tener letras");
+						Error.setText(p.getProperty("error25"));
 					}
 				} else {
-					Error.setText("Ninguno de los campos puede estar vacio o la contraseña no tiene 4 digitos.");
+					Error.setText(p.getProperty("error26"));
 				}
 			}
 		});
@@ -118,9 +120,9 @@ public class VentanaUsuarios extends JFrame {
 				// TODO Auto-generated method stub
 				boolean ocurre = v.borrarDatosUsuario(borrado.getText());
 				if (ocurre) {
-					Error2.setText("Se ha borrado el Usuario");
+					Error2.setText(p.getProperty("error27"));
 				} else {
-					Error2.setText("No se ha encontrado el Usuario");
+					Error2.setText(p.getProperty("error28"));
 				}
 			}
 		});

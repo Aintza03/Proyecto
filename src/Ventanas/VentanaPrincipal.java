@@ -152,7 +152,6 @@ public class VentanaPrincipal extends JFrame{
 				this.setSize(300,150);
 				this.setTitle("Inicio de sesion");
 				this.setLocationRelativeTo(null);
-				
 		Thread hilo = new Thread(new Runnable() {
 			
 			@Override

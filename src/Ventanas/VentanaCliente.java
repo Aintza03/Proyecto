@@ -38,7 +38,7 @@ public class VentanaCliente extends JFrame{
 		DNI = new JTextField();
 		ErrorCliente = new JLabel("");
 		Buscar = new JButton(idioma.get("buscar").toString());
-		dni = new JLabel(idioma.get("dni").toString());
+		dni = new JLabel(idioma.get("dni").toString() + ":");
 		pestaña = new JTabbedPane();
 		JButton administrador = new JButton(idioma.getProperty("editUsu"));
 		JButton editarCliente = new JButton (idioma.getProperty("editCli"));
@@ -82,7 +82,7 @@ public class VentanaCliente extends JFrame{
 		});
 		
 		JPanel cp2 = new JPanel();
-		DefaultMutableTreeNode Adoptado = new DefaultMutableTreeNode("Adopción");
+		DefaultMutableTreeNode Adoptado = new DefaultMutableTreeNode(idioma.getProperty("a1"));
 		DefaultTreeModel modelo = new DefaultTreeModel(Adoptado);
 		tr1 = new JTree(modelo);
 		cp2.setLayout(new GridLayout(2,1));
@@ -125,10 +125,10 @@ public class VentanaCliente extends JFrame{
 		
 		tr1.setCellRenderer(a);
 		
-		pestaña.addTab(idioma.getProperty("botonadoptar"), cp2);	
+		pestaña.addTab(idioma.getProperty("Adoptar"), cp2);	
 		
 		JPanel cp3 = new JPanel();
-		DefaultMutableTreeNode Acogido = new DefaultMutableTreeNode("Acogida");
+		DefaultMutableTreeNode Acogido = new DefaultMutableTreeNode(idioma.getProperty("a2"));
 		DefaultTreeModel modelo1 = new DefaultTreeModel(Acogido);
 		HashMap<Cliente, ArrayList<Animal>> hs2= hmacogidos(gestorV);
 		tr2 = new JTree(modelo1);
@@ -178,18 +178,18 @@ public class VentanaCliente extends JFrame{
 			public void stateChanged(ChangeEvent e) {
 				// TODO Auto-generated method stub
 				if(pestaña.getSelectedIndex() == 0) {
-					setSize(300,200);
+					setSize(400,200);
 				}else if (pestaña.getSelectedIndex() == 1) {
-					setSize(300,300);
+					setSize(400,300);
 				} else if (pestaña.getSelectedIndex() == 2) {
-					setSize(300,300);
+					setSize(400,300);
 				}
 			}
 		});
 
 		this.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
 		this.setVisible(true);
-		this.setSize(300,200);
+		this.setSize(400,200);
 		this.setTitle(idioma.getProperty("introducir"));
 		this.setLocationRelativeTo(null);
 		Buscar.addActionListener(new ActionListener() {
@@ -288,7 +288,7 @@ public class VentanaCliente extends JFrame{
 			}
 			}
 			}else {
-				resultado = "El DNI introducido no es valido";
+				resultado = idioma.getProperty("mes7");
 			}
 			return resultado;
 			}

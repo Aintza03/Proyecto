@@ -71,9 +71,9 @@ public class VentanaAcoger extends JFrame{
 		boton33 = new JButton("->");
 		Animal = new JLabel("");
 		combo = new JComboBox();
-		combo.addItem("Gato");
-		combo.addItem("Perro");
-		combo.addItem("Sin Filtro");
+		combo.addItem(p.getProperty("gato"));
+		combo.addItem(p.getProperty("perro"));
+		combo.addItem(p.getProperty("sinFiltro"));
 		
 		 RowFilter<Object,Object> startsWithAFilter = new RowFilter<Object,Object>() {
 			   public boolean include(Entry<? extends Object, ? extends Object> entry) {
@@ -163,6 +163,7 @@ public class VentanaAcoger extends JFrame{
 		fecha_nac = new JTextField("");
 		raza = new JTextField("");
 		especial = new JTextField("");
+		JScrollPane c = new JScrollPane(Error);
 		cp2.setLayout(new GridLayout(3,1));
 		arriba2.setLayout(new GridLayout(1,4));
 		centro2.setLayout(new GridLayout(1,4));
@@ -175,7 +176,7 @@ public class VentanaAcoger extends JFrame{
 		centro2.add(raza);
 		centro2.add(ESPECIAL);
 		centro2.add(especial);
-		abajo2.add(Error);
+		abajo2.add(c);
 		abajo2.add(boton33);
 		cp2.add(arriba2);
 		cp2.add(centro2);
@@ -187,7 +188,7 @@ public class VentanaAcoger extends JFrame{
 		Error2 = new JLabel("");
 		JScrollPane b = new JScrollPane(Error2);
 		id = new JTextField();
-		eliminarAnimal = new JButton("Eliminar");
+		eliminarAnimal = new JButton(p.getProperty("eliminar"));
 		
 		cp3.add(ID);
 		cp3.add(id);
@@ -216,13 +217,13 @@ public class VentanaAcoger extends JFrame{
 										Error.setText("");
 									}
 								}else {
-									Error.setText("No se admite que raza este vacio.");
+									Error.setText(p.getProperty("error10"));
 								}
 							}else {
-								Error.setText("No se admite esa fecha de nacimiento o que el campo este vacio.");
+								Error.setText(p.getProperty("error11"));
 							}
 						}else {
-							Error.setText("No se admite ese tipo de animal o que el campo este vacio.");
+							Error.setText(p.getProperty("error12"));
 						}
 						
 						
@@ -240,7 +241,7 @@ public class VentanaAcoger extends JFrame{
 				int b = Integer.parseInt(a);
 				boolean ocurre = v.borrarDatosAnimal(b);
 				if (ocurre) {
-					Error2.setText("Se ha borrado el Animal");
+					Error2.setText(p.getProperty("error13"));
 					for (int i = 0; i < modeloDatosAnimales.getRowCount(); i++) {
 						String c = modeloDatosAnimales.getValueAt(i, 0).toString();
 						int d = Integer.parseInt(c);
@@ -249,10 +250,10 @@ public class VentanaAcoger extends JFrame{
 						}
 					}
 				} else {
-					Error2.setText("No se ha encontrado el Animal");
+					Error2.setText(p.getProperty("error14"));
 				}
 			}catch(Exception e1) {
-				Error2.setText("El id esta vacio o no es valido.");
+				Error2.setText(p.getProperty("error15"));
 			}
 			} 
 		});
@@ -280,9 +281,9 @@ public class VentanaAcoger extends JFrame{
 		this.setVisible(true);	
 		combo.setSelectedIndex(2);
 		cp.setLayout(new GridLayout(1,1));
-		pestaña.addTab("Tabla Animales", cp1);
-		pestaña.addTab("Introducir Animal", cp2);
-		pestaña.addTab("Eliminar Animal", cp3);
+		pestaña.addTab(p.getProperty("tablaAnimales"), cp1);
+		pestaña.addTab(p.getProperty("introducirAnimal"), cp2);
+		pestaña.addTab(p.getProperty("eliminarAnimal"), cp3);
 		cp.add(pestaña);
 		
 		
@@ -378,7 +379,7 @@ public class VentanaAcoger extends JFrame{
 	
 	private void initTable(GestorBD v, String dni ) {
 		//Cabecera del modelo de datos
-		Vector<String> cabeceraAnimales = new Vector<String>(Arrays.asList( "ID", p.get("tipo").toString() , p.get("fecha_nac").toString(), p.get("raza").toString(), p.get("especial").toString(), "Acoger"));				
+		Vector<String> cabeceraAnimales = new Vector<String>(Arrays.asList( "ID", p.get("tipo").toString() , p.get("fecha_nac").toString(), p.get("raza").toString(), p.get("especial").toString(), p.getProperty("acoger2")));				
 		//Se crea el modelo de datos para la tabla de comics sÃ³lo con la cabecera	
 		
 		this.modeloDatosAnimales = new DefaultTableModel(new Vector<Vector<Object>>(), cabeceraAnimales) {

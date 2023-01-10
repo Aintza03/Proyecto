@@ -42,7 +42,7 @@ public class VentanaEditarCliente extends JFrame{
 		TELEFONO = new JLabel(p.getProperty("tel") + " ");
 		DIRECCION = new JLabel(p.getProperty("dir") + " ");
 		Error = new JLabel("");
-		
+		JScrollPane c = new JScrollPane(Error);
 		dni = new JTextField("");
 		telefono = new JTextField("");
 		direccion = new JTextField("");
@@ -54,14 +54,14 @@ public class VentanaEditarCliente extends JFrame{
 		arriba.add(telefono);
 		arriba.add(DIRECCION);
 		arriba.add(direccion);
-		abajo.add(Error);
+		abajo.add(c);
 		abajo.add(registrarCliente);
 		cp1.add(arriba);
 		cp1.add(abajo);
 		
 		JPanel cp2 = new JPanel();
 		cp2.setLayout(new GridLayout(2,2));
-		DNI2 = new JLabel(p.getProperty("dni"));
+		DNI2 = new JLabel(p.getProperty("dni") + ":");
 		Error2 = new JLabel("");
 		JScrollPane b = new JScrollPane(Error2);
 		
@@ -83,11 +83,11 @@ public class VentanaEditarCliente extends JFrame{
 				boolean apto = VentanaIntroducirCliente.DNIAPTO(dni2.getText());
 				boolean ocurre = v.borrarDatosCliente(dni2.getText());
 				if (ocurre && apto) {
-					Error2.setText("Se ha borrado el Cliente");
+					Error2.setText(p.getProperty("error16"));
 				}else if (!apto){
-					Error2.setText("El DNI introducido no es apto");
+					Error2.setText(p.getProperty("error17"));
 				} else if (!ocurre) {
-					Error2.setText("No se ha encontrado el Cliente");
+					Error2.setText(p.getProperty("error18"));
 				}
 			}
 		});
@@ -107,26 +107,26 @@ public class VentanaEditarCliente extends JFrame{
 						if(direccion.getText().length() != 0) {
 							boolean ocurre = v.actualizarClienteYaExistente(dni.getText(), b, direccion.getText());
 							if (ocurre) {
-								Error.setText("Se ha actualizado el cliente");
+								Error.setText(p.getProperty("error19"));
 							} else {
-								Error.setText("El cliente no se ha actualizado.");
+								Error.setText(p.getProperty("error20"));
 							}
 						}else {
-							Error.setText("No se admite esa dirección.");
+							Error.setText(p.getProperty("error21"));
 						}
 					}else {
-						Error.setText("No se admite ese número de telefono.");
+						Error.setText(p.getProperty("error22"));
 					}
 					} else {
-						Error.setText("El DNI introducido no es valido.");
+						Error.setText(p.getProperty("mes7"));
 					}
 				}else{
-					Error.setText("El DNI introducido no es valido.");
+					Error.setText(p.getProperty("mes7"));
 				}
 					
 				} catch (Exception e2) {
 					// TODO: handle exception
-					Error.setText("No se admite ese número de telefono.");
+					Error.setText(p.getProperty("error22"));
 				}
 				
 				
