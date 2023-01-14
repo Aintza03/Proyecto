@@ -11,10 +11,13 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.logging.Level;
 
 import General.Animal;
 import General.Cliente;
 import General.Usuario;
+import Ventanas.VentanaPrincipal;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -29,8 +32,7 @@ public class GestorBD {
 			//Cargar el diver SQLite
 			Class.forName(DRIVER_NAME);
 		} catch (ClassNotFoundException ex) {
-			System.err.println(String.format("* Error al cargar el driver de BBDD: %s", ex.getMessage()));
-			ex.printStackTrace();
+			VentanaPrincipal.log.log(Level.WARNING , "*Error al cargar el driver de la BBDD: %s",ex);
 		}
 	}
 		
@@ -70,8 +72,7 @@ public class GestorBD {
 	        }
 	       con.close();
 		} catch (Exception ex) {
-			System.err.println(String.format("* Error al crear la BBDD: %s", ex.getMessage()));
-			ex.printStackTrace();			
+			VentanaPrincipal.log.log(Level.WARNING , "*Error al crear la BBDD: %s",ex);
 		}
 	}
 	
@@ -94,8 +95,7 @@ public class GestorBD {
 	        }
 	        con.close();
 		} catch (Exception ex) {
-			System.err.println(String.format("* Error al borrar la BBDD: %s", ex.getMessage()));
-			ex.printStackTrace();
+			VentanaPrincipal.log.log(Level.WARNING , "*Error al borrar la BBDD: %s",ex);
 			
 		}
 		try {
@@ -103,8 +103,8 @@ public class GestorBD {
 			Files.delete(Paths.get(DATABASE_FILE));
 			System.out.println("- Se ha borrado el fichero de la BBDD");
 		} catch (Exception ex) {
-			System.err.println(String.format("* Error al borrar el archivo de la BBDD: %s", ex.getMessage()));
-			ex.printStackTrace();						
+
+			VentanaPrincipal.log.log(Level.WARNING , "*Error al borrar el archivo de la BBDD: %s",ex);					
 		}
 	}
 	
@@ -128,8 +128,7 @@ public class GestorBD {
 			con.close();
 			return true;
 		} catch (Exception ex) {
-			System.err.println(String.format("* Error al insertar datos de la BBDD: %s", ex.getMessage()));
-			ex.printStackTrace();
+			VentanaPrincipal.log.log(Level.WARNING , "*Error insertando datos en la BBDD: %s",ex);
 			return false;
 		}				
 	}
@@ -160,8 +159,7 @@ public class GestorBD {
 				}
 			con.close();			
 		} catch (Exception ex) {
-			System.err.println(String.format("* Error al insertar datos de la BBDD: %s", ex.getMessage()));
-			ex.printStackTrace();						
+			VentanaPrincipal.log.log(Level.WARNING , "*Error insertando datos en la BBDD: %s",ex);				
 		}				
 	}
 	public void insertarDatosAnimal(Animal... animales) {
@@ -183,8 +181,7 @@ public class GestorBD {
 			}
 			con.close();
 		} catch (Exception ex) {
-			System.err.println(String.format("* Error al insertar datos de la BBDD: %s", ex.getMessage()));
-			ex.printStackTrace();						
+			VentanaPrincipal.log.log(Level.WARNING , "*Error insertando datos en la BBDD: %s",ex);						
 		}				
 	}
 	public List<Usuario> obtenerDatosUsuario() {
@@ -219,8 +216,7 @@ public class GestorBD {
 			con.close();
 			System.out.println(String.format("- Se han recuperado %d usuario...", usuarios.size()));			
 		} catch (Exception ex) {
-			System.err.println(String.format("* Error al obtener datos de la BBDD: %s", ex.getMessage()));
-			ex.printStackTrace();						
+			VentanaPrincipal.log.log(Level.WARNING , "*Error obteniendo datos de la BBDD: %s",ex);						
 		}		
 		
 		return usuarios;
@@ -254,8 +250,7 @@ public class GestorBD {
 			con.close();
 			System.out.println(String.format("- Se han recuperado %d cliente...", clientes.size()));			
 		} catch (Exception ex) {
-			System.err.println(String.format("* Error al obtener datos de la BBDD: %s", ex.getMessage()));
-			ex.printStackTrace();						
+			VentanaPrincipal.log.log(Level.WARNING , "*Error obteniendo datos de la BBDD: %s",ex);				
 		}		
 		obtenerDatosAnimal((ArrayList<Cliente>) clientes);
 		return clientes;
@@ -306,8 +301,8 @@ public class GestorBD {
 			con.close();
 			System.out.println(String.format("- Se han recuperado %d animales...", animales.size()));			
 		} catch (Exception ex) {
-			System.err.println(String.format("* Error al obtener datos de la BBDD: %s", ex.getMessage()));
-			ex.printStackTrace();						
+			VentanaPrincipal.log.log(Level.WARNING , "*Error obteniendo datos de la BBDD: %s",ex);
+								
 		}		
 		lista.add(animales);
 		lista.add(clientes);
@@ -331,8 +326,8 @@ public class GestorBD {
 				return false;
 			}
 		} catch (Exception ex) {
-			System.err.println(String.format("* Error al borrar datos de la BBDD: %s", ex.getMessage()));
-			ex.printStackTrace();
+			VentanaPrincipal.log.log(Level.WARNING , "*Error borrando datos de la BBDD: %s",ex);
+			
 			return false;
 		}		
 	}	
@@ -353,8 +348,8 @@ public class GestorBD {
 				return false;
 			}
 		} catch (Exception ex) {
-			System.err.println(String.format("* Error al borrar datos de la BBDD: %s", ex.getMessage()));
-			ex.printStackTrace();
+			VentanaPrincipal.log.log(Level.WARNING , "*Error borrando datos de la BBDD: %s",ex);
+			
 			return false;
 		}		
 	}	
@@ -374,8 +369,8 @@ public class GestorBD {
 				return false;
 			}
 		} catch (Exception ex) {
-			System.err.println(String.format("* Error al borrar datos de la BBDD: %s", ex.getMessage()));
-			ex.printStackTrace();
+			VentanaPrincipal.log.log(Level.WARNING , "*Error borrando datos de la BBDD: %s",ex);
+			
 			return false;
 		}		
 	}	
@@ -390,8 +385,8 @@ public class GestorBD {
 				
 				System.out.println(String.format("- Se ha actualizado %d animales", result));
 			} catch (Exception ex) {
-				System.err.println(String.format("* Error actualizando datos de la BBDD: %s", ex.getMessage()));
-				ex.printStackTrace();						
+				VentanaPrincipal.log.log(Level.WARNING , "*Error actualizando datos de la BBDD: %s",ex);
+								
 			}		
 		}
 	
@@ -403,7 +398,8 @@ public class GestorBD {
 			System.out.println(String.format("- Se ha actualizado %d clientes",result));
 		} catch (Exception e) {
 			// TODO: handle exception
-			System.out.println(String.format("*Error actualizando datos de la BBDD: %s",e.getMessage()));
+			VentanaPrincipal.log.log(Level.WARNING , "*Error actualizando datos de la BBDD: %s",e);
+			
 		}
 	}
 	//Metodo creado para usar en la ventana EditarCliente solo permite actualizar 1 cliente por llamada
@@ -417,10 +413,11 @@ public class GestorBD {
 				return false;
 			} else {
 				return true;
-			}
+			} 
 		} catch (Exception e) {
 			// TODO: handle exception
-			System.out.println(String.format("*Error actualizando datos de la BBDD: %s",e.getMessage()));
+			VentanaPrincipal.log.log(Level.WARNING ,"*Error actualizando datos de la BBDD: %s" ,e);
+			
 			return false;
 		}
 	}

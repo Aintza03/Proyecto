@@ -2,6 +2,7 @@ package Ventanas;
 
 import java.util.ArrayList;
 import java.util.Properties;
+import java.util.logging.Level;
 
 import javax.swing.*;
 
@@ -111,7 +112,7 @@ public class VentanaIntroducirCliente extends JFrame {
 		// TODO: handle exception
 		System.err.println("El telefono introducido tiene letras");
 		Error.setText(idioma.get("mes8").toString());
-		e2.printStackTrace();
+		VentanaPrincipal.log.log(Level.WARNING , "",e2);
 		}
 		}
 		});
@@ -144,7 +145,7 @@ public class VentanaIntroducirCliente extends JFrame {
 						Thread.sleep(25);
 					} catch (InterruptedException e) {
 						// TODO Auto-generated catch block
-						e.printStackTrace();
+						VentanaPrincipal.log.log(Level.WARNING , "El hilo de la ventana introducir cliente no se ha detenido como debia con sleep",e);
 					}
 				}
 			}
@@ -171,6 +172,7 @@ public class VentanaIntroducirCliente extends JFrame {
 			@Override
 			public void windowClosing(WindowEvent e) {
 				// TODO Auto-generated method stub
+				VentanaPrincipal.finLogger();
 				System.exit(0);
 			}
 		});

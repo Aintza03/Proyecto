@@ -3,6 +3,7 @@ import java.awt.*;
 import java.awt.event.*;
 import java.util.ArrayList;
 import java.util.Properties;
+import java.util.logging.Level;
 
 import javax.swing.*;
 import General.Animal;
@@ -169,6 +170,7 @@ public class VentanaAdopcion extends JFrame {
 					} catch (InterruptedException e) {
 						// TODO Auto-generated catch block
 						e.printStackTrace();
+						VentanaPrincipal.log.log(Level.WARNING , "El hilo de ventana Adopcion no ha conseguido ejecutar la instruccion sleep",e);
 					}
 				}
 			}
@@ -205,6 +207,7 @@ public class VentanaAdopcion extends JFrame {
 			@Override
 			public void windowClosing(WindowEvent e) {
 				// TODO Auto-generated method stub
+				VentanaPrincipal.finLogger();
 				System.exit(0);
 			}
 		});

@@ -14,6 +14,7 @@ import java.util.logging.Level;
 import General.Animal;
 import General.Cliente;
 import General.Usuario;
+import Ventanas.VentanaPrincipal;
 
 public class Inits {
 	public static void printClientes(List<Cliente> clientes) {
@@ -56,7 +57,8 @@ public class Inits {
 			sc.close();
 		} catch (FileNotFoundException e) {
 			// TODO Auto-generated catch block
-			e.printStackTrace();
+
+			VentanaPrincipal.log.log(Level.WARNING , "No se ha encontrado el fichero",e);
 		}
 		//Usuario usuario = new Usuario(1111, "nombre");
 		//usuario.setUsuario("Bruce A");
@@ -95,7 +97,8 @@ public class Inits {
 			sc.close();
 		} catch (FileNotFoundException e) {
 			// TODO Auto-generated catch block
-			e.printStackTrace();
+
+			VentanaPrincipal.log.log(Level.WARNING , "No se ha encontrado el fichero",e);
 		}
 		//Cliente cliente = new Cliente(null, null, 1111, "nombre", null, null, false);
 		//cliente.setDni("Bruce Banner");
@@ -130,7 +133,8 @@ public class Inits {
 			sc.close();
 		} catch (FileNotFoundException e) {
 			// TODO Auto-generated catch block
-			e.printStackTrace();
+
+			VentanaPrincipal.log.log(Level.WARNING , "No se ha encontrado el fichero",e);
 		}
 		
 		//Animal animal = new Animal(1111, "nombre", null, null, null);
@@ -140,7 +144,7 @@ public class Inits {
 		//animal.setTipo("gato");
 		//animal.setFechaNac(null);
 		//animales.add(animal);
-		
+		 
 		return animales; 
 	}
 	public static void printAnimales(List<ArrayList> lista) {

@@ -6,6 +6,9 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Properties;
+import java.util.logging.FileHandler;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import java.awt.event.*;
 import javax.swing.*;
 
@@ -15,6 +18,7 @@ import General.Usuario;
 import bbdd.GestorBD;
 import bbdd.Inits;
 public class VentanaPrincipal extends JFrame{
+		public static Logger log ;
 		protected JButton continuar;
 		protected JTextField usuario;
 		protected JPasswordField contraseña; 
@@ -34,6 +38,9 @@ public class VentanaPrincipal extends JFrame{
 		protected Properties i;
 		//para la ventanaCliente
 		protected VentanaCliente v2;
+		public static void finLogger() {
+			log.log(Level.FINEST, "Fin del progrma");
+		}
 	public VentanaPrincipal() {
 		//Inicializar y declarar el cp
 		Container cp = this.getContentPane();
@@ -85,9 +92,9 @@ public class VentanaPrincipal extends JFrame{
 					}
 					
 				} catch (Exception e1) {
-					Error.setText(i.getProperty("errorTres"));
 					System.out.println("No se han insertado numeros");
-					e1.printStackTrace();
+					e1.printStackTrace();log.log(Level.WARNING, "errorTres", e1);
+					
 				}
 				
 				}
@@ -108,12 +115,10 @@ public class VentanaPrincipal extends JFrame{
 					idioma.setText(i.get("idioma").toString());
 				} catch (FileNotFoundException e1) {
 					// TODO Auto-generated catch block
-					System.out.println("No se puede encontrar el fichero config/castellano.properties");
-					e1.printStackTrace();
+					log.log(Level.WARNING, "No se puede encontrar el fichero config/castellano.properties", e1);
 				} catch (IOException e1) {
 					// TODO Auto-generated catch block
-					System.err.println("No se puede leer el fichero");
-					e1.printStackTrace();
+					log.log(Level.WARNING, "No se puede leer el fichero castellano.properties", e1);
 				}
 				
 			}
@@ -134,12 +139,10 @@ public class VentanaPrincipal extends JFrame{
 					idioma.setText(i.get("idioma").toString());
 				} catch (FileNotFoundException e1) {
 					// TODO Auto-generated catch block
-					System.out.println("No se puede encontrar el fichero config/euskera.properties");
-					e1.printStackTrace();
+					log.log(Level.WARNING, "No se puede encontrar el fichero config/euskera.properties", e1);
 				} catch (IOException e1) {
 					// TODO Auto-generated catch block
-					System.err.println("No se puede leer el fichero");
-					e1.printStackTrace();
+					log.log(Level.WARNING, "No se puede leer el fichero euskera.properties", e1);
 				}
 			}
 		});
@@ -177,7 +180,8 @@ public class VentanaPrincipal extends JFrame{
 					try {
 						Thread.sleep(25);
 					}catch (InterruptedException e) {
-						e.printStackTrace();
+						
+						log.log(Level.WARNING, "El hilo de la ventana principal no ha podido ejecutar el comado sleep", e);
 					}
 				}
 				
@@ -199,6 +203,7 @@ public class VentanaPrincipal extends JFrame{
 			@Override
 			public void windowClosing(WindowEvent e) {
 				// TODO Auto-generated method stub
+				finLogger();
 				System.exit(0);
 			}
 		});
@@ -233,6 +238,19 @@ public class VentanaPrincipal extends JFrame{
 		return resultados;
 	}
 	public static void main(String[] args) {//temporalmente localizado aqui para hacer pruebas
+		try {
+		log = Logger.getLogger("Logger");
+		FileHandler h = new FileHandler("LoggerTotal.xml", true);
+		FileHandler g = new FileHandler("LoggerError.xml", true);
+		log.addHandler(h);
+		log.addHandler(g);
+		log.setLevel(Level.FINEST);
+		h.setLevel(Level.FINEST);
+		}catch (Exception e) {
+			
+		}
+		log.log(Level.FINEST, "Inicio del progrma");
+		try {
 		VentanaPrincipal v = new VentanaPrincipal();
 		
 		v.gestorV = new GestorBD();
@@ -250,6 +268,10 @@ public class VentanaPrincipal extends JFrame{
 			
 		}
 		
+	}catch (Exception e){
+		log.log(Level.SEVERE, "Error en main", e);
+		JOptionPane.showMessageDialog(null, "Error no se ha podido inicializar el programa" , "Error", JOptionPane.ERROR_MESSAGE);
+		
 	}
 
-}
+}}

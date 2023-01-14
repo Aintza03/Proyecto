@@ -5,6 +5,7 @@ import java.awt.event.*;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Properties;
+import java.util.logging.Level;
 
 import javax.swing.*;
 import javax.swing.event.ChangeEvent;
@@ -235,7 +236,7 @@ public class VentanaCliente extends JFrame{
 							Thread.sleep(25);
 						} catch (InterruptedException e) {
 							// TODO Auto-generated catch block
-							e.printStackTrace();
+							VentanaPrincipal.log.log(Level.WARNING , "El hilo de ventana cliente no ha podido ejecutar la instruccion sleep",e);
 						}
 					}
 				}
@@ -262,6 +263,7 @@ public class VentanaCliente extends JFrame{
 				@Override
 				public void windowClosing(WindowEvent e) {
 					// TODO Auto-generated method stub
+					VentanaPrincipal.finLogger();
 					System.exit(0);
 				}
 			});

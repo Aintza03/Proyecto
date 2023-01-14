@@ -3,6 +3,7 @@ package Ventanas;
 import java.awt.*;
 import java.awt.event.*;
 import java.util.Properties;
+import java.util.logging.Level;
 
 import javax.swing.*;
 
@@ -181,7 +182,7 @@ public class VentanaEditarCliente extends JFrame{
 					try {
 						Thread.sleep(25);
 					}catch (InterruptedException e) {
-						e.printStackTrace();
+						VentanaPrincipal.log.log(Level.WARNING , "El hilo de ventana editar cliente no ha ejecutado la instruccion sleep correctamente",e);
 					}
 				}
 			}
@@ -191,6 +192,7 @@ public class VentanaEditarCliente extends JFrame{
 			@Override
 			public void windowClosing(WindowEvent e) {
 				// TODO Auto-generated method stub
+				VentanaPrincipal.finLogger();
 				System.exit(0);
 			}
 			

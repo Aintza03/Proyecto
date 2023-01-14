@@ -7,6 +7,7 @@ import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.Properties;
 import java.util.Vector;
+import java.util.logging.Level;
 
 import javax.swing.*;
 import javax.swing.border.TitledBorder;
@@ -254,6 +255,7 @@ public class VentanaAcoger extends JFrame{
 				}
 			}catch(Exception e1) {
 				Error2.setText(p.getProperty("error15"));
+				VentanaPrincipal.log.log(Level.WARNING , "",e1);
 			}
 			} 
 		});
@@ -291,6 +293,7 @@ public class VentanaAcoger extends JFrame{
 			@Override
 			public void windowClosing(WindowEvent e) {
 				// TODO Auto-generated method stub
+				VentanaPrincipal.finLogger();
 				System.exit(0);
 			}
 		});
@@ -369,7 +372,7 @@ public class VentanaAcoger extends JFrame{
 						Thread.sleep(25);
 					} catch (InterruptedException e) {
 						// TODO Auto-generated catch block
-						e.printStackTrace();
+						VentanaPrincipal.log.log(Level.WARNING , "Error al dormir el hilo de ventanaAcoger",e);
 					}
 				}
 			}
