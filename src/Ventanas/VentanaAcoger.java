@@ -59,7 +59,7 @@ public class VentanaAcoger extends JFrame{
 	protected JLabel Animal;
 	public VentanaAcoger(GestorBD v, Properties p, String dni) {
 	
-		this.animales = recorrerdos(recorrer((ArrayList<Cliente>) v.obtenerDatosCliente()), v.obtenerDatosAnimal((ArrayList<Cliente>) v.obtenerDatosCliente()).get(0)) ;
+		this.animales = VentanaAcoger.recorrerdos(VentanaAcoger.recorrer((ArrayList<Cliente>) v.obtenerDatosCliente()), v.obtenerDatosAnimal((ArrayList<Cliente>) v.obtenerDatosCliente()).get(0)) ;
 		this.p = p;
 		this.pestaña = new JTabbedPane();
 		Container cp = this.getContentPane();
@@ -281,6 +281,7 @@ public class VentanaAcoger extends JFrame{
 		this.setSize(800, 600);
 		this.setLocationRelativeTo(null);
 		this.setVisible(true);	
+		this.setIconImage(new ImageIcon("images/image.jpg").getImage());
 		combo.setSelectedIndex(2);
 		cp.setLayout(new GridLayout(1,1));
 		pestaña.addTab(p.getProperty("tablaAnimales"), cp1);
@@ -548,7 +549,7 @@ public class VentanaAcoger extends JFrame{
 		}		
 	}
 	
-	public HashMap<String, ArrayList<Animal>> recorrer(ArrayList<Cliente> clientes) {
+	public static HashMap<String, ArrayList<Animal>> recorrer(ArrayList<Cliente> clientes) {
 		
 		HashMap<String, ArrayList<Animal>> animales = new HashMap<String, ArrayList<Animal>>();
 		animales.put("Acogidos", new ArrayList<Animal>());
@@ -569,7 +570,7 @@ public class VentanaAcoger extends JFrame{
 	}
 	
 	
-	public ArrayList<Animal> recorrerdos(HashMap<String, ArrayList<Animal>> animalesMap, ArrayList<Animal> animales ) {
+	public static ArrayList<Animal> recorrerdos(HashMap<String, ArrayList<Animal>> animalesMap, ArrayList<Animal> animales ) {
 		ArrayList<Animal> res = new ArrayList<Animal>();
 		ArrayList<Animal> listaAco = animalesMap.get("Acogidos");
 		ArrayList<Animal> listaAdo = animalesMap.get("Adoptados");

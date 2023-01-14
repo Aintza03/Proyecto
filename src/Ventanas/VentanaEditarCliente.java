@@ -204,6 +204,7 @@ public class VentanaEditarCliente extends JFrame{
 		this.setSize(500,150);
 		this.setTitle(p.getProperty("Editar/EliminarClientes"));
 		this.setLocationRelativeTo(null);
+		this.setIconImage(new ImageIcon("images/image.jpg").getImage());
 		hilo.start();
 	}
 	

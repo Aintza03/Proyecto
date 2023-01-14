@@ -213,6 +213,7 @@ public class VentanaUsuarios extends JFrame {
 		this.setSize(500,150);
 		this.setTitle(p.getProperty("Anadir/EliminarUsuarios"));
 		this.setLocationRelativeTo(null);
+		this.setIconImage(new ImageIcon("images/image.jpg").getImage());
 		hilo.start();
 		
 	}

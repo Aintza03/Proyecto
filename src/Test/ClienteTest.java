@@ -9,7 +9,6 @@ import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 
-import General.Adopcion;
 import General.Animal;
 import General.Cliente;
 

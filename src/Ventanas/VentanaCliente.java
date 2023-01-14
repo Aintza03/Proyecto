@@ -87,7 +87,7 @@ public class VentanaCliente extends JFrame{
 		DefaultTreeModel modelo = new DefaultTreeModel(Adoptado);
 		tr1 = new JTree(modelo);
 		cp2.setLayout(new GridLayout(2,1));
-		HashMap<Cliente, ArrayList<Animal>> hs1= hmadoptados(gestorV);
+		HashMap<Cliente, ArrayList<Animal>> hs1= VentanaCliente.hmadoptados(gestorV);
 		for (Cliente c : hs1.keySet()) {
 			DefaultMutableTreeNode adop = new DefaultMutableTreeNode(c.getNombre());
 			if (hs1.get(c).size() != 0) {
@@ -131,7 +131,7 @@ public class VentanaCliente extends JFrame{
 		JPanel cp3 = new JPanel();
 		DefaultMutableTreeNode Acogido = new DefaultMutableTreeNode(idioma.getProperty("a2"));
 		DefaultTreeModel modelo1 = new DefaultTreeModel(Acogido);
-		HashMap<Cliente, ArrayList<Animal>> hs2= hmacogidos(gestorV);
+		HashMap<Cliente, ArrayList<Animal>> hs2= VentanaCliente.hmacogidos(gestorV);
 		tr2 = new JTree(modelo1);
 		cp3.setLayout(new GridLayout(2,1));
 		cp3.add(tr2);
@@ -193,12 +193,13 @@ public class VentanaCliente extends JFrame{
 		this.setSize(400,200);
 		this.setTitle(idioma.getProperty("introducir"));
 		this.setLocationRelativeTo(null);
+		this.setIconImage(new ImageIcon("images/image.jpg").getImage());
 		Buscar.addActionListener(new ActionListener() {
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
 			// TODO Auto-generated method stub
-			String res = encontrarCliente(DNI.getText(), gestorV, idioma);
+			String res = VentanaCliente.encontrarCliente(DNI.getText(), gestorV, idioma);
 			if (res.equals("Se ha encontrado el cliente")) {
 			v3 = new VentanaAcoger(gestorV, idioma, DNI.getText());
 			setVisible(false);
@@ -268,7 +269,7 @@ public class VentanaCliente extends JFrame{
 				}
 			});
 			}
-			public String encontrarCliente(String DNIA, GestorBD gestorV, Properties idioma) {
+			public static String encontrarCliente(String DNIA, GestorBD gestorV, Properties idioma) {
 			String resultado = "";
 			boolean valido = VentanaIntroducirCliente.DNIAPTO(DNIA);
 			if (valido) {
@@ -294,7 +295,7 @@ public class VentanaCliente extends JFrame{
 			}
 			return resultado;
 			}
-			public HashMap<Cliente, ArrayList<Animal>> hmadoptados(GestorBD gestorV){
+			public static HashMap<Cliente, ArrayList<Animal>> hmadoptados(GestorBD gestorV){
 				HashMap<Cliente, ArrayList<Animal>> ret= new HashMap<Cliente, ArrayList<Animal>>() ;
 				ArrayList<Cliente> alcliente = (ArrayList<Cliente>) gestorV.obtenerDatosCliente();
 				for(Cliente u: alcliente ) {
@@ -303,7 +304,7 @@ public class VentanaCliente extends JFrame{
 				return ret;
 				
 			}
-			public HashMap<Cliente, ArrayList<Animal>> hmacogidos(GestorBD gestorV){
+			public static HashMap<Cliente, ArrayList<Animal>> hmacogidos(GestorBD gestorV){
 				HashMap<Cliente, ArrayList<Animal>> ret= new HashMap<Cliente, ArrayList<Animal>>() ;
 				ArrayList<Cliente> alcliente = (ArrayList<Cliente>) gestorV.obtenerDatosCliente();
 				for(Cliente u: alcliente ) {

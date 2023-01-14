@@ -137,14 +137,6 @@ public class Inits {
 			VentanaPrincipal.log.log(Level.WARNING , "No se ha encontrado el fichero",e);
 		}
 		
-		//Animal animal = new Animal(1111, "nombre", null, null, null);
-		//animal.setId(2002);
-		//animal.setRaza("Siames");
-		//animal.setEspecial(null);
-		//animal.setTipo("gato");
-		//animal.setFechaNac(null);
-		//animales.add(animal);
-		 
 		return animales; 
 	}
 	public static void printAnimales(List<ArrayList> lista) {

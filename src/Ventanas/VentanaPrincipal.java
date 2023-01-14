@@ -155,6 +155,7 @@ public class VentanaPrincipal extends JFrame{
 				this.setSize(300,150);
 				this.setTitle("Inicio de sesion");
 				this.setLocationRelativeTo(null);
+				this.setIconImage(new ImageIcon("images/image.jpg").getImage());
 		Thread hilo = new Thread(new Runnable() {
 			
 			@Override
@@ -249,8 +250,7 @@ public class VentanaPrincipal extends JFrame{
 		}catch (Exception e) {
 			
 		}
-		log.log(Level.FINEST, "Inicio del progrma");
-		try {
+		log.log(Level.FINEST, "Inicio del programa");
 		VentanaPrincipal v = new VentanaPrincipal();
 		
 		v.gestorV = new GestorBD();
@@ -267,11 +267,5 @@ public class VentanaPrincipal extends JFrame{
 			v.gestorV.insertarDatosAnimal(animales.toArray(new Animal[animales.size()]));
 			
 		}
-		
-	}catch (Exception e){
-		log.log(Level.SEVERE, "Error en main", e);
-		JOptionPane.showMessageDialog(null, "Error no se ha podido inicializar el programa" , "Error", JOptionPane.ERROR_MESSAGE);
-		
-	}
 
 }}

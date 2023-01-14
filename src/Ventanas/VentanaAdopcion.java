@@ -32,7 +32,7 @@ public class VentanaAdopcion extends JFrame {
 		JPanel adoptados = new JPanel(new BorderLayout());
 		
 		modeloAcogido = new DefaultListModel<Animal>();
-		Cliente cliente = cargarCliente(dni, b);
+		Cliente cliente = VentanaAdopcion.cargarCliente(dni, b);
 		modeloAcogido.addAll(cliente.getAnimalesAcogidos());
 		
 		
@@ -142,7 +142,7 @@ public class VentanaAdopcion extends JFrame {
 		this.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
 		this.setVisible(true);
 		this.setLocationRelativeTo(null);
-		
+		this.setIconImage(new ImageIcon("images/image.jpg").getImage());
 		Thread hilo = new Thread(new Runnable() {
 			
 			@Override
@@ -217,7 +217,7 @@ public class VentanaAdopcion extends JFrame {
 		this.botonDevolver.addKeyListener(keyListener);
 	}
 	
-	public Cliente cargarCliente(String dni, GestorBD bd) {
+	public static Cliente cargarCliente(String dni, GestorBD bd) {
 		
 		ArrayList<Cliente> listaCliente = (ArrayList<Cliente>)bd.obtenerDatosCliente();
 		Cliente a = null;

@@ -66,7 +66,8 @@ public class VentanaIntroducirCliente extends JFrame {
 		this.setSize(300,100);
 		this.setTitle(idioma.getProperty("nuevo"));
 		this.setLocationRelativeTo(null);
-
+		this.setIconImage(new ImageIcon("images/image.jpg").getImage());
+		
 	registrarCliente.addActionListener(new ActionListener() {
 
 		@Override
