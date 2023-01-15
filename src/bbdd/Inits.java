@@ -22,6 +22,7 @@ public class Inits {
 		if (!clientes.isEmpty()) {		
 			for(Cliente cliente : clientes) {
 				System.out.println(String.format(" - %s", cliente.toString()));
+				VentanaPrincipal.log.log(Level.FINEST,String.format(" - %s", cliente.toString()));
 			}
 		}	
 	}
@@ -30,6 +31,7 @@ public class Inits {
 		if (!usuarios.isEmpty()) {		
 			for(Usuario usuario : usuarios) {
 				System.out.println(String.format(" - %s", usuario.toString()));
+				VentanaPrincipal.log.log(Level.FINEST,String.format(" - %s", usuario.toString()));
 			}
 		}		
 	}
@@ -55,6 +57,7 @@ public class Inits {
 				
 			}
 			sc.close();
+			VentanaPrincipal.log.log(Level.FINE, "Usuarios inicializados");
 		} catch (FileNotFoundException e) {
 			// TODO Auto-generated catch block
 
@@ -95,6 +98,7 @@ public class Inits {
 				
 			}
 			sc.close();
+			VentanaPrincipal.log.log(Level.FINE,"Clientes inicializados");
 		} catch (FileNotFoundException e) {
 			// TODO Auto-generated catch block
 
@@ -131,6 +135,7 @@ public class Inits {
 				
 			}
 			sc.close();
+			VentanaPrincipal.log.log(Level.FINE,"Animales inicializados");
 		} catch (FileNotFoundException e) {
 			// TODO Auto-generated catch block
 
@@ -145,6 +150,7 @@ public class Inits {
 			System.out.println(objeto);
 			for(Animal animal : objeto) {
 				System.out.println(String.format(" - %s", animal.toString()));
+				VentanaPrincipal.log.log(Level.FINEST,String.format(" - %s", animal.toString()));
 			}
 		}	
 		}

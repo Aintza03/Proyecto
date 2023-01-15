@@ -92,8 +92,8 @@ public class VentanaPrincipal extends JFrame{
 					}
 					
 				} catch (Exception e1) {
-					System.out.println("No se han insertado numeros");
-					e1.printStackTrace();log.log(Level.WARNING, "errorTres", e1);
+					log.log(Level.FINE,"No se han insertado numeros");
+					log.log(Level.INFO, "errorTres", e1);
 					
 				}
 				
@@ -247,6 +247,7 @@ public class VentanaPrincipal extends JFrame{
 		log.addHandler(g);
 		log.setLevel(Level.FINEST);
 		h.setLevel(Level.FINEST);
+		g.setLevel(Level.INFO);
 		}catch (Exception e) {
 			
 		}
@@ -254,6 +255,7 @@ public class VentanaPrincipal extends JFrame{
 		VentanaPrincipal v = new VentanaPrincipal();
 		
 		v.gestorV = new GestorBD();
+		log.log(Level.FINE, "Creación del gestor de la BBDD");
 		//v.gestorV.borrarBBDDUsuario(); //para comprobaciones de la BD
 		//CREATE DATABASE: Se crea la BBDD
 		v.gestorV.crearBBDDUsuario();
@@ -267,5 +269,5 @@ public class VentanaPrincipal extends JFrame{
 			v.gestorV.insertarDatosAnimal(animales.toArray(new Animal[animales.size()]));
 			
 		}
-
+		log.log(Level.FINEST, "Insertados los datos en la BBDD");
 }}

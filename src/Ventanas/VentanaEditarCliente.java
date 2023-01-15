@@ -130,7 +130,7 @@ public class VentanaEditarCliente extends JFrame{
 					Error.setText(p.getProperty("error22"));
 				}
 				
-				
+				VentanaPrincipal.log.log(Level.FINE,"Cliente registrado");
 			}
 		});
 		KeyListener keyListener = new KeyAdapter() {

@@ -89,11 +89,11 @@ public class VentanaAdopcion extends JFrame {
 					modeloAcogido.removeAllElements();
 					modeloAcogido.addAll(listaAdo);
 					}else {
-						System.err.println("La lista de Animales acogidos esta vacia");
+						VentanaPrincipal.log.log(Level.FINE,"La lista de Animales acogidos esta vacia");
 					}
 				} catch (Exception e) {
 					// TODO: handle exception
-					System.err.println("No se ha selecionado nada en la lista de Acogida");
+					VentanaPrincipal.log.log(Level.FINE,"No se ha selecionado nada en la lista de Acogida");
 				}
 				 
 				try {
@@ -107,11 +107,11 @@ public class VentanaAdopcion extends JFrame {
 					modeloAdoptado.removeAllElements();
 					modeloAdoptado.addAll(listaAdoSi);
 					} else {
-						System.err.println("La lista de animales adoptados esta vacia");
+						VentanaPrincipal.log.log(Level.FINE,"La lista de animales adoptados esta vacia");
 					}
 				} catch (Exception e) {
 					// TODO: handle exception
-					System.err.println("No se ha selecionado nada en la lista de Adopcion");
+					VentanaPrincipal.log.log(Level.FINE,"No se ha selecionado nada en la lista de Adopcion");
 				}
 				
 			}

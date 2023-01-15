@@ -2,24 +2,24 @@
 <!DOCTYPE log SYSTEM "logger.dtd">
 <log>
 <record>
-  <date>2023-01-14T17:17:04.152225800Z</date>
-  <millis>1673716624152</millis>
-  <nanos>225800</nanos>
-  <sequence>0</sequence>
+  <date>2023-01-15T10:58:27.737155300Z</date>
+  <millis>1673780307737</millis>
+  <nanos>155300</nanos>
+  <sequence>2</sequence>
   <logger>Logger</logger>
-  <level>FINEST</level>
-  <class>Ventanas.VentanaPrincipal</class>
-  <method>main</method>
+  <level>INFO</level>
+  <class>bbdd.GestorBD</class>
+  <method>crearBBDDUsuario</method>
   <thread>1</thread>
-  <message>Inicio del progrma</message>
+  <message>- Se han creado las tablas</message>
 </record>
 <record>
-  <date>2023-01-14T17:17:04.952748400Z</date>
-  <millis>1673716624952</millis>
-  <nanos>748400</nanos>
-  <sequence>1</sequence>
+  <date>2023-01-15T10:58:27.790542Z</date>
+  <millis>1673780307790</millis>
+  <nanos>542000</nanos>
+  <sequence>5</sequence>
   <logger>Logger</logger>
-  <level>WARNING</level>
+  <level>SEVERE</level>
   <class>bbdd.GestorBD</class>
   <method>insertarDatosUsuario</method>
   <thread>1</thread>
@@ -78,45 +78,93 @@
     <frame>
       <class>Ventanas.VentanaPrincipal</class>
       <method>main</method>
-      <line>263</line>
+      <line>265</line>
     </frame>
   </exception>
 </record>
 <record>
-  <date>2023-01-14T17:17:18.595902Z</date>
-  <millis>1673716638595</millis>
-  <nanos>902000</nanos>
-  <sequence>2</sequence>
+  <date>2023-01-15T10:58:41.721881800Z</date>
+  <millis>1673780321721</millis>
+  <nanos>881800</nanos>
+  <sequence>7</sequence>
   <logger>Logger</logger>
-  <level>FINEST</level>
-  <class>Ventanas.VentanaPrincipal</class>
-  <method>finLogger</method>
-  <thread>20</thread>
-  <message>Fin del progrma</message>
+  <level>INFO</level>
+  <class>bbdd.GestorBD</class>
+  <method>obtenerDatosUsuario</method>
+  <thread>19</thread>
+  <message>- Se han recuperado 4 usuario...</message>
+</record>
+<record>
+  <date>2023-01-15T10:58:41.776933900Z</date>
+  <millis>1673780321776</millis>
+  <nanos>933900</nanos>
+  <sequence>8</sequence>
+  <logger>Logger</logger>
+  <level>INFO</level>
+  <class>bbdd.GestorBD</class>
+  <method>obtenerDatosCliente</method>
+  <thread>19</thread>
+  <message>- Se han recuperado 4 cliente...</message>
+</record>
+<record>
+  <date>2023-01-15T10:58:41.782934900Z</date>
+  <millis>1673780321782</millis>
+  <nanos>934900</nanos>
+  <sequence>9</sequence>
+  <logger>Logger</logger>
+  <level>INFO</level>
+  <class>bbdd.GestorBD</class>
+  <method>obtenerDatosAnimal</method>
+  <thread>19</thread>
+  <message>- Se han recuperado 59 animales...</message>
+</record>
+<record>
+  <date>2023-01-15T10:58:41.789935400Z</date>
+  <millis>1673780321789</millis>
+  <nanos>935400</nanos>
+  <sequence>10</sequence>
+  <logger>Logger</logger>
+  <level>INFO</level>
+  <class>bbdd.GestorBD</class>
+  <method>obtenerDatosCliente</method>
+  <thread>19</thread>
+  <message>- Se han recuperado 4 cliente...</message>
+</record>
+<record>
+  <date>2023-01-15T10:58:41.793935200Z</date>
+  <millis>1673780321793</millis>
+  <nanos>935200</nanos>
+  <sequence>11</sequence>
+  <logger>Logger</logger>
+  <level>INFO</level>
+  <class>bbdd.GestorBD</class>
+  <method>obtenerDatosAnimal</method>
+  <thread>19</thread>
+  <message>- Se han recuperado 59 animales...</message>
 </record>
 </log>
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <!DOCTYPE log SYSTEM "logger.dtd">
 <log>
 <record>
-  <date>2023-01-14T17:29:48.748154Z</date>
-  <millis>1673717388748</millis>
-  <nanos>154000</nanos>
-  <sequence>0</sequence>
+  <date>2023-01-15T10:59:00.522936200Z</date>
+  <millis>1673780340522</millis>
+  <nanos>936200</nanos>
+  <sequence>2</sequence>
   <logger>Logger</logger>
-  <level>FINEST</level>
-  <class>Ventanas.VentanaPrincipal</class>
-  <method>main</method>
+  <level>INFO</level>
+  <class>bbdd.GestorBD</class>
+  <method>crearBBDDUsuario</method>
   <thread>1</thread>
-  <message>Inicio del programa</message>
+  <message>- Se han creado las tablas</message>
 </record>
 <record>
-  <date>2023-01-14T17:29:49.428554Z</date>
-  <millis>1673717389428</millis>
-  <nanos>554000</nanos>
-  <sequence>1</sequence>
+  <date>2023-01-15T10:59:00.557980400Z</date>
+  <millis>1673780340557</millis>
+  <nanos>980400</nanos>
+  <sequence>5</sequence>
   <logger>Logger</logger>
-  <level>WARNING</level>
+  <level>SEVERE</level>
   <class>bbdd.GestorBD</class>
   <method>insertarDatosUsuario</method>
   <thread>1</thread>
@@ -175,142 +223,671 @@
     <frame>
       <class>Ventanas.VentanaPrincipal</class>
       <method>main</method>
+      <line>265</line>
+    </frame>
+  </exception>
+</record>
+<record>
+  <date>2023-01-15T10:59:02.150410500Z</date>
+  <millis>1673780342150</millis>
+  <nanos>410500</nanos>
+  <sequence>8</sequence>
+  <logger>Logger</logger>
+  <level>INFO</level>
+  <class>Ventanas.VentanaPrincipal$1</class>
+  <method>actionPerformed</method>
+  <thread>19</thread>
+  <message>errorTres</message>
+  <exception>
+    <message>java.lang.NumberFormatException: For input string: ""</message>
+    <frame>
+      <class>java.lang.NumberFormatException</class>
+      <method>forInputString</method>
+      <line>67</line>
+    </frame>
+    <frame>
+      <class>java.lang.Integer</class>
+      <method>parseInt</method>
+      <line>678</line>
+    </frame>
+    <frame>
+      <class>java.lang.Integer</class>
+      <method>parseInt</method>
+      <line>786</line>
+    </frame>
+    <frame>
+      <class>Ventanas.VentanaPrincipal$1</class>
+      <method>actionPerformed</method>
+      <line>85</line>
+    </frame>
+    <frame>
+      <class>javax.swing.AbstractButton</class>
+      <method>fireActionPerformed</method>
+      <line>1972</line>
+    </frame>
+    <frame>
+      <class>javax.swing.AbstractButton$Handler</class>
+      <method>actionPerformed</method>
+      <line>2313</line>
+    </frame>
+    <frame>
+      <class>javax.swing.DefaultButtonModel</class>
+      <method>fireActionPerformed</method>
+      <line>405</line>
+    </frame>
+    <frame>
+      <class>javax.swing.DefaultButtonModel</class>
+      <method>setPressed</method>
       <line>262</line>
     </frame>
+    <frame>
+      <class>javax.swing.plaf.basic.BasicButtonListener</class>
+      <method>mouseReleased</method>
+      <line>279</line>
+    </frame>
+    <frame>
+      <class>java.awt.Component</class>
+      <method>processMouseEvent</method>
+      <line>6626</line>
+    </frame>
+    <frame>
+      <class>javax.swing.JComponent</class>
+      <method>processMouseEvent</method>
+      <line>3389</line>
+    </frame>
+    <frame>
+      <class>java.awt.Component</class>
+      <method>processEvent</method>
+      <line>6391</line>
+    </frame>
+    <frame>
+      <class>java.awt.Container</class>
+      <method>processEvent</method>
+      <line>2266</line>
+    </frame>
+    <frame>
+      <class>java.awt.Component</class>
+      <method>dispatchEventImpl</method>
+      <line>5001</line>
+    </frame>
+    <frame>
+      <class>java.awt.Container</class>
+      <method>dispatchEventImpl</method>
+      <line>2324</line>
+    </frame>
+    <frame>
+      <class>java.awt.Component</class>
+      <method>dispatchEvent</method>
+      <line>4833</line>
+    </frame>
+    <frame>
+      <class>java.awt.LightweightDispatcher</class>
+      <method>retargetMouseEvent</method>
+      <line>4948</line>
+    </frame>
+    <frame>
+      <class>java.awt.LightweightDispatcher</class>
+      <method>processMouseEvent</method>
+      <line>4575</line>
+    </frame>
+    <frame>
+      <class>java.awt.LightweightDispatcher</class>
+      <method>dispatchEvent</method>
+      <line>4516</line>
+    </frame>
+    <frame>
+      <class>java.awt.Container</class>
+      <method>dispatchEventImpl</method>
+      <line>2310</line>
+    </frame>
+    <frame>
+      <class>java.awt.Window</class>
+      <method>dispatchEventImpl</method>
+      <line>2780</line>
+    </frame>
+    <frame>
+      <class>java.awt.Component</class>
+      <method>dispatchEvent</method>
+      <line>4833</line>
+    </frame>
+    <frame>
+      <class>java.awt.EventQueue</class>
+      <method>dispatchEventImpl</method>
+      <line>773</line>
+    </frame>
+    <frame>
+      <class>java.awt.EventQueue$4</class>
+      <method>run</method>
+      <line>722</line>
+    </frame>
+    <frame>
+      <class>java.awt.EventQueue$4</class>
+      <method>run</method>
+      <line>716</line>
+    </frame>
+    <frame>
+      <class>java.security.AccessController</class>
+      <method>doPrivileged</method>
+      <line>399</line>
+    </frame>
+    <frame>
+      <class>java.security.ProtectionDomain$JavaSecurityAccessImpl</class>
+      <method>doIntersectionPrivilege</method>
+      <line>86</line>
+    </frame>
+    <frame>
+      <class>java.security.ProtectionDomain$JavaSecurityAccessImpl</class>
+      <method>doIntersectionPrivilege</method>
+      <line>97</line>
+    </frame>
+    <frame>
+      <class>java.awt.EventQueue$5</class>
+      <method>run</method>
+      <line>746</line>
+    </frame>
+    <frame>
+      <class>java.awt.EventQueue$5</class>
+      <method>run</method>
+      <line>744</line>
+    </frame>
+    <frame>
+      <class>java.security.AccessController</class>
+      <method>doPrivileged</method>
+      <line>399</line>
+    </frame>
+    <frame>
+      <class>java.security.ProtectionDomain$JavaSecurityAccessImpl</class>
+      <method>doIntersectionPrivilege</method>
+      <line>86</line>
+    </frame>
+    <frame>
+      <class>java.awt.EventQueue</class>
+      <method>dispatchEvent</method>
+      <line>743</line>
+    </frame>
+    <frame>
+      <class>java.awt.EventDispatchThread</class>
+      <method>pumpOneEventForFilters</method>
+      <line>203</line>
+    </frame>
+    <frame>
+      <class>java.awt.EventDispatchThread</class>
+      <method>pumpEventsForFilter</method>
+      <line>124</line>
+    </frame>
+    <frame>
+      <class>java.awt.EventDispatchThread</class>
+      <method>pumpEventsForHierarchy</method>
+      <line>113</line>
+    </frame>
+    <frame>
+      <class>java.awt.EventDispatchThread</class>
+      <method>pumpEvents</method>
+      <line>109</line>
+    </frame>
+    <frame>
+      <class>java.awt.EventDispatchThread</class>
+      <method>pumpEvents</method>
+      <line>101</line>
+    </frame>
+    <frame>
+      <class>java.awt.EventDispatchThread</class>
+      <method>run</method>
+      <line>90</line>
+    </frame>
   </exception>
 </record>
 <record>
-  <date>2023-01-14T17:29:59.367127500Z</date>
-  <millis>1673717399367</millis>
-  <nanos>127500</nanos>
-  <sequence>2</sequence>
-  <logger>Logger</logger>
-  <level>FINEST</level>
-  <class>Ventanas.VentanaPrincipal</class>
-  <method>finLogger</method>
-  <thread>20</thread>
-  <message>Fin del progrma</message>
-</record>
-</log>
-<?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<!DOCTYPE log SYSTEM "logger.dtd">
-<log>
-<record>
-  <date>2023-01-14T17:31:17.271202900Z</date>
-  <millis>1673717477271</millis>
+  <date>2023-01-15T10:59:11.755202900Z</date>
+  <millis>1673780351755</millis>
   <nanos>202900</nanos>
-  <sequence>0</sequence>
+  <sequence>9</sequence>
   <logger>Logger</logger>
-  <level>FINEST</level>
-  <class>Ventanas.VentanaPrincipal</class>
-  <method>main</method>
-  <thread>1</thread>
-  <message>Inicio del programa</message>
+  <level>INFO</level>
+  <class>bbdd.GestorBD</class>
+  <method>obtenerDatosUsuario</method>
+  <thread>19</thread>
+  <message>- Se han recuperado 4 usuario...</message>
 </record>
 <record>
-  <date>2023-01-14T17:31:17.974241100Z</date>
-  <millis>1673717477974</millis>
-  <nanos>241100</nanos>
-  <sequence>1</sequence>
+  <date>2023-01-15T10:59:11.799997100Z</date>
+  <millis>1673780351799</millis>
+  <nanos>997100</nanos>
+  <sequence>10</sequence>
+  <logger>Logger</logger>
+  <level>INFO</level>
+  <class>bbdd.GestorBD</class>
+  <method>obtenerDatosCliente</method>
+  <thread>19</thread>
+  <message>- Se han recuperado 4 cliente...</message>
+</record>
+<record>
+  <date>2023-01-15T10:59:11.806000500Z</date>
+  <millis>1673780351806</millis>
+  <nanos>500</nanos>
+  <sequence>11</sequence>
+  <logger>Logger</logger>
+  <level>INFO</level>
+  <class>bbdd.GestorBD</class>
+  <method>obtenerDatosAnimal</method>
+  <thread>19</thread>
+  <message>- Se han recuperado 59 animales...</message>
+</record>
+<record>
+  <date>2023-01-15T10:59:11.810042200Z</date>
+  <millis>1673780351810</millis>
+  <nanos>42200</nanos>
+  <sequence>12</sequence>
+  <logger>Logger</logger>
+  <level>INFO</level>
+  <class>bbdd.GestorBD</class>
+  <method>obtenerDatosCliente</method>
+  <thread>19</thread>
+  <message>- Se han recuperado 4 cliente...</message>
+</record>
+<record>
+  <date>2023-01-15T10:59:11.814998500Z</date>
+  <millis>1673780351814</millis>
+  <nanos>998500</nanos>
+  <sequence>13</sequence>
+  <logger>Logger</logger>
+  <level>INFO</level>
+  <class>bbdd.GestorBD</class>
+  <method>obtenerDatosAnimal</method>
+  <thread>19</thread>
+  <message>- Se han recuperado 59 animales...</message>
+</record>
+<record>
+  <date>2023-01-15T10:59:21.472780200Z</date>
+  <millis>1673780361472</millis>
+  <nanos>780200</nanos>
+  <sequence>14</sequence>
+  <logger>Logger</logger>
+  <level>INFO</level>
+  <class>bbdd.GestorBD</class>
+  <method>obtenerDatosCliente</method>
+  <thread>19</thread>
+  <message>- Se han recuperado 4 cliente...</message>
+</record>
+<record>
+  <date>2023-01-15T10:59:21.476724400Z</date>
+  <millis>1673780361476</millis>
+  <nanos>724400</nanos>
+  <sequence>15</sequence>
+  <logger>Logger</logger>
+  <level>INFO</level>
+  <class>bbdd.GestorBD</class>
+  <method>obtenerDatosAnimal</method>
+  <thread>19</thread>
+  <message>- Se han recuperado 59 animales...</message>
+</record>
+<record>
+  <date>2023-01-15T10:59:21.484730100Z</date>
+  <millis>1673780361484</millis>
+  <nanos>730100</nanos>
+  <sequence>16</sequence>
+  <logger>Logger</logger>
+  <level>INFO</level>
+  <class>bbdd.GestorBD</class>
+  <method>obtenerDatosCliente</method>
+  <thread>19</thread>
+  <message>- Se han recuperado 4 cliente...</message>
+</record>
+<record>
+  <date>2023-01-15T10:59:21.487727100Z</date>
+  <millis>1673780361487</millis>
+  <nanos>727100</nanos>
+  <sequence>17</sequence>
+  <logger>Logger</logger>
+  <level>INFO</level>
+  <class>bbdd.GestorBD</class>
+  <method>obtenerDatosAnimal</method>
+  <thread>19</thread>
+  <message>- Se han recuperado 59 animales...</message>
+</record>
+<record>
+  <date>2023-01-15T10:59:21.489729100Z</date>
+  <millis>1673780361489</millis>
+  <nanos>729100</nanos>
+  <sequence>18</sequence>
+  <logger>Logger</logger>
+  <level>INFO</level>
+  <class>bbdd.GestorBD</class>
+  <method>obtenerDatosCliente</method>
+  <thread>19</thread>
+  <message>- Se han recuperado 4 cliente...</message>
+</record>
+<record>
+  <date>2023-01-15T10:59:21.493725800Z</date>
+  <millis>1673780361493</millis>
+  <nanos>725800</nanos>
+  <sequence>19</sequence>
+  <logger>Logger</logger>
+  <level>INFO</level>
+  <class>bbdd.GestorBD</class>
+  <method>obtenerDatosAnimal</method>
+  <thread>19</thread>
+  <message>- Se han recuperado 59 animales...</message>
+</record>
+<record>
+  <date>2023-01-15T10:59:21.496725800Z</date>
+  <millis>1673780361496</millis>
+  <nanos>725800</nanos>
+  <sequence>20</sequence>
+  <logger>Logger</logger>
+  <level>INFO</level>
+  <class>bbdd.GestorBD</class>
+  <method>obtenerDatosAnimal</method>
+  <thread>19</thread>
+  <message>- Se han recuperado 59 animales...</message>
+</record>
+<record>
+  <date>2023-01-15T10:59:51.387357Z</date>
+  <millis>1673780391387</millis>
+  <nanos>357000</nanos>
+  <sequence>22</sequence>
+  <logger>Logger</logger>
+  <level>INFO</level>
+  <class>bbdd.GestorBD</class>
+  <method>obtenerDatosCliente</method>
+  <thread>19</thread>
+  <message>- Se han recuperado 4 cliente...</message>
+</record>
+<record>
+  <date>2023-01-15T10:59:51.390350600Z</date>
+  <millis>1673780391390</millis>
+  <nanos>350600</nanos>
+  <sequence>23</sequence>
+  <logger>Logger</logger>
+  <level>INFO</level>
+  <class>bbdd.GestorBD</class>
+  <method>obtenerDatosAnimal</method>
+  <thread>19</thread>
+  <message>- Se han recuperado 59 animales...</message>
+</record>
+<record>
+  <date>2023-01-15T10:59:53.444068100Z</date>
+  <millis>1673780393444</millis>
+  <nanos>68100</nanos>
+  <sequence>27</sequence>
   <logger>Logger</logger>
   <level>WARNING</level>
   <class>bbdd.GestorBD</class>
-  <method>insertarDatosUsuario</method>
-  <thread>1</thread>
-  <message>*Error insertando datos en la BBDD: %s</message>
+  <method>actualizarAnimal</method>
+  <thread>19</thread>
+  <message>*Error actualizando datos de la BBDD: %s</message>
   <exception>
-    <message>org.sqlite.SQLiteException: [SQLITE_CONSTRAINT_UNIQUE] A UNIQUE constraint failed (UNIQUE constraint failed: USUARIO.CONTRASEÑA)</message>
-    <frame>
-      <class>org.sqlite.core.DB</class>
-      <method>newSQLException</method>
-      <line>1135</line>
-    </frame>
-    <frame>
-      <class>org.sqlite.core.DB</class>
-      <method>newSQLException</method>
-      <line>1146</line>
-    </frame>
-    <frame>
-      <class>org.sqlite.core.DB</class>
-      <method>throwex</method>
-      <line>1106</line>
-    </frame>
-    <frame>
-      <class>org.sqlite.core.NativeDB</class>
-      <method>_exec_utf8</method>
-    </frame>
-    <frame>
-      <class>org.sqlite.core.NativeDB</class>
-      <method>_exec</method>
-      <line>89</line>
-    </frame>
-    <frame>
-      <class>org.sqlite.jdbc3.JDBC3Statement</class>
-      <method>lambda$executeLargeUpdate$2</method>
-      <line>121</line>
-    </frame>
-    <frame>
-      <class>org.sqlite.jdbc3.JDBC3Statement</class>
-      <method>withConnectionTimeout</method>
-      <line>429</line>
-    </frame>
-    <frame>
-      <class>org.sqlite.jdbc3.JDBC3Statement</class>
-      <method>executeLargeUpdate</method>
-      <line>108</line>
-    </frame>
-    <frame>
-      <class>org.sqlite.jdbc3.JDBC3Statement</class>
-      <method>executeUpdate</method>
-      <line>95</line>
-    </frame>
+    <message>java.lang.NullPointerException: Cannot invoke "General.Animal.getId()" because "animal" is null</message>
     <frame>
       <class>bbdd.GestorBD</class>
-      <method>insertarDatosUsuario</method>
-      <line>122</line>
+      <method>actualizarAnimal</method>
+      <line>384</line>
     </frame>
     <frame>
-      <class>Ventanas.VentanaPrincipal</class>
-      <method>main</method>
+      <class>Ventanas.VentanaAdopcion$1</class>
+      <method>actionPerformed</method>
+      <line>69</line>
+    </frame>
+    <frame>
+      <class>javax.swing.AbstractButton</class>
+      <method>fireActionPerformed</method>
+      <line>1972</line>
+    </frame>
+    <frame>
+      <class>javax.swing.AbstractButton$Handler</class>
+      <method>actionPerformed</method>
+      <line>2313</line>
+    </frame>
+    <frame>
+      <class>javax.swing.DefaultButtonModel</class>
+      <method>fireActionPerformed</method>
+      <line>405</line>
+    </frame>
+    <frame>
+      <class>javax.swing.DefaultButtonModel</class>
+      <method>setPressed</method>
       <line>262</line>
     </frame>
+    <frame>
+      <class>javax.swing.plaf.basic.BasicButtonListener</class>
+      <method>mouseReleased</method>
+      <line>279</line>
+    </frame>
+    <frame>
+      <class>java.awt.Component</class>
+      <method>processMouseEvent</method>
+      <line>6626</line>
+    </frame>
+    <frame>
+      <class>javax.swing.JComponent</class>
+      <method>processMouseEvent</method>
+      <line>3389</line>
+    </frame>
+    <frame>
+      <class>java.awt.Component</class>
+      <method>processEvent</method>
+      <line>6391</line>
+    </frame>
+    <frame>
+      <class>java.awt.Container</class>
+      <method>processEvent</method>
+      <line>2266</line>
+    </frame>
+    <frame>
+      <class>java.awt.Component</class>
+      <method>dispatchEventImpl</method>
+      <line>5001</line>
+    </frame>
+    <frame>
+      <class>java.awt.Container</class>
+      <method>dispatchEventImpl</method>
+      <line>2324</line>
+    </frame>
+    <frame>
+      <class>java.awt.Component</class>
+      <method>dispatchEvent</method>
+      <line>4833</line>
+    </frame>
+    <frame>
+      <class>java.awt.LightweightDispatcher</class>
+      <method>retargetMouseEvent</method>
+      <line>4948</line>
+    </frame>
+    <frame>
+      <class>java.awt.LightweightDispatcher</class>
+      <method>processMouseEvent</method>
+      <line>4575</line>
+    </frame>
+    <frame>
+      <class>java.awt.LightweightDispatcher</class>
+      <method>dispatchEvent</method>
+      <line>4516</line>
+    </frame>
+    <frame>
+      <class>java.awt.Container</class>
+      <method>dispatchEventImpl</method>
+      <line>2310</line>
+    </frame>
+    <frame>
+      <class>java.awt.Window</class>
+      <method>dispatchEventImpl</method>
+      <line>2780</line>
+    </frame>
+    <frame>
+      <class>java.awt.Component</class>
+      <method>dispatchEvent</method>
+      <line>4833</line>
+    </frame>
+    <frame>
+      <class>java.awt.EventQueue</class>
+      <method>dispatchEventImpl</method>
+      <line>773</line>
+    </frame>
+    <frame>
+      <class>java.awt.EventQueue$4</class>
+      <method>run</method>
+      <line>722</line>
+    </frame>
+    <frame>
+      <class>java.awt.EventQueue$4</class>
+      <method>run</method>
+      <line>716</line>
+    </frame>
+    <frame>
+      <class>java.security.AccessController</class>
+      <method>doPrivileged</method>
+      <line>399</line>
+    </frame>
+    <frame>
+      <class>java.security.ProtectionDomain$JavaSecurityAccessImpl</class>
+      <method>doIntersectionPrivilege</method>
+      <line>86</line>
+    </frame>
+    <frame>
+      <class>java.security.ProtectionDomain$JavaSecurityAccessImpl</class>
+      <method>doIntersectionPrivilege</method>
+      <line>97</line>
+    </frame>
+    <frame>
+      <class>java.awt.EventQueue$5</class>
+      <method>run</method>
+      <line>746</line>
+    </frame>
+    <frame>
+      <class>java.awt.EventQueue$5</class>
+      <method>run</method>
+      <line>744</line>
+    </frame>
+    <frame>
+      <class>java.security.AccessController</class>
+      <method>doPrivileged</method>
+      <line>399</line>
+    </frame>
+    <frame>
+      <class>java.security.ProtectionDomain$JavaSecurityAccessImpl</class>
+      <method>doIntersectionPrivilege</method>
+      <line>86</line>
+    </frame>
+    <frame>
+      <class>java.awt.EventQueue</class>
+      <method>dispatchEvent</method>
+      <line>743</line>
+    </frame>
+    <frame>
+      <class>java.awt.EventDispatchThread</class>
+      <method>pumpOneEventForFilters</method>
+      <line>203</line>
+    </frame>
+    <frame>
+      <class>java.awt.EventDispatchThread</class>
+      <method>pumpEventsForFilter</method>
+      <line>124</line>
+    </frame>
+    <frame>
+      <class>java.awt.EventDispatchThread</class>
+      <method>pumpEventsForHierarchy</method>
+      <line>113</line>
+    </frame>
+    <frame>
+      <class>java.awt.EventDispatchThread</class>
+      <method>pumpEvents</method>
+      <line>109</line>
+    </frame>
+    <frame>
+      <class>java.awt.EventDispatchThread</class>
+      <method>pumpEvents</method>
+      <line>101</line>
+    </frame>
+    <frame>
+      <class>java.awt.EventDispatchThread</class>
+      <method>run</method>
+      <line>90</line>
+    </frame>
   </exception>
 </record>
 <record>
-  <date>2023-01-14T17:31:27.162137300Z</date>
-  <millis>1673717487162</millis>
-  <nanos>137300</nanos>
-  <sequence>2</sequence>
+  <date>2023-01-15T10:59:54.072011600Z</date>
+  <millis>1673780394072</millis>
+  <nanos>11600</nanos>
+  <sequence>28</sequence>
   <logger>Logger</logger>
-  <level>FINEST</level>
-  <class>Ventanas.VentanaPrincipal</class>
-  <method>finLogger</method>
-  <thread>20</thread>
-  <message>Fin del progrma</message>
+  <level>INFO</level>
+  <class>bbdd.GestorBD</class>
+  <method>obtenerDatosCliente</method>
+  <thread>19</thread>
+  <message>- Se han recuperado 4 cliente...</message>
+</record>
+<record>
+  <date>2023-01-15T10:59:54.076011400Z</date>
+  <millis>1673780394076</millis>
+  <nanos>11400</nanos>
+  <sequence>29</sequence>
+  <logger>Logger</logger>
+  <level>INFO</level>
+  <class>bbdd.GestorBD</class>
+  <method>obtenerDatosAnimal</method>
+  <thread>19</thread>
+  <message>- Se han recuperado 59 animales...</message>
+</record>
+<record>
+  <date>2023-01-15T10:59:54.079012700Z</date>
+  <millis>1673780394079</millis>
+  <nanos>12700</nanos>
+  <sequence>30</sequence>
+  <logger>Logger</logger>
+  <level>INFO</level>
+  <class>bbdd.GestorBD</class>
+  <method>obtenerDatosCliente</method>
+  <thread>19</thread>
+  <message>- Se han recuperado 4 cliente...</message>
+</record>
+<record>
+  <date>2023-01-15T10:59:54.082015Z</date>
+  <millis>1673780394082</millis>
+  <nanos>15000</nanos>
+  <sequence>31</sequence>
+  <logger>Logger</logger>
+  <level>INFO</level>
+  <class>bbdd.GestorBD</class>
+  <method>obtenerDatosAnimal</method>
+  <thread>19</thread>
+  <message>- Se han recuperado 59 animales...</message>
+</record>
+<record>
+  <date>2023-01-15T10:59:54.084012200Z</date>
+  <millis>1673780394084</millis>
+  <nanos>12200</nanos>
+  <sequence>32</sequence>
+  <logger>Logger</logger>
+  <level>INFO</level>
+  <class>bbdd.GestorBD</class>
+  <method>obtenerDatosAnimal</method>
+  <thread>19</thread>
+  <message>- Se han recuperado 59 animales...</message>
 </record>
 </log>
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <!DOCTYPE log SYSTEM "logger.dtd">
 <log>
 <record>
-  <date>2023-01-14T17:34:14.755304300Z</date>
-  <millis>1673717654755</millis>
-  <nanos>304300</nanos>
-  <sequence>0</sequence>
+  <date>2023-01-15T11:00:06.468239Z</date>
+  <millis>1673780406468</millis>
+  <nanos>239000</nanos>
+  <sequence>2</sequence>
   <logger>Logger</logger>
-  <level>FINEST</level>
-  <class>Ventanas.VentanaPrincipal</class>
-  <method>main</method>
+  <level>INFO</level>
+  <class>bbdd.GestorBD</class>
+  <method>crearBBDDUsuario</method>
   <thread>1</thread>
-  <message>Inicio del programa</message>
+  <message>- Se han creado las tablas</message>
 </record>
 <record>
-  <date>2023-01-14T17:34:15.649514900Z</date>
-  <millis>1673717655649</millis>
-  <nanos>514900</nanos>
-  <sequence>1</sequence>
+  <date>2023-01-15T11:00:06.504528Z</date>
+  <millis>1673780406504</millis>
+  <nanos>528000</nanos>
+  <sequence>5</sequence>
   <logger>Logger</logger>
-  <level>WARNING</level>
+  <level>SEVERE</level>
   <class>bbdd.GestorBD</class>
   <method>insertarDatosUsuario</method>
   <thread>1</thread>
@@ -369,812 +946,8 @@
     <frame>
       <class>Ventanas.VentanaPrincipal</class>
       <method>main</method>
-      <line>263</line>
+      <line>265</line>
     </frame>
   </exception>
-</record>
-<record>
-  <date>2023-01-14T17:34:39.584746Z</date>
-  <millis>1673717679584</millis>
-  <nanos>746000</nanos>
-  <sequence>2</sequence>
-  <logger>Logger</logger>
-  <level>FINEST</level>
-  <class>Ventanas.VentanaPrincipal</class>
-  <method>finLogger</method>
-  <thread>20</thread>
-  <message>Fin del progrma</message>
-</record>
-</log>
-<?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<!DOCTYPE log SYSTEM "logger.dtd">
-<log>
-<record>
-  <date>2023-01-14T17:40:59.993567700Z</date>
-  <millis>1673718059993</millis>
-  <nanos>567700</nanos>
-  <sequence>0</sequence>
-  <logger>Logger</logger>
-  <level>FINEST</level>
-  <class>Ventanas.VentanaPrincipal</class>
-  <method>main</method>
-  <thread>1</thread>
-  <message>Inicio del programa</message>
-</record>
-</log>
-<?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<!DOCTYPE log SYSTEM "logger.dtd">
-<log>
-<record>
-  <date>2023-01-14T17:41:48.840898100Z</date>
-  <millis>1673718108840</millis>
-  <nanos>898100</nanos>
-  <sequence>0</sequence>
-  <logger>Logger</logger>
-  <level>FINEST</level>
-  <class>Ventanas.VentanaPrincipal</class>
-  <method>main</method>
-  <thread>1</thread>
-  <message>Inicio del programa</message>
-</record>
-<record>
-  <date>2023-01-14T17:41:49.746941600Z</date>
-  <millis>1673718109746</millis>
-  <nanos>941600</nanos>
-  <sequence>1</sequence>
-  <logger>Logger</logger>
-  <level>WARNING</level>
-  <class>bbdd.GestorBD</class>
-  <method>insertarDatosUsuario</method>
-  <thread>1</thread>
-  <message>*Error insertando datos en la BBDD: %s</message>
-  <exception>
-    <message>org.sqlite.SQLiteException: [SQLITE_CONSTRAINT_UNIQUE] A UNIQUE constraint failed (UNIQUE constraint failed: USUARIO.CONTRASEÑA)</message>
-    <frame>
-      <class>org.sqlite.core.DB</class>
-      <method>newSQLException</method>
-      <line>1135</line>
-    </frame>
-    <frame>
-      <class>org.sqlite.core.DB</class>
-      <method>newSQLException</method>
-      <line>1146</line>
-    </frame>
-    <frame>
-      <class>org.sqlite.core.DB</class>
-      <method>throwex</method>
-      <line>1106</line>
-    </frame>
-    <frame>
-      <class>org.sqlite.core.NativeDB</class>
-      <method>_exec_utf8</method>
-    </frame>
-    <frame>
-      <class>org.sqlite.core.NativeDB</class>
-      <method>_exec</method>
-      <line>89</line>
-    </frame>
-    <frame>
-      <class>org.sqlite.jdbc3.JDBC3Statement</class>
-      <method>lambda$executeLargeUpdate$2</method>
-      <line>121</line>
-    </frame>
-    <frame>
-      <class>org.sqlite.jdbc3.JDBC3Statement</class>
-      <method>withConnectionTimeout</method>
-      <line>429</line>
-    </frame>
-    <frame>
-      <class>org.sqlite.jdbc3.JDBC3Statement</class>
-      <method>executeLargeUpdate</method>
-      <line>108</line>
-    </frame>
-    <frame>
-      <class>org.sqlite.jdbc3.JDBC3Statement</class>
-      <method>executeUpdate</method>
-      <line>95</line>
-    </frame>
-    <frame>
-      <class>bbdd.GestorBD</class>
-      <method>insertarDatosUsuario</method>
-      <line>122</line>
-    </frame>
-    <frame>
-      <class>Ventanas.VentanaPrincipal</class>
-      <method>main</method>
-      <line>264</line>
-    </frame>
-  </exception>
-</record>
-<record>
-  <date>2023-01-14T17:41:50.965153Z</date>
-  <millis>1673718110965</millis>
-  <nanos>153000</nanos>
-  <sequence>2</sequence>
-  <logger>Logger</logger>
-  <level>FINEST</level>
-  <class>Ventanas.VentanaPrincipal</class>
-  <method>finLogger</method>
-  <thread>20</thread>
-  <message>Fin del progrma</message>
-</record>
-</log>
-<?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<!DOCTYPE log SYSTEM "logger.dtd">
-<log>
-<record>
-  <date>2023-01-14T17:43:15.906953400Z</date>
-  <millis>1673718195906</millis>
-  <nanos>953400</nanos>
-  <sequence>0</sequence>
-  <logger>Logger</logger>
-  <level>FINEST</level>
-  <class>Ventanas.VentanaPrincipal</class>
-  <method>main</method>
-  <thread>1</thread>
-  <message>Inicio del programa</message>
-</record>
-<record>
-  <date>2023-01-14T17:43:16.721378500Z</date>
-  <millis>1673718196721</millis>
-  <nanos>378500</nanos>
-  <sequence>1</sequence>
-  <logger>Logger</logger>
-  <level>WARNING</level>
-  <class>bbdd.GestorBD</class>
-  <method>insertarDatosUsuario</method>
-  <thread>1</thread>
-  <message>*Error insertando datos en la BBDD: %s</message>
-  <exception>
-    <message>org.sqlite.SQLiteException: [SQLITE_CONSTRAINT_UNIQUE] A UNIQUE constraint failed (UNIQUE constraint failed: USUARIO.CONTRASEÑA)</message>
-    <frame>
-      <class>org.sqlite.core.DB</class>
-      <method>newSQLException</method>
-      <line>1135</line>
-    </frame>
-    <frame>
-      <class>org.sqlite.core.DB</class>
-      <method>newSQLException</method>
-      <line>1146</line>
-    </frame>
-    <frame>
-      <class>org.sqlite.core.DB</class>
-      <method>throwex</method>
-      <line>1106</line>
-    </frame>
-    <frame>
-      <class>org.sqlite.core.NativeDB</class>
-      <method>_exec_utf8</method>
-    </frame>
-    <frame>
-      <class>org.sqlite.core.NativeDB</class>
-      <method>_exec</method>
-      <line>89</line>
-    </frame>
-    <frame>
-      <class>org.sqlite.jdbc3.JDBC3Statement</class>
-      <method>lambda$executeLargeUpdate$2</method>
-      <line>121</line>
-    </frame>
-    <frame>
-      <class>org.sqlite.jdbc3.JDBC3Statement</class>
-      <method>withConnectionTimeout</method>
-      <line>429</line>
-    </frame>
-    <frame>
-      <class>org.sqlite.jdbc3.JDBC3Statement</class>
-      <method>executeLargeUpdate</method>
-      <line>108</line>
-    </frame>
-    <frame>
-      <class>org.sqlite.jdbc3.JDBC3Statement</class>
-      <method>executeUpdate</method>
-      <line>95</line>
-    </frame>
-    <frame>
-      <class>bbdd.GestorBD</class>
-      <method>insertarDatosUsuario</method>
-      <line>122</line>
-    </frame>
-    <frame>
-      <class>Ventanas.VentanaPrincipal</class>
-      <method>main</method>
-      <line>264</line>
-    </frame>
-  </exception>
-</record>
-<record>
-  <date>2023-01-14T17:43:18.901369Z</date>
-  <millis>1673718198901</millis>
-  <nanos>369000</nanos>
-  <sequence>2</sequence>
-  <logger>Logger</logger>
-  <level>FINEST</level>
-  <class>Ventanas.VentanaPrincipal</class>
-  <method>finLogger</method>
-  <thread>20</thread>
-  <message>Fin del progrma</message>
-</record>
-</log>
-<?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<!DOCTYPE log SYSTEM "logger.dtd">
-<log>
-<record>
-  <date>2023-01-14T17:44:31.669553400Z</date>
-  <millis>1673718271669</millis>
-  <nanos>553400</nanos>
-  <sequence>0</sequence>
-  <logger>Logger</logger>
-  <level>FINEST</level>
-  <class>Ventanas.VentanaPrincipal</class>
-  <method>main</method>
-  <thread>1</thread>
-  <message>Inicio del programa</message>
-</record>
-<record>
-  <date>2023-01-14T17:44:32.527648600Z</date>
-  <millis>1673718272527</millis>
-  <nanos>648600</nanos>
-  <sequence>1</sequence>
-  <logger>Logger</logger>
-  <level>WARNING</level>
-  <class>bbdd.GestorBD</class>
-  <method>insertarDatosUsuario</method>
-  <thread>1</thread>
-  <message>*Error insertando datos en la BBDD: %s</message>
-  <exception>
-    <message>org.sqlite.SQLiteException: [SQLITE_CONSTRAINT_UNIQUE] A UNIQUE constraint failed (UNIQUE constraint failed: USUARIO.CONTRASEÑA)</message>
-    <frame>
-      <class>org.sqlite.core.DB</class>
-      <method>newSQLException</method>
-      <line>1135</line>
-    </frame>
-    <frame>
-      <class>org.sqlite.core.DB</class>
-      <method>newSQLException</method>
-      <line>1146</line>
-    </frame>
-    <frame>
-      <class>org.sqlite.core.DB</class>
-      <method>throwex</method>
-      <line>1106</line>
-    </frame>
-    <frame>
-      <class>org.sqlite.core.NativeDB</class>
-      <method>_exec_utf8</method>
-    </frame>
-    <frame>
-      <class>org.sqlite.core.NativeDB</class>
-      <method>_exec</method>
-      <line>89</line>
-    </frame>
-    <frame>
-      <class>org.sqlite.jdbc3.JDBC3Statement</class>
-      <method>lambda$executeLargeUpdate$2</method>
-      <line>121</line>
-    </frame>
-    <frame>
-      <class>org.sqlite.jdbc3.JDBC3Statement</class>
-      <method>withConnectionTimeout</method>
-      <line>429</line>
-    </frame>
-    <frame>
-      <class>org.sqlite.jdbc3.JDBC3Statement</class>
-      <method>executeLargeUpdate</method>
-      <line>108</line>
-    </frame>
-    <frame>
-      <class>org.sqlite.jdbc3.JDBC3Statement</class>
-      <method>executeUpdate</method>
-      <line>95</line>
-    </frame>
-    <frame>
-      <class>bbdd.GestorBD</class>
-      <method>insertarDatosUsuario</method>
-      <line>122</line>
-    </frame>
-    <frame>
-      <class>Ventanas.VentanaPrincipal</class>
-      <method>main</method>
-      <line>264</line>
-    </frame>
-  </exception>
-</record>
-<record>
-  <date>2023-01-14T17:45:45.823913600Z</date>
-  <millis>1673718345823</millis>
-  <nanos>913600</nanos>
-  <sequence>2</sequence>
-  <logger>Logger</logger>
-  <level>FINEST</level>
-  <class>Ventanas.VentanaPrincipal</class>
-  <method>finLogger</method>
-  <thread>20</thread>
-  <message>Fin del progrma</message>
-</record>
-</log>
-<?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<!DOCTYPE log SYSTEM "logger.dtd">
-<log>
-<record>
-  <date>2023-01-14T17:48:49.922687300Z</date>
-  <millis>1673718529922</millis>
-  <nanos>687300</nanos>
-  <sequence>0</sequence>
-  <logger>Logger</logger>
-  <level>FINEST</level>
-  <class>Ventanas.VentanaPrincipal</class>
-  <method>main</method>
-  <thread>1</thread>
-  <message>Inicio del programa</message>
-</record>
-<record>
-  <date>2023-01-14T17:48:50.812563300Z</date>
-  <millis>1673718530812</millis>
-  <nanos>563300</nanos>
-  <sequence>1</sequence>
-  <logger>Logger</logger>
-  <level>WARNING</level>
-  <class>bbdd.GestorBD</class>
-  <method>insertarDatosUsuario</method>
-  <thread>1</thread>
-  <message>*Error insertando datos en la BBDD: %s</message>
-  <exception>
-    <message>org.sqlite.SQLiteException: [SQLITE_CONSTRAINT_UNIQUE] A UNIQUE constraint failed (UNIQUE constraint failed: USUARIO.CONTRASEÑA)</message>
-    <frame>
-      <class>org.sqlite.core.DB</class>
-      <method>newSQLException</method>
-      <line>1135</line>
-    </frame>
-    <frame>
-      <class>org.sqlite.core.DB</class>
-      <method>newSQLException</method>
-      <line>1146</line>
-    </frame>
-    <frame>
-      <class>org.sqlite.core.DB</class>
-      <method>throwex</method>
-      <line>1106</line>
-    </frame>
-    <frame>
-      <class>org.sqlite.core.NativeDB</class>
-      <method>_exec_utf8</method>
-    </frame>
-    <frame>
-      <class>org.sqlite.core.NativeDB</class>
-      <method>_exec</method>
-      <line>89</line>
-    </frame>
-    <frame>
-      <class>org.sqlite.jdbc3.JDBC3Statement</class>
-      <method>lambda$executeLargeUpdate$2</method>
-      <line>121</line>
-    </frame>
-    <frame>
-      <class>org.sqlite.jdbc3.JDBC3Statement</class>
-      <method>withConnectionTimeout</method>
-      <line>429</line>
-    </frame>
-    <frame>
-      <class>org.sqlite.jdbc3.JDBC3Statement</class>
-      <method>executeLargeUpdate</method>
-      <line>108</line>
-    </frame>
-    <frame>
-      <class>org.sqlite.jdbc3.JDBC3Statement</class>
-      <method>executeUpdate</method>
-      <line>95</line>
-    </frame>
-    <frame>
-      <class>bbdd.GestorBD</class>
-      <method>insertarDatosUsuario</method>
-      <line>122</line>
-    </frame>
-    <frame>
-      <class>Ventanas.VentanaPrincipal</class>
-      <method>main</method>
-      <line>263</line>
-    </frame>
-  </exception>
-</record>
-<record>
-  <date>2023-01-14T17:48:59.686933700Z</date>
-  <millis>1673718539686</millis>
-  <nanos>933700</nanos>
-  <sequence>2</sequence>
-  <logger>Logger</logger>
-  <level>FINEST</level>
-  <class>Ventanas.VentanaPrincipal</class>
-  <method>finLogger</method>
-  <thread>20</thread>
-  <message>Fin del progrma</message>
-</record>
-</log>
-<?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<!DOCTYPE log SYSTEM "logger.dtd">
-<log>
-<record>
-  <date>2023-01-14T17:51:11.881726300Z</date>
-  <millis>1673718671881</millis>
-  <nanos>726300</nanos>
-  <sequence>0</sequence>
-  <logger>Logger</logger>
-  <level>FINEST</level>
-  <class>Ventanas.VentanaPrincipal</class>
-  <method>main</method>
-  <thread>1</thread>
-  <message>Inicio del programa</message>
-</record>
-<record>
-  <date>2023-01-14T17:51:12.773566700Z</date>
-  <millis>1673718672773</millis>
-  <nanos>566700</nanos>
-  <sequence>1</sequence>
-  <logger>Logger</logger>
-  <level>WARNING</level>
-  <class>bbdd.GestorBD</class>
-  <method>insertarDatosUsuario</method>
-  <thread>1</thread>
-  <message>*Error insertando datos en la BBDD: %s</message>
-  <exception>
-    <message>org.sqlite.SQLiteException: [SQLITE_CONSTRAINT_UNIQUE] A UNIQUE constraint failed (UNIQUE constraint failed: USUARIO.CONTRASEÑA)</message>
-    <frame>
-      <class>org.sqlite.core.DB</class>
-      <method>newSQLException</method>
-      <line>1135</line>
-    </frame>
-    <frame>
-      <class>org.sqlite.core.DB</class>
-      <method>newSQLException</method>
-      <line>1146</line>
-    </frame>
-    <frame>
-      <class>org.sqlite.core.DB</class>
-      <method>throwex</method>
-      <line>1106</line>
-    </frame>
-    <frame>
-      <class>org.sqlite.core.NativeDB</class>
-      <method>_exec_utf8</method>
-    </frame>
-    <frame>
-      <class>org.sqlite.core.NativeDB</class>
-      <method>_exec</method>
-      <line>89</line>
-    </frame>
-    <frame>
-      <class>org.sqlite.jdbc3.JDBC3Statement</class>
-      <method>lambda$executeLargeUpdate$2</method>
-      <line>121</line>
-    </frame>
-    <frame>
-      <class>org.sqlite.jdbc3.JDBC3Statement</class>
-      <method>withConnectionTimeout</method>
-      <line>429</line>
-    </frame>
-    <frame>
-      <class>org.sqlite.jdbc3.JDBC3Statement</class>
-      <method>executeLargeUpdate</method>
-      <line>108</line>
-    </frame>
-    <frame>
-      <class>org.sqlite.jdbc3.JDBC3Statement</class>
-      <method>executeUpdate</method>
-      <line>95</line>
-    </frame>
-    <frame>
-      <class>bbdd.GestorBD</class>
-      <method>insertarDatosUsuario</method>
-      <line>122</line>
-    </frame>
-    <frame>
-      <class>Ventanas.VentanaPrincipal</class>
-      <method>main</method>
-      <line>263</line>
-    </frame>
-  </exception>
-</record>
-<record>
-  <date>2023-01-14T17:51:25.937617600Z</date>
-  <millis>1673718685937</millis>
-  <nanos>617600</nanos>
-  <sequence>2</sequence>
-  <logger>Logger</logger>
-  <level>FINEST</level>
-  <class>Ventanas.VentanaPrincipal</class>
-  <method>finLogger</method>
-  <thread>20</thread>
-  <message>Fin del progrma</message>
-</record>
-</log>
-<?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<!DOCTYPE log SYSTEM "logger.dtd">
-<log>
-<record>
-  <date>2023-01-14T17:51:27.410879400Z</date>
-  <millis>1673718687410</millis>
-  <nanos>879400</nanos>
-  <sequence>0</sequence>
-  <logger>Logger</logger>
-  <level>FINEST</level>
-  <class>Ventanas.VentanaPrincipal</class>
-  <method>main</method>
-  <thread>1</thread>
-  <message>Inicio del programa</message>
-</record>
-<record>
-  <date>2023-01-14T17:51:28.177113100Z</date>
-  <millis>1673718688177</millis>
-  <nanos>113100</nanos>
-  <sequence>1</sequence>
-  <logger>Logger</logger>
-  <level>WARNING</level>
-  <class>bbdd.GestorBD</class>
-  <method>insertarDatosUsuario</method>
-  <thread>1</thread>
-  <message>*Error insertando datos en la BBDD: %s</message>
-  <exception>
-    <message>org.sqlite.SQLiteException: [SQLITE_CONSTRAINT_UNIQUE] A UNIQUE constraint failed (UNIQUE constraint failed: USUARIO.CONTRASEÑA)</message>
-    <frame>
-      <class>org.sqlite.core.DB</class>
-      <method>newSQLException</method>
-      <line>1135</line>
-    </frame>
-    <frame>
-      <class>org.sqlite.core.DB</class>
-      <method>newSQLException</method>
-      <line>1146</line>
-    </frame>
-    <frame>
-      <class>org.sqlite.core.DB</class>
-      <method>throwex</method>
-      <line>1106</line>
-    </frame>
-    <frame>
-      <class>org.sqlite.core.NativeDB</class>
-      <method>_exec_utf8</method>
-    </frame>
-    <frame>
-      <class>org.sqlite.core.NativeDB</class>
-      <method>_exec</method>
-      <line>89</line>
-    </frame>
-    <frame>
-      <class>org.sqlite.jdbc3.JDBC3Statement</class>
-      <method>lambda$executeLargeUpdate$2</method>
-      <line>121</line>
-    </frame>
-    <frame>
-      <class>org.sqlite.jdbc3.JDBC3Statement</class>
-      <method>withConnectionTimeout</method>
-      <line>429</line>
-    </frame>
-    <frame>
-      <class>org.sqlite.jdbc3.JDBC3Statement</class>
-      <method>executeLargeUpdate</method>
-      <line>108</line>
-    </frame>
-    <frame>
-      <class>org.sqlite.jdbc3.JDBC3Statement</class>
-      <method>executeUpdate</method>
-      <line>95</line>
-    </frame>
-    <frame>
-      <class>bbdd.GestorBD</class>
-      <method>insertarDatosUsuario</method>
-      <line>122</line>
-    </frame>
-    <frame>
-      <class>Ventanas.VentanaPrincipal</class>
-      <method>main</method>
-      <line>263</line>
-    </frame>
-  </exception>
-</record>
-<record>
-  <date>2023-01-14T17:51:36.366235500Z</date>
-  <millis>1673718696366</millis>
-  <nanos>235500</nanos>
-  <sequence>2</sequence>
-  <logger>Logger</logger>
-  <level>FINEST</level>
-  <class>Ventanas.VentanaPrincipal</class>
-  <method>finLogger</method>
-  <thread>20</thread>
-  <message>Fin del progrma</message>
-</record>
-</log>
-<?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<!DOCTYPE log SYSTEM "logger.dtd">
-<log>
-<record>
-  <date>2023-01-14T17:51:37.686903100Z</date>
-  <millis>1673718697686</millis>
-  <nanos>903100</nanos>
-  <sequence>0</sequence>
-  <logger>Logger</logger>
-  <level>FINEST</level>
-  <class>Ventanas.VentanaPrincipal</class>
-  <method>main</method>
-  <thread>1</thread>
-  <message>Inicio del programa</message>
-</record>
-<record>
-  <date>2023-01-14T17:51:38.426488Z</date>
-  <millis>1673718698426</millis>
-  <nanos>488000</nanos>
-  <sequence>1</sequence>
-  <logger>Logger</logger>
-  <level>WARNING</level>
-  <class>bbdd.GestorBD</class>
-  <method>insertarDatosUsuario</method>
-  <thread>1</thread>
-  <message>*Error insertando datos en la BBDD: %s</message>
-  <exception>
-    <message>org.sqlite.SQLiteException: [SQLITE_CONSTRAINT_UNIQUE] A UNIQUE constraint failed (UNIQUE constraint failed: USUARIO.CONTRASEÑA)</message>
-    <frame>
-      <class>org.sqlite.core.DB</class>
-      <method>newSQLException</method>
-      <line>1135</line>
-    </frame>
-    <frame>
-      <class>org.sqlite.core.DB</class>
-      <method>newSQLException</method>
-      <line>1146</line>
-    </frame>
-    <frame>
-      <class>org.sqlite.core.DB</class>
-      <method>throwex</method>
-      <line>1106</line>
-    </frame>
-    <frame>
-      <class>org.sqlite.core.NativeDB</class>
-      <method>_exec_utf8</method>
-    </frame>
-    <frame>
-      <class>org.sqlite.core.NativeDB</class>
-      <method>_exec</method>
-      <line>89</line>
-    </frame>
-    <frame>
-      <class>org.sqlite.jdbc3.JDBC3Statement</class>
-      <method>lambda$executeLargeUpdate$2</method>
-      <line>121</line>
-    </frame>
-    <frame>
-      <class>org.sqlite.jdbc3.JDBC3Statement</class>
-      <method>withConnectionTimeout</method>
-      <line>429</line>
-    </frame>
-    <frame>
-      <class>org.sqlite.jdbc3.JDBC3Statement</class>
-      <method>executeLargeUpdate</method>
-      <line>108</line>
-    </frame>
-    <frame>
-      <class>org.sqlite.jdbc3.JDBC3Statement</class>
-      <method>executeUpdate</method>
-      <line>95</line>
-    </frame>
-    <frame>
-      <class>bbdd.GestorBD</class>
-      <method>insertarDatosUsuario</method>
-      <line>122</line>
-    </frame>
-    <frame>
-      <class>Ventanas.VentanaPrincipal</class>
-      <method>main</method>
-      <line>263</line>
-    </frame>
-  </exception>
-</record>
-<record>
-  <date>2023-01-14T17:51:50.664410800Z</date>
-  <millis>1673718710664</millis>
-  <nanos>410800</nanos>
-  <sequence>2</sequence>
-  <logger>Logger</logger>
-  <level>FINEST</level>
-  <class>Ventanas.VentanaPrincipal</class>
-  <method>finLogger</method>
-  <thread>20</thread>
-  <message>Fin del progrma</message>
-</record>
-</log>
-<?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<!DOCTYPE log SYSTEM "logger.dtd">
-<log>
-<record>
-  <date>2023-01-14T18:04:42.348628100Z</date>
-  <millis>1673719482348</millis>
-  <nanos>628100</nanos>
-  <sequence>0</sequence>
-  <logger>Logger</logger>
-  <level>FINEST</level>
-  <class>Ventanas.VentanaPrincipal</class>
-  <method>main</method>
-  <thread>1</thread>
-  <message>Inicio del programa</message>
-</record>
-<record>
-  <date>2023-01-14T18:04:43.079915800Z</date>
-  <millis>1673719483079</millis>
-  <nanos>915800</nanos>
-  <sequence>1</sequence>
-  <logger>Logger</logger>
-  <level>WARNING</level>
-  <class>bbdd.GestorBD</class>
-  <method>insertarDatosUsuario</method>
-  <thread>1</thread>
-  <message>*Error insertando datos en la BBDD: %s</message>
-  <exception>
-    <message>org.sqlite.SQLiteException: [SQLITE_CONSTRAINT_UNIQUE] A UNIQUE constraint failed (UNIQUE constraint failed: USUARIO.CONTRASEÑA)</message>
-    <frame>
-      <class>org.sqlite.core.DB</class>
-      <method>newSQLException</method>
-      <line>1135</line>
-    </frame>
-    <frame>
-      <class>org.sqlite.core.DB</class>
-      <method>newSQLException</method>
-      <line>1146</line>
-    </frame>
-    <frame>
-      <class>org.sqlite.core.DB</class>
-      <method>throwex</method>
-      <line>1106</line>
-    </frame>
-    <frame>
-      <class>org.sqlite.core.NativeDB</class>
-      <method>_exec_utf8</method>
-    </frame>
-    <frame>
-      <class>org.sqlite.core.NativeDB</class>
-      <method>_exec</method>
-      <line>89</line>
-    </frame>
-    <frame>
-      <class>org.sqlite.jdbc3.JDBC3Statement</class>
-      <method>lambda$executeLargeUpdate$2</method>
-      <line>121</line>
-    </frame>
-    <frame>
-      <class>org.sqlite.jdbc3.JDBC3Statement</class>
-      <method>withConnectionTimeout</method>
-      <line>429</line>
-    </frame>
-    <frame>
-      <class>org.sqlite.jdbc3.JDBC3Statement</class>
-      <method>executeLargeUpdate</method>
-      <line>108</line>
-    </frame>
-    <frame>
-      <class>org.sqlite.jdbc3.JDBC3Statement</class>
-      <method>executeUpdate</method>
-      <line>95</line>
-    </frame>
-    <frame>
-      <class>bbdd.GestorBD</class>
-      <method>insertarDatosUsuario</method>
-      <line>122</line>
-    </frame>
-    <frame>
-      <class>Ventanas.VentanaPrincipal</class>
-      <method>main</method>
-      <line>263</line>
-    </frame>
-  </exception>
-</record>
-<record>
-  <date>2023-01-14T18:05:21.288696400Z</date>
-  <millis>1673719521288</millis>
-  <nanos>696400</nanos>
-  <sequence>2</sequence>
-  <logger>Logger</logger>
-  <level>FINEST</level>
-  <class>Ventanas.VentanaPrincipal</class>
-  <method>finLogger</method>
-  <thread>20</thread>
-  <message>Fin del progrma</message>
 </record>
 </log>

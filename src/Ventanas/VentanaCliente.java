@@ -202,9 +202,11 @@ public class VentanaCliente extends JFrame{
 			String res = VentanaCliente.encontrarCliente(DNI.getText(), gestorV, idioma);
 			if (res.equals("Se ha encontrado el cliente")) {
 			v3 = new VentanaAcoger(gestorV, idioma, DNI.getText());
+			VentanaPrincipal.log.log(Level.FINE,"Cliente encontrado se abre la ventana acoger");
 			setVisible(false);
 			} else if (res.equals("El cliente no existe")) {
 			v2 = new VentanaIntroducirCliente(gestorV,idioma);
+			VentanaPrincipal.log.log(Level.FINE, "Cliente desconocido se abre ventanaintroducir cliente");
 			setVisible(false);
 			} else {
 			ErrorCliente.setText(res);

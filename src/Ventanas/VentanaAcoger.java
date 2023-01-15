@@ -123,7 +123,7 @@ public class VentanaAcoger extends JFrame{
 					
 				});
 		
-		//La tabla de comics se inserta en un panel con scroll
+		//La tabla de animales se inserta en un panel con scroll
 		JScrollPane scrollPaneAnimales = new JScrollPane(this.tablaAnimales);
 		scrollPaneAnimales.setBorder(new TitledBorder(p.get("acoger1").toString()));
 		
@@ -227,7 +227,7 @@ public class VentanaAcoger extends JFrame{
 							Error.setText(p.getProperty("error12"));
 						}
 						
-						
+						VentanaPrincipal.log.log(Level.FINE,"Filtro de animal utilizado");
 					}
 		
 			
@@ -304,6 +304,7 @@ public class VentanaAcoger extends JFrame{
 			public void actionPerformed(ActionEvent e) {
 						
 						v1 = new VentanaAdopcion(p,v,dni);
+						VentanaPrincipal.log.log(Level.FINE,"Se abre la ventana de adopción");
 						setVisible(false);
 						
 					}

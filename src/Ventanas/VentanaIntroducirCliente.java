@@ -106,14 +106,14 @@ public class VentanaIntroducirCliente extends JFrame {
 		//Error.setText("Cliente Registrado");
 		v.insertarDatosCliente(cliente);
 		v3 = new VentanaAcoger(v , idioma, dni.getText());
+		VentanaPrincipal.log.log(Level.FINE," Seha abierto la ventana acoger");
 
 		}
 
 		} catch (Exception e2) {
 		// TODO: handle exception
-		System.err.println("El telefono introducido tiene letras");
 		Error.setText(idioma.get("mes8").toString());
-		VentanaPrincipal.log.log(Level.WARNING , "",e2);
+		VentanaPrincipal.log.log(Level.INFO , "El telefono introducido tiene letras",e2);
 		}
 		}
 		});
