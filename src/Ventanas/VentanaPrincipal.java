@@ -241,8 +241,8 @@ public class VentanaPrincipal extends JFrame{
 	public static void main(String[] args) {//temporalmente localizado aqui para hacer pruebas
 		try {
 		log = Logger.getLogger("Logger");
-		FileHandler h = new FileHandler("LoggerTotal.xml", true);
-		FileHandler g = new FileHandler("LoggerError.xml", true);
+		FileHandler h = new FileHandler("logs/LoggerTotal.xml", true);
+		FileHandler g = new FileHandler("logs/LoggerError.xml", true);
 		log.addHandler(h);
 		log.addHandler(g);
 		log.setLevel(Level.FINEST);

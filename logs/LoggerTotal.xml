@@ -1227,3 +1227,160 @@
   <message>Fin del progrma</message>
 </record>
 </log>
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE log SYSTEM "logger.dtd">
+<log>
+<record>
+  <date>2023-01-15T14:11:58.095032700Z</date>
+  <millis>1673791918095</millis>
+  <nanos>32700</nanos>
+  <sequence>0</sequence>
+  <logger>Logger</logger>
+  <level>FINEST</level>
+  <class>Ventanas.VentanaPrincipal</class>
+  <method>main</method>
+  <thread>1</thread>
+  <message>Inicio del programa</message>
+</record>
+<record>
+  <date>2023-01-15T14:11:58.565015500Z</date>
+  <millis>1673791918565</millis>
+  <nanos>15500</nanos>
+  <sequence>1</sequence>
+  <logger>Logger</logger>
+  <level>FINE</level>
+  <class>Ventanas.VentanaPrincipal</class>
+  <method>main</method>
+  <thread>1</thread>
+  <message>Creación del gestor de la BBDD</message>
+</record>
+<record>
+  <date>2023-01-15T14:11:58.904085500Z</date>
+  <millis>1673791918904</millis>
+  <nanos>85500</nanos>
+  <sequence>2</sequence>
+  <logger>Logger</logger>
+  <level>INFO</level>
+  <class>bbdd.GestorBD</class>
+  <method>crearBBDDUsuario</method>
+  <thread>1</thread>
+  <message>- Se han creado las tablas</message>
+</record>
+<record>
+  <date>2023-01-15T14:11:58.936086100Z</date>
+  <millis>1673791918936</millis>
+  <nanos>86100</nanos>
+  <sequence>3</sequence>
+  <logger>Logger</logger>
+  <level>FINE</level>
+  <class>bbdd.Inits</class>
+  <method>initUsuarios</method>
+  <thread>1</thread>
+  <message>Usuarios inicializados</message>
+</record>
+<record>
+  <date>2023-01-15T14:11:58.937086100Z</date>
+  <millis>1673791918937</millis>
+  <nanos>86100</nanos>
+  <sequence>4</sequence>
+  <logger>Logger</logger>
+  <level>FINE</level>
+  <class>bbdd.GestorBD</class>
+  <method>insertarDatosUsuario</method>
+  <thread>1</thread>
+  <message>- Insertando usuarios...</message>
+</record>
+<record>
+  <date>2023-01-15T14:11:58.943085700Z</date>
+  <millis>1673791918943</millis>
+  <nanos>85700</nanos>
+  <sequence>5</sequence>
+  <logger>Logger</logger>
+  <level>SEVERE</level>
+  <class>bbdd.GestorBD</class>
+  <method>insertarDatosUsuario</method>
+  <thread>1</thread>
+  <message>*Error insertando datos en la BBDD: %s</message>
+  <exception>
+    <message>org.sqlite.SQLiteException: [SQLITE_CONSTRAINT_UNIQUE] A UNIQUE constraint failed (UNIQUE constraint failed: USUARIO.CONTRASEÑA)</message>
+    <frame>
+      <class>org.sqlite.core.DB</class>
+      <method>newSQLException</method>
+      <line>1135</line>
+    </frame>
+    <frame>
+      <class>org.sqlite.core.DB</class>
+      <method>newSQLException</method>
+      <line>1146</line>
+    </frame>
+    <frame>
+      <class>org.sqlite.core.DB</class>
+      <method>throwex</method>
+      <line>1106</line>
+    </frame>
+    <frame>
+      <class>org.sqlite.core.NativeDB</class>
+      <method>_exec_utf8</method>
+    </frame>
+    <frame>
+      <class>org.sqlite.core.NativeDB</class>
+      <method>_exec</method>
+      <line>89</line>
+    </frame>
+    <frame>
+      <class>org.sqlite.jdbc3.JDBC3Statement</class>
+      <method>lambda$executeLargeUpdate$2</method>
+      <line>121</line>
+    </frame>
+    <frame>
+      <class>org.sqlite.jdbc3.JDBC3Statement</class>
+      <method>withConnectionTimeout</method>
+      <line>429</line>
+    </frame>
+    <frame>
+      <class>org.sqlite.jdbc3.JDBC3Statement</class>
+      <method>executeLargeUpdate</method>
+      <line>108</line>
+    </frame>
+    <frame>
+      <class>org.sqlite.jdbc3.JDBC3Statement</class>
+      <method>executeUpdate</method>
+      <line>95</line>
+    </frame>
+    <frame>
+      <class>bbdd.GestorBD</class>
+      <method>insertarDatosUsuario</method>
+      <line>122</line>
+    </frame>
+    <frame>
+      <class>Ventanas.VentanaPrincipal</class>
+      <method>main</method>
+      <line>265</line>
+    </frame>
+  </exception>
+</record>
+<record>
+  <date>2023-01-15T14:11:58.945085900Z</date>
+  <millis>1673791918945</millis>
+  <nanos>85900</nanos>
+  <sequence>6</sequence>
+  <logger>Logger</logger>
+  <level>FINEST</level>
+  <class>Ventanas.VentanaPrincipal</class>
+  <method>main</method>
+  <thread>1</thread>
+  <message>Insertados los datos en la BBDD</message>
+</record>
+<record>
+  <date>2023-01-15T14:12:02.215580400Z</date>
+  <millis>1673791922215</millis>
+  <nanos>580400</nanos>
+  <sequence>7</sequence>
+  <logger>Logger</logger>
+  <level>FINEST</level>
+  <class>Ventanas.VentanaPrincipal</class>
+  <method>finLogger</method>
+  <thread>19</thread>
+  <message>Fin del progrma</message>
+</record>
+</log>
