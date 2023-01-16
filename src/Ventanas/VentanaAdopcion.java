@@ -54,7 +54,7 @@ public class VentanaAdopcion extends JFrame {
 				
 				ArrayList<Animal> listaAdo = new ArrayList<Animal>();
 				ArrayList<Animal> listaAdoSi = new ArrayList<Animal>();
-				
+				try {
 				for (int i = 0; i< modeloAcogido.size() ; i++) {
 					if(!(listaAcogido.getSelectedValue().equals(modeloAcogido.get(i)))) {
 					listaAdo.add(modeloAcogido.get(i));
@@ -71,6 +71,9 @@ public class VentanaAdopcion extends JFrame {
 				modeloAdoptado.removeAllElements();
 				modeloAcogido.addAll(listaAdo);
 				modeloAdoptado.addAll(listaAdoSi);
+			} catch (Exception e) {
+				VentanaPrincipal.logger.log(Level.WARNING,"La lista de acogida estaba vacia al pulsar boton Adoptar en VentanaAdopcion");
+			}
 			}
 		});
 		botonDevolver.addActionListener(new ActionListener() {
@@ -89,11 +92,11 @@ public class VentanaAdopcion extends JFrame {
 					modeloAcogido.removeAllElements();
 					modeloAcogido.addAll(listaAdo);
 					}else {
-						VentanaPrincipal.log.log(Level.FINE,"La lista de Animales acogidos esta vacia");
+						VentanaPrincipal.logger.log(Level.WARNING,"La lista de Animales acogidos esta vacia en VentanaAdopcion");
 					}
 				} catch (Exception e) {
 					// TODO: handle exception
-					VentanaPrincipal.log.log(Level.FINE,"No se ha selecionado nada en la lista de Acogida");
+					VentanaPrincipal.logger.log(Level.WARNING,"No se ha selecionado nada en la lista de Acogida en VentanaAdopcion");
 				}
 				 
 				try {
@@ -107,11 +110,11 @@ public class VentanaAdopcion extends JFrame {
 					modeloAdoptado.removeAllElements();
 					modeloAdoptado.addAll(listaAdoSi);
 					} else {
-						VentanaPrincipal.log.log(Level.FINE,"La lista de animales adoptados esta vacia");
+						VentanaPrincipal.logger.log(Level.WARNING,"La lista de animales adoptados esta vacia en VentanaAdopcion");
 					}
 				} catch (Exception e) {
 					// TODO: handle exception
-					VentanaPrincipal.log.log(Level.FINE,"No se ha selecionado nada en la lista de Adopcion");
+					VentanaPrincipal.logger.log(Level.WARNING,"No se ha selecionado nada en la lista de Adopcion en VentanaAdopcion");
 				}
 				
 			}
@@ -170,7 +173,7 @@ public class VentanaAdopcion extends JFrame {
 					} catch (InterruptedException e) {
 						// TODO Auto-generated catch block
 						e.printStackTrace();
-						VentanaPrincipal.log.log(Level.WARNING , "El hilo de ventana Adopcion no ha conseguido ejecutar la instruccion sleep",e);
+						VentanaPrincipal.logger.log(Level.WARNING , "El hilo de ventana Adopcion no ha conseguido ejecutar la instruccion sleep");
 					}
 				}
 			}
@@ -184,6 +187,7 @@ public class VentanaAdopcion extends JFrame {
 				if(e.getKeyCode()== KeyEvent.VK_BACK_SPACE) {
 					v2 = new VentanaAcoger(b, p, dni);
 					setVisible(false);
+					VentanaPrincipal.logger.info("Se ha vuelto a VentanaAcoger");
 				}
 				if (e.isAltDown()) {
 					b.actualizarCliente(dni, 0);
@@ -195,6 +199,8 @@ public class VentanaAdopcion extends JFrame {
 						b.actualizarAnimal(modeloAcogido.get(i), "noAcogido", "noAdoptado");
 					}
 					modeloAcogido.removeAllElements();
+					VentanaPrincipal.logger.info("Se ha bloqueado al cliente" + dni + " en VentanaAdopcion");
+					VentanaPrincipal.finLogger();
 					System.exit(0);
 				}
 				
@@ -227,7 +233,9 @@ public class VentanaAdopcion extends JFrame {
 				a = cliente;
 			}
 		}
-		
+		if (a == null) {
+			VentanaPrincipal.logger.log(Level.WARNING, "No se ha encontrado el cliente");
+		}
 		return a;
 	}
 	

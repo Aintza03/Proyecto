@@ -68,6 +68,7 @@ public class VentanaCliente extends JFrame{
 			public void actionPerformed(ActionEvent e) {
 				// TODO Auto-generated method stub
 				vus = new VentanaUsuarios(gestorV,idioma);
+				VentanaPrincipal.logger.info("Abierto ventanaUsuario");
 				setVisible(false);
 			}
 		});
@@ -78,6 +79,7 @@ public class VentanaCliente extends JFrame{
 			public void actionPerformed(ActionEvent e) {
 				// TODO Auto-generated method stub
 				ved = new VentanaEditarCliente(gestorV,idioma);
+				VentanaPrincipal.logger.info("Abierto ventanaEditarCliente");
 				setVisible(false);
 			}
 		});
@@ -202,14 +204,15 @@ public class VentanaCliente extends JFrame{
 			String res = VentanaCliente.encontrarCliente(DNI.getText(), gestorV, idioma);
 			if (res.equals("Se ha encontrado el cliente")) {
 			v3 = new VentanaAcoger(gestorV, idioma, DNI.getText());
-			VentanaPrincipal.log.log(Level.FINE,"Cliente encontrado se abre la ventana acoger");
+			VentanaPrincipal.logger.log(Level.INFO,"Cliente encontrado se abre la ventana acoger");
 			setVisible(false);
 			} else if (res.equals("El cliente no existe")) {
 			v2 = new VentanaIntroducirCliente(gestorV,idioma);
-			VentanaPrincipal.log.log(Level.FINE, "Cliente desconocido se abre ventanaintroducir cliente");
+			VentanaPrincipal.logger.log(Level.INFO, "Cliente desconocido se abre la ventana introducir cliente");
 			setVisible(false);
 			} else {
 			ErrorCliente.setText(res);
+			VentanaPrincipal.logger.log(Level.WARNING,"DNI no valido o persona sin permiso para acoger/adoptar en VentanaCliente");
 			}
 			}
 			});
@@ -239,7 +242,7 @@ public class VentanaCliente extends JFrame{
 							Thread.sleep(25);
 						} catch (InterruptedException e) {
 							// TODO Auto-generated catch block
-							VentanaPrincipal.log.log(Level.WARNING , "El hilo de ventana cliente no ha podido ejecutar la instruccion sleep",e);
+							VentanaPrincipal.logger.log(Level.WARNING , "El hilo de ventana cliente no ha podido ejecutar la instruccion sleep");
 						}
 					}
 				}

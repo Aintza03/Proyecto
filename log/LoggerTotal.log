@@ -1,0 +1,6 @@
+[2023-01-16 21:01:43] [INFO   ] Inicio del programa 
+[2023-01-16 21:01:44] [INFO   ] Creación del gestor de la BBDD 
+[2023-01-16 21:01:44] [INFO   ] - Se han creado las tablas 
+[2023-01-16 21:01:44] [SEVERE ] *Error insertando datos en la BBDD: [SQLITE_CONSTRAINT_UNIQUE] A UNIQUE constraint failed (UNIQUE constraint failed: USUARIO.CONTRASEÑA) 
+[2023-01-16 21:01:44] [INFO   ] Inicializado el programa con datos desde la BD 
+[2023-01-16 21:01:45] [INFO   ] Fin del programa 

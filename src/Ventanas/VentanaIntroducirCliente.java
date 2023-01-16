@@ -90,15 +90,19 @@ public class VentanaIntroducirCliente extends JFrame {
 		nombreC = nombre.getText();
 		} else {
 		Error.setText(idioma.get("mes4").toString());
+		VentanaPrincipal.logger.log(Level.WARNING, "El nombre no es correcto en VentanaIntroducirCliente");
 		}
 		} else {
 		Error.setText(idioma.get("mes5").toString());
+		VentanaPrincipal.logger.log(Level.WARNING,"Direccion incorrecta en VentanaIntroducirCliente");
 		}
 		} else {
 		Error.setText(idioma.get("mes6").toString());
+		VentanaPrincipal.logger.log(Level.WARNING,"El numero es incorrecto en VentanaIntroducirCliente");
 		}
 		} else {
 		Error.setText(idioma.get("mes7").toString());
+		VentanaPrincipal.logger.log(Level.WARNING, "El dni no es valido en VentanaIntroducirCliente");
 		}
 		if (dniC != null && direccionC != null && telefonoC != 0 && nombreC != null) {
 		//si el if se cumple significara que se ha podido crear el cliente
@@ -106,14 +110,16 @@ public class VentanaIntroducirCliente extends JFrame {
 		//Error.setText("Cliente Registrado");
 		v.insertarDatosCliente(cliente);
 		v3 = new VentanaAcoger(v , idioma, dni.getText());
-		VentanaPrincipal.log.log(Level.FINE," Seha abierto la ventana acoger");
+		VentanaPrincipal.logger.log(Level.INFO," Se ha insertado el cliente.Se ha abierto la ventana acoger desde VentanaIntroducirCliente");
 
+		}else {
+			VentanaPrincipal.logger.log(Level.WARNING,"El cliente no ha sido insertado");
 		}
 
 		} catch (Exception e2) {
 		// TODO: handle exception
 		Error.setText(idioma.get("mes8").toString());
-		VentanaPrincipal.log.log(Level.INFO , "El telefono introducido tiene letras",e2);
+		VentanaPrincipal.logger.log(Level.WARNING , "El telefono introducido tiene letras");
 		}
 		}
 		});
@@ -146,7 +152,7 @@ public class VentanaIntroducirCliente extends JFrame {
 						Thread.sleep(25);
 					} catch (InterruptedException e) {
 						// TODO Auto-generated catch block
-						VentanaPrincipal.log.log(Level.WARNING , "El hilo de la ventana introducir cliente no se ha detenido como debia con sleep",e);
+						VentanaPrincipal.logger.log(Level.WARNING , "El hilo de la ventana introducir cliente no se ha detenido como debia con sleep");
 					}
 				}
 			}

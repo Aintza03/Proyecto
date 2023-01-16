@@ -22,7 +22,6 @@ public class Inits {
 		if (!clientes.isEmpty()) {		
 			for(Cliente cliente : clientes) {
 				System.out.println(String.format(" - %s", cliente.toString()));
-				VentanaPrincipal.log.log(Level.FINEST,String.format(" - %s", cliente.toString()));
 			}
 		}	
 	}
@@ -31,7 +30,6 @@ public class Inits {
 		if (!usuarios.isEmpty()) {		
 			for(Usuario usuario : usuarios) {
 				System.out.println(String.format(" - %s", usuario.toString()));
-				VentanaPrincipal.log.log(Level.FINEST,String.format(" - %s", usuario.toString()));
 			}
 		}		
 	}
@@ -57,21 +55,12 @@ public class Inits {
 				
 			}
 			sc.close();
-			VentanaPrincipal.log.log(Level.FINE, "Usuarios inicializados");
+			VentanaPrincipal.logger.log(Level.FINE, "Usuarios inicializados");
 		} catch (FileNotFoundException e) {
 			// TODO Auto-generated catch block
 
-			VentanaPrincipal.log.log(Level.WARNING , "No se ha encontrado el fichero",e);
+			VentanaPrincipal.logger.log(Level.WARNING , "No se ha encontrado el fichero",e);
 		}
-		//Usuario usuario = new Usuario(1111, "nombre");
-		//usuario.setUsuario("Bruce A");
-		//usuario.setContraseña(1234);
-		//usuarios.add(usuario);
-		
-		//usuario = new Usuario(1111, "nombre");
-		//usuario.setUsuario("Bruce B");
-		//usuario.setContraseña(1234);
-		//usuarios.add(usuario);
 		return usuarios;
 	}
 	
@@ -98,21 +87,12 @@ public class Inits {
 				
 			}
 			sc.close();
-			VentanaPrincipal.log.log(Level.FINE,"Clientes inicializados");
+			VentanaPrincipal.logger.log(Level.FINE,"Clientes inicializados");
 		} catch (FileNotFoundException e) {
 			// TODO Auto-generated catch block
 
-			VentanaPrincipal.log.log(Level.WARNING , "No se ha encontrado el fichero",e);
+			VentanaPrincipal.logger.log(Level.WARNING , "No se ha encontrado el fichero",e);
 		}
-		//Cliente cliente = new Cliente(null, null, 1111, "nombre", null, null, false);
-		//cliente.setDni("Bruce Banner");
-		//cliente.setDireccion("a");
-		//cliente.setTelefono(90909090);
-		//cliente.setNombre("Bruce Banner");
-		//cliente.setAnimalesAdoptados(null);
-		//cliente.setAnimalesAcogidos(null);
-		//cliente.setPermiso(true);
-		
 		return clientes;
 	}
 	
@@ -135,11 +115,10 @@ public class Inits {
 				
 			}
 			sc.close();
-			VentanaPrincipal.log.log(Level.FINE,"Animales inicializados");
+			VentanaPrincipal.logger.log(Level.FINE,"Animales inicializados");
 		} catch (FileNotFoundException e) {
 			// TODO Auto-generated catch block
-
-			VentanaPrincipal.log.log(Level.WARNING , "No se ha encontrado el fichero",e);
+			VentanaPrincipal.logger.log(Level.WARNING , "No se ha encontrado el fichero",e);
 		}
 		
 		return animales; 
@@ -150,7 +129,6 @@ public class Inits {
 			System.out.println(objeto);
 			for(Animal animal : objeto) {
 				System.out.println(String.format(" - %s", animal.toString()));
-				VentanaPrincipal.log.log(Level.FINEST,String.format(" - %s", animal.toString()));
 			}
 		}	
 		}

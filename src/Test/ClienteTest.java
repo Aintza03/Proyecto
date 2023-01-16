@@ -5,8 +5,10 @@ import static org.junit.Assert.*;
 import java.util.ArrayList;
 
 import org.junit.After;
+import org.junit.AfterClass;
 import org.junit.Assert;
 import org.junit.Before;
+import org.junit.BeforeClass;
 import org.junit.Test;
 
 import General.Animal;
@@ -47,7 +49,6 @@ public class ClienteTest {
 
 	@Test
 	public void testSetPermiso() {
-		
 		cliente.setPermiso(true);
 		assertTrue(cliente.isPermiso());
 	}
@@ -103,7 +104,6 @@ public class ClienteTest {
 
 	@Test
 	public void testSetAnimalesAdoptados() {
-		
 		Animal a = new Animal(telefono, direccion, direccion, direccion, null);
 		ArrayList<Animal> Lista = new ArrayList<Animal>();
 		Lista.add(a);
@@ -131,7 +131,31 @@ public class ClienteTest {
 		assertEquals(s,cliente.toString());
 	}
 
-	
+	@Test
+	public void testClienteStringStringIntStringArrayListOfAnimalArrayListOfAnimalBoolean() {
+		//cliente2
+		assertNotNull(cliente2);
+		assertEquals(dni,cliente2.getDni());
+		assertEquals(direccion,cliente2.getDireccion());
+		assertEquals(telefono,cliente2.getTelefono());
+		assertEquals(nombre,cliente2.getNombre());
+		assertEquals(animalesAdoptados,cliente2.getAnimalesAdoptados());
+		assertEquals(animalesAcogidos,cliente2.getAnimalesAcogidos());
+		assertEquals(permiso,cliente2.isPermiso());
+	}
+
+	@Test
+	public void testClienteStringStringIntString() {
+		assertNotNull(cliente);
+		assertEquals(dni,cliente.getDni());
+		assertEquals(direccion,cliente.getDireccion());
+		assertEquals(telefono,cliente.getTelefono());
+		assertEquals(nombre,cliente.getNombre());
+		assertEquals(new ArrayList<Animal>(),cliente.getAnimalesAdoptados());
+		assertEquals(new ArrayList<Animal>(),cliente.getAnimalesAcogidos());
+		assertEquals(true,cliente.isPermiso());
+	}
+
 	@Test
 	public void testEqualsObject() {
 		Cliente c = new Cliente("dth","dtj",603441074,"eth");

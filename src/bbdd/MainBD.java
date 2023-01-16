@@ -12,16 +12,17 @@ import java.util.Scanner;
 import General.Animal;
 import General.Cliente;
 import General.Usuario;
+import Ventanas.VentanaPrincipal;
 
 
 public class MainBD {
 
 	public static void main(String[] args) {
+		VentanaPrincipal.iniciarlogger();
 		GestorBD gestorBD = new GestorBD();
-		 gestorBD.borrarBBDDUsuario();
+		 gestorBD.borrarBBDD();
 		//CREATE DATABASE: Se crea la BBDD
-		gestorBD.crearBBDDUsuario();
-		
+		gestorBD.crearBBDD();
 		//INSERT: Insertar datos en la BBDD		
 		List<Usuario> usuarios = Inits.initUsuarios();
 		gestorBD.insertarDatosUsuario(usuarios.toArray(new Usuario[usuarios.size()]));
@@ -66,7 +67,7 @@ public class MainBD {
 		gestorBD.actualizarClienteYaExistente("22222222J", 99999999, "Jamaica");
 		System.out.println(gestorBD.obtenerDatosCliente());
 		//DROP DATABASE: Se borra la BBDD (No vamos a usarlo en el proyecto)
-		 gestorBD.borrarBBDDUsuario();
+		 gestorBD.borrarBBDD();
 	}
 }
 	

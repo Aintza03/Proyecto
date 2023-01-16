@@ -95,22 +95,26 @@ public class VentanaUsuarios extends JFrame {
 							guardable = true;
 						}else {
 							Error.setText(p.getProperty("error23"));
+							VentanaPrincipal.logger.log(Level.WARNING, "El valor introducido no esta en el grupo de valores aceptados en VentanaUsuario");
 						}
 						if (guardable) {
 							boolean e3 = v.insertarDatosUsuario(new General.Usuario(contra,u,ad));
 							if (!e3) {
 								Error.setText(p.getProperty("error24"));
+								VentanaPrincipal.logger.log(Level.WARNING, "Los valores introducidos en contraseña o usuario no son validos en VentanaUsuario");
 							} else {
-								Error.setText("");
+								Error.setText("Se ha insertado el usuario");
+								VentanaPrincipal.logger.log(Level.INFO,"Se ha insertado el usuario en VentanaUsuario");
 							}
 						}
 					} catch (Exception e2) {
 						// TODO: handle exception
-						System.err.println("La contraseña tiene letras");
+						VentanaPrincipal.logger.log(Level.WARNING,"La contraseña tiene letras en VentanaUsuario");
 						Error.setText(p.getProperty("error25"));
 					}
 				} else {
 					Error.setText(p.getProperty("error26"));
+					VentanaPrincipal.logger.log(Level.WARNING, "Los valores insertados son incorrectos en VentanaUsuario");
 				}
 			}
 		});
@@ -122,8 +126,10 @@ public class VentanaUsuarios extends JFrame {
 				boolean ocurre = v.borrarDatosUsuario(borrado.getText());
 				if (ocurre) {
 					Error2.setText(p.getProperty("error27"));
+					VentanaPrincipal.logger.info("Se ha eliminado el usuario en VentanaUsuario");
 				} else {
 					Error2.setText(p.getProperty("error28"));
+					VentanaPrincipal.logger.log(Level.WARNING,"No se ha encontrado el usuario en VentanaUsuario");
 				}
 			}
 		});
@@ -158,7 +164,7 @@ public class VentanaUsuarios extends JFrame {
 						Thread.sleep(25);
 					} catch (InterruptedException e) {
 						// TODO Auto-generated catch block
-						VentanaPrincipal.log.log(Level.WARNING , "El hilo de ventana usuarios no ha ejecutado la instruccion sleep correctamente",e);
+						VentanaPrincipal.logger.log(Level.WARNING , "El hilo de ventana usuarios no ha ejecutado la instruccion sleep correctamente");
 					}
 				}
 			}

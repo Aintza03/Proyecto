@@ -3,8 +3,13 @@ package General;
 import java.util.Date;
 import java.util.Objects;
 
-public class Animal {
+public class Animal implements Comparable<Animal>{
 	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+
 	public enum tipo2 {
 		GATO("images/Gato.png"), 
 		PERRO("images/Perro.png");
@@ -87,5 +92,10 @@ public class Animal {
 		return Objects.equals(especial, other.especial) && id == other.id && Objects.equals(raza, other.raza)
 				&& Objects.equals(tipo, other.tipo);
 	}
-	
+
+	@Override
+	public int compareTo(Animal o) {
+		// TODO Auto-generated method stub
+		return this.getRaza().compareTo(o.getRaza());
+	}
 }

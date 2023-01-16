@@ -85,10 +85,13 @@ public class VentanaEditarCliente extends JFrame{
 				boolean ocurre = v.borrarDatosCliente(dni2.getText());
 				if (ocurre && apto) {
 					Error2.setText(p.getProperty("error16"));
+					VentanaPrincipal.logger.info("Se ha borrado el cliente en VentanaEditarCliente");
 				}else if (!apto){
 					Error2.setText(p.getProperty("error17"));
+					VentanaPrincipal.logger.warning("El dni no es correcto en VentanaEditarCliente");
 				} else if (!ocurre) {
 					Error2.setText(p.getProperty("error18"));
+					VentanaPrincipal.logger.log(Level.WARNING,"El cliente no ha sido encontrado");
 				}
 			}
 		});
@@ -109,28 +112,33 @@ public class VentanaEditarCliente extends JFrame{
 							boolean ocurre = v.actualizarClienteYaExistente(dni.getText(), b, direccion.getText());
 							if (ocurre) {
 								Error.setText(p.getProperty("error19"));
+								VentanaPrincipal.logger.log(Level.INFO,"Cliente registrado en VentanaEditarCliente");
 							} else {
 								Error.setText(p.getProperty("error20"));
+								VentanaPrincipal.logger.log(Level.WARNING,"El cliente no se ha actualizado en VentanaEditarCliente");
 							}
 						}else {
 							Error.setText(p.getProperty("error21"));
+							VentanaPrincipal.logger.log(Level.WARNING,"No se admite esa direccion en VentanaEditarCliente");
 						}
 					}else {
 						Error.setText(p.getProperty("error22"));
+						VentanaPrincipal.logger.log(Level.WARNING, "No se admite el numero de telefono en VentanaEditarCliente");
+						
 					}
 					} else {
 						Error.setText(p.getProperty("mes7"));
+						VentanaPrincipal.logger.log(Level.WARNING,"El dni no es valido en VentanaEditarCliente");
 					}
 				}else{
 					Error.setText(p.getProperty("mes7"));
+					VentanaPrincipal.logger.log(Level.WARNING,"El dni no es valido en VentanaEditarCliente");
 				}
-					
 				} catch (Exception e2) {
 					// TODO: handle exception
 					Error.setText(p.getProperty("error22"));
+					VentanaPrincipal.logger.log(Level.WARNING, "No se admite el numero de telefono en VentanaEditarCliente");
 				}
-				
-				VentanaPrincipal.log.log(Level.FINE,"Cliente registrado");
 			}
 		});
 		KeyListener keyListener = new KeyAdapter() {
@@ -182,7 +190,7 @@ public class VentanaEditarCliente extends JFrame{
 					try {
 						Thread.sleep(25);
 					}catch (InterruptedException e) {
-						VentanaPrincipal.log.log(Level.WARNING , "El hilo de ventana editar cliente no ha ejecutado la instruccion sleep correctamente",e);
+						VentanaPrincipal.logger.log(Level.WARNING , "El hilo de ventana editar cliente no ha ejecutado la instruccion sleep correctamente");
 					}
 				}
 			}

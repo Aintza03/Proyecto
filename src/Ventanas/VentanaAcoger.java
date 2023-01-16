@@ -1,10 +1,12 @@
 package Ventanas;
+
 import java.awt.*;
 import java.awt.event.*;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.HashMap;
-import java.util.LinkedList;
 import java.util.Properties;
 import java.util.Vector;
 import java.util.logging.Level;
@@ -59,7 +61,7 @@ public class VentanaAcoger extends JFrame{
 	protected JLabel Animal;
 	public VentanaAcoger(GestorBD v, Properties p, String dni) {
 	
-		this.animales = VentanaAcoger.recorrerdos(VentanaAcoger.recorrer((ArrayList<Cliente>) v.obtenerDatosCliente()), v.obtenerDatosAnimal((ArrayList<Cliente>) v.obtenerDatosCliente()).get(0)) ;
+		this.animales = VentanaAcoger.recorrerdos(VentanaAcoger.recorrer((ArrayList<Cliente>) v.obtenerDatosCliente()), v.obtenerDatosAnimal((ArrayList<Cliente>) v.obtenerDatosCliente()).get(0));
 		this.p = p;
 		this.pestaña = new JTabbedPane();
 		Container cp = this.getContentPane();
@@ -75,6 +77,7 @@ public class VentanaAcoger extends JFrame{
 		combo.addItem(p.getProperty("gato"));
 		combo.addItem(p.getProperty("perro"));
 		combo.addItem(p.getProperty("sinFiltro"));
+		combo.addItem("Animales Ordenados Por Raza");
 		
 		 RowFilter<Object,Object> startsWithAFilter = new RowFilter<Object,Object>() {
 			   public boolean include(Entry<? extends Object, ? extends Object> entry) {
@@ -112,12 +115,25 @@ public class VentanaAcoger extends JFrame{
 							TableRowSorter<TableModel> sorter = new TableRowSorter<TableModel>(modeloDatosAnimales);
 							sorter.setRowFilter(startsWithAFilter);
 							tablaAnimales.setRowSorter(sorter);
+							VentanaPrincipal.logger.log(Level.INFO,"Se aplica el filtro Gato");
 						}else if(combo.getSelectedIndex() == 1){
 							TableRowSorter<TableModel> sorter = new TableRowSorter<TableModel>(modeloDatosAnimales);
 							sorter.setRowFilter(startsWithAFilter1);
 							tablaAnimales.setRowSorter(sorter);
-						}else {
+							VentanaPrincipal.logger.log(Level.INFO,"Se aplica el filtro Perro");
+						}else if(combo.getSelectedIndex() == 2) {
 							tablaAnimales.setRowSorter(null);
+							VentanaPrincipal.logger.log(Level.INFO,"No se aplica ningun filtro");
+						}
+						if (combo.getSelectedIndex() == 3){
+							Collections.sort(animales);
+							loadAnimal();
+						} else {
+							Comparator<Animal> comparator = (a1,a2) -> {
+								return Integer.compare(a1.getId(), a2.getId());
+							};
+							Collections.sort(animales,comparator);
+							loadAnimal();
 						}
 						}	
 					
@@ -210,24 +226,26 @@ public class VentanaAcoger extends JFrame{
 										v.insertarDatosAnimal(a);
 										Error.setText("");
 										modeloDatosAnimales.addRow( new Object[] {a.getId(), a.getTipo(), a.getFechaNac(),  a.getRaza(), a.getEspecial(), new JButton("->")});
-									}else {
+										}else {
 										Animal a = new Animal (v.obtenerDatosAnimal((ArrayList<Cliente>) v.obtenerDatosCliente()).get(0).size() + 1, raza.getText(), "nada", tipo.getText(), fecha_nac.getText());
 										v.insertarDatosAnimal(a);
 										modeloDatosAnimales.addRow( new Object[] {a.getId(), a.getTipo(), a.getFechaNac(),  a.getRaza(), a.getEspecial(), new JButton("->")});
 										
 										Error.setText("");
+										VentanaPrincipal.logger.log(Level.INFO,"Se ha insertado un nuevo animal en la tabla en VentanaAcoger");
 									}
 								}else {
 									Error.setText(p.getProperty("error10"));
+									VentanaPrincipal.logger.log(Level.WARNING, "Los valores introducidos no son correctos en VentanaAcoger");
 								}
 							}else {
 								Error.setText(p.getProperty("error11"));
+								VentanaPrincipal.logger.log(Level.WARNING, "La fecha es incorrecta en VentanaAcoger");
 							}
 						}else {
 							Error.setText(p.getProperty("error12"));
+							VentanaPrincipal.logger.log(Level.WARNING, "No se admite ese tipo de animales en el sistema");
 						}
-						
-						VentanaPrincipal.log.log(Level.FINE,"Filtro de animal utilizado");
 					}
 		
 			
@@ -243,6 +261,7 @@ public class VentanaAcoger extends JFrame{
 				boolean ocurre = v.borrarDatosAnimal(b);
 				if (ocurre) {
 					Error2.setText(p.getProperty("error13"));
+					VentanaPrincipal.logger.info("Se ha borrado el animal en VentanaAcoger");
 					for (int i = 0; i < modeloDatosAnimales.getRowCount(); i++) {
 						String c = modeloDatosAnimales.getValueAt(i, 0).toString();
 						int d = Integer.parseInt(c);
@@ -252,10 +271,11 @@ public class VentanaAcoger extends JFrame{
 					}
 				} else {
 					Error2.setText(p.getProperty("error14"));
+					VentanaPrincipal.logger.log(Level.WARNING,"No se ha encontrado el animal en VentanaAcoger");
 				}
 			}catch(Exception e1) {
 				Error2.setText(p.getProperty("error15"));
-				VentanaPrincipal.log.log(Level.WARNING , "",e1);
+				VentanaPrincipal.logger.log(Level.WARNING,"el ID esta vacio o tiene numeros en VentanaAcoger");
 			}
 			} 
 		});
@@ -267,7 +287,6 @@ public class VentanaAcoger extends JFrame{
 				// TODO Auto-generated method stub
 				if(pestaña.getSelectedIndex() == 0) {
 					setSize(800,600);
-					
 				}else if (pestaña.getSelectedIndex() == 1) {
 					setSize(800,150);
 				}else if (pestaña.getSelectedIndex() == 2) {
@@ -302,14 +321,10 @@ public class VentanaAcoger extends JFrame{
 			
 			@Override
 			public void actionPerformed(ActionEvent e) {
-						
 						v1 = new VentanaAdopcion(p,v,dni);
-						VentanaPrincipal.log.log(Level.FINE,"Se abre la ventana de adopción");
+						VentanaPrincipal.logger.log(Level.INFO,"Se abre la ventana de adopción");
 						setVisible(false);
-						
 					}
-		
-			
 		});
 		KeyListener keyListener = new KeyAdapter() {
 			
@@ -374,7 +389,7 @@ public class VentanaAcoger extends JFrame{
 						Thread.sleep(25);
 					} catch (InterruptedException e) {
 						// TODO Auto-generated catch block
-						VentanaPrincipal.log.log(Level.WARNING , "Error al dormir el hilo de ventanaAcoger",e);
+						VentanaPrincipal.logger.log(Level.WARNING , "Error al ejecutar hilo de ventanaAcoger");
 					}
 				}
 			}
@@ -447,8 +462,6 @@ public class VentanaAcoger extends JFrame{
 					return boton1;
 				}
 			}
-			
-			
 		};
 		
 		for(int i = 0; i < this.tablaAnimales.getColumnModel().getColumnCount(); i++ ) {
@@ -462,17 +475,12 @@ public class VentanaAcoger extends JFrame{
 			public void mousePressed(MouseEvent e) {
 				int row = tablaAnimales.rowAtPoint(e.getPoint());
 				int col = tablaAnimales.columnAtPoint(e.getPoint());
-				
-				
-				System.out.println(String.format("Se ha pulsado el boton %d en la fila %d, columna %d", e.getButton(), row, col));
 			}
 			
 			@Override
 			public void mouseReleased(MouseEvent e) {
 				int row = tablaAnimales.rowAtPoint(e.getPoint());
 				int col = tablaAnimales.columnAtPoint(e.getPoint());
-
-				System.out.println(String.format("Se ha liverado el boton %d en la fila %d, columna %d", e.getButton(), row, col));
 			}
 			
 			@Override
@@ -492,28 +500,20 @@ public class VentanaAcoger extends JFrame{
 							}
 					} catch (Exception e2) {
 						System.err.println("No se ha escogido animal");
-					}
-					
+					}	
 				}
-				
-				System.out.println(String.format("Se ha hecho click con el boton %d en la fila %d, columna %d", e.getButton(), row, col));
 			}
 			
 			@Override
 			public void mouseEntered(MouseEvent e) {
 				int row = tablaAnimales.rowAtPoint(e.getPoint());
 				int col = tablaAnimales.columnAtPoint(e.getPoint());
-				
-				System.out.println(String.format("Se ha entrado en la fila %d, columna %d", e.getButton(), row, col));
 			}
 			
 			@Override
 			public void mouseExited(MouseEvent e) {
 				int row = tablaAnimales.rowAtPoint(e.getPoint());
 				int col = tablaAnimales.columnAtPoint(e.getPoint());
-
-				System.out.println(String.format("Se ha salido de la fila %d, columna %d", e.getButton(), row, col));
-
 				//Cuando el ratÃ³n sale de la tabla, se resetea la columna/fila sobre la que estÃ¡ el ratÃ³n				
 				mouseRow = -1;
 				mouseCol = -1;
@@ -527,7 +527,6 @@ public class VentanaAcoger extends JFrame{
 			public void mouseMoved(MouseEvent e) {
 				int row = tablaAnimales.rowAtPoint(e.getPoint());
 				int col = tablaAnimales.columnAtPoint(e.getPoint());
-				
 				mouseRow = row;
 				mouseCol = col;
 				

@@ -31,14 +31,16 @@ public class GestorBD {
 		try {
 			//Cargar el diver SQLite
 			Class.forName(DRIVER_NAME);
+			VentanaPrincipal.logger.log(Level.INFO, "Creación del gestor de la BBDD");
 		} catch (ClassNotFoundException ex) {
-			VentanaPrincipal.log.log(Level.SEVERE , "*Error al cargar el driver de la BBDD: %s",ex);
+			VentanaPrincipal.logger.log(Level.SEVERE , String.format("*Error al cargar el driver de la BBDD: %s",ex.getMessage()));
 		}
 	}
 		
-	public void crearBBDDUsuario() {
+	public boolean crearBBDD() {
 		//Se abre la conexiÃ³n y se obtiene el Statement
 		//Al abrir la conexiÃ³n, si no existÃ­a el fichero, se crea la base de datos
+		boolean funciona = true;
 	String sql = "CREATE TABLE IF NOT EXISTS USUARIO (\n"
                 + " USUARIO TEXT PRIMARY KEY,\n"
                 + " CONTRASEÑA INTEGER UNIQUE,\n"
@@ -68,17 +70,24 @@ public class GestorBD {
 		     PreparedStatement pstmt2 = con.prepareStatement(sql2);
 	        
 	        if (!pstmt.execute() && !pstmt1.execute() && !pstmt2.execute()) {
-	        	VentanaPrincipal.log.log(Level.INFO,"- Se han creado las tablas");
+	        	VentanaPrincipal.logger.log(Level.INFO,"- Se han creado las tablas");
+	        	funciona = true;
+	        }else {
+	        	VentanaPrincipal.logger.log(Level.WARNING,"No se han creado las tablas");
+	        	funciona = false;
 	        }
 	       con.close();
+	       return funciona;
 		} catch (Exception ex) {
-			VentanaPrincipal.log.log(Level.SEVERE , "*Error al crear la BBDD: %s",ex);
+			VentanaPrincipal.logger.log(Level.SEVERE , String.format("*Error al crear la BBDD: %s",ex.getMessage()));
+			return false;
 		}
 	}
 	
 	
-	public void borrarBBDDUsuario() {
+	public boolean borrarBBDD() {
 		//Se abre la conexiÃ³n y se obtiene el Statement
+		boolean funciona = true;
 		String sql = "DROP TABLE IF EXISTS USUARIO";
 		String sql1 = "DROP TABLE IF EXISTS CLIENTE";
 		String sql2 = "DROP TABLE IF EXISTS ANIMAL";
@@ -91,21 +100,27 @@ public class GestorBD {
 		     
 	        //Se ejecuta la sentencia de creaciÃ³n de la tabla Estudiantes
 	        if (!pstmt.execute() && !pstmt1.execute() && !pstmt2.execute()) {
-	        	VentanaPrincipal.log.log(Level.INFO,"- Se han borrado las tablas");
+	        	VentanaPrincipal.logger.log(Level.INFO,"- Se han borrado las tablas");
+	        	funciona = true;
+	        } else {
+	        	VentanaPrincipal.logger.log(Level.WARNING,"No se han borrado las tablas");
+	        	funciona = false;
 	        }
 	        con.close();
 		} catch (Exception ex) {
-			VentanaPrincipal.log.log(Level.WARNING , "*Error al borrar la BBDD: %s",ex);
-			
+			VentanaPrincipal.logger.log(Level.WARNING , String.format("*Error al borrar la BBDD: %s",ex.getMessage()));
+			funciona = false;
 		}
 		try {
 			//Se borra el fichero de la BBDD
 			Files.delete(Paths.get(DATABASE_FILE));
-			VentanaPrincipal.log.log(Level.INFO,"- Se ha borrado el fichero de la BBDD");
+			VentanaPrincipal.logger.log(Level.INFO,"- Se ha borrado el fichero de la BBDD");
+			funciona = true;
 		} catch (Exception ex) {
-
-			VentanaPrincipal.log.log(Level.WARNING , "*Error al borrar el archivo de la BBDD: %s",ex);					
+			funciona = false;
+			VentanaPrincipal.logger.log(Level.WARNING , String.format("*Error al borrar el archivo de la BBDD: %s",ex.getMessage()));					
 		}
+		return funciona;
 	}
 	
 	public boolean insertarDatosUsuario(Usuario... Usuarios) {
@@ -115,73 +130,77 @@ public class GestorBD {
 			//Se define la plantilla de la sentencia SQL
 			String sql = "INSERT INTO USUARIO (USUARIO, CONTRASEÑA,ADMIN) VALUES ('%s', '%s','%s');";
 			
-			VentanaPrincipal.log.log(Level.FINE,"- Insertando usuarios...");
+			VentanaPrincipal.logger.log(Level.FINE,"- Insertando usuarios...");
 			
 			//Se recorren los clientes y se insertan uno a uno
 			for (Usuario c : Usuarios) {
 				if (1 == stmt.executeUpdate(String.format(sql, c.getUsuario(), c.getContraseña(),c.isAdmin() ))) {					
-					VentanaPrincipal.log.log(Level.INFO,String.format(" - Usuario insertado: %s", c.toString()));
+					VentanaPrincipal.logger.log(Level.INFO,String.format(" - Usuario insertado: %s", c.toString()));
 				} else {
-					VentanaPrincipal.log.log(Level.INFO,String.format(" - No se ha insertado el usuario: %s", c.toString()));
+					VentanaPrincipal.logger.log(Level.WARNING,String.format(" - No se ha insertado el usuario: %s", c.toString()));
 				}
 			}	
 			con.close();
 			return true;
 		} catch (Exception ex) {
-			VentanaPrincipal.log.log(Level.SEVERE , "*Error insertando datos en la BBDD: %s",ex);
+			VentanaPrincipal.logger.log(Level.SEVERE , String.format("*Error insertando datos en la BBDD: %s",ex.getMessage()));
 			return false;
 		}				
 	}
-	public void insertarDatosCliente(Cliente... clientes) {
+	public boolean insertarDatosCliente(Cliente... clientes) {
 		//Se abre la conexiÃ³n y se obtiene el Statement
 		try (Connection con = DriverManager.getConnection(CONNECTION_STRING);
 		     Statement stmt = con.createStatement()) {
 			//Se define la plantilla de la sentencia SQL
 			String sql = "INSERT INTO CLIENTE (DNI,PERMISO,TEL,DIR,NOMBRE) VALUES ('%s', '%d','%d','%s','%s');";
 			
-			VentanaPrincipal.log.log(Level.FINE,"- Insertando Clientes...");
+			VentanaPrincipal.logger.log(Level.FINE,"- Insertando Clientes...");
 			
 			//Se recorren los clientes y se insertan uno a uno
 			for (Cliente c : clientes) {
 				if(c.isPermiso() == true) {
 					if (1 == stmt.executeUpdate(String.format(sql, c.getDni(),1,c.getTelefono(), c.getDireccion(),c.getNombre()))) {					
-						VentanaPrincipal.log.log(Level.INFO,String.format(" - Cliente insertado: %s", c.toString()));
+						VentanaPrincipal.logger.log(Level.INFO,String.format(" - Cliente insertado: %s", c.toString()));
 					} else {
-						VentanaPrincipal.log.log(Level.INFO,String.format(" - No se ha insertado el cliente: %s", c.toString()));
+						VentanaPrincipal.logger.log(Level.WARNING,String.format(" - No se ha insertado el cliente: %s", c.toString()));
 					}
 				} else {
 					if (1 == stmt.executeUpdate(String.format(sql, c.getDni(),0,c.getTelefono(), c.getDireccion(),c.getNombre()))) {					
-						VentanaPrincipal.log.log(Level.INFO,String.format(" - Cliente insertado: %s", c.toString()));
+						VentanaPrincipal.logger.log(Level.INFO,String.format(" - Cliente insertado: %s", c.toString()));
 					} else {
-						VentanaPrincipal.log.log(Level.INFO,String.format(" - No se ha insertado el cliente: %s", c.toString()));
+						VentanaPrincipal.logger.log(Level.WARNING,String.format(" - No se ha insertado el cliente: %s", c.toString()));
 					}
 				}		
 				}
-			con.close();			
+			con.close();
+			return true;
 		} catch (Exception ex) {
-			VentanaPrincipal.log.log(Level.SEVERE , "*Error insertando datos en la BBDD: %s",ex);				
+			VentanaPrincipal.logger.log(Level.SEVERE , String.format("*Error insertando datos en la BBDD: %s",ex.getMessage()));				
+			return false;
 		}				
 	}
-	public void insertarDatosAnimal(Animal... animales) {
+	public boolean insertarDatosAnimal(Animal... animales) {
 		//Se abre la conexiÃ³n y se obtiene el Statement
 		try (Connection con = DriverManager.getConnection(CONNECTION_STRING);
 		     Statement stmt = con.createStatement()) {
 			//Se define la plantilla de la sentencia SQL
 			String sql = "INSERT INTO ANIMAL (ID,TIPO,FECHA_NAC,ESPECIAL,RAZA) VALUES ('%d','%s','%s','%s','%s');";
 			
-			VentanaPrincipal.log.log(Level.FINE,"- Insertando Animales...");
+			VentanaPrincipal.logger.log(Level.FINE,"- Insertando Animales...");
 			
 			//Se recorren los clientes y se insertan uno a uno
 			for (Animal c : animales) {
 				if (1 == stmt.executeUpdate(String.format(sql ,c.getId(),c.getTipo(),c.getFechaNac(),c.getEspecial(), c.getRaza()))) {					
-					VentanaPrincipal.log.log(Level.INFO,String.format(" - Animal insertado: %s", c.toString()));
+					VentanaPrincipal.logger.log(Level.INFO,String.format(" - Animal insertado: %s", c.toString()));
 				} else {
-					VentanaPrincipal.log.log(Level.INFO,String.format(" - No se ha insertado el animal: %s", c.toString()));
+					VentanaPrincipal.logger.log(Level.WARNING,String.format(" - No se ha insertado el animal: %s", c.toString()));
 				}
 			}
 			con.close();
+			return true;
 		} catch (Exception ex) {
-			VentanaPrincipal.log.log(Level.SEVERE , "*Error insertando datos en la BBDD: %s",ex);						
+			VentanaPrincipal.logger.log(Level.SEVERE , String.format("*Error insertando datos en la BBDD: %s",ex.getMessage()));						
+			return false;
 		}				
 	}
 	public List<Usuario> obtenerDatosUsuario() {
@@ -214,9 +233,9 @@ public class GestorBD {
 			//Se cierra el ResultSet
 			rs.close();
 			con.close();
-			VentanaPrincipal.log.log(Level.INFO,String.format("- Se han recuperado %d usuario...", usuarios.size()));			
+			VentanaPrincipal.logger.log(Level.INFO,String.format("- Se han recuperado %d usuario...", usuarios.size()));			
 		} catch (Exception ex) {
-			VentanaPrincipal.log.log(Level.SEVERE , "*Error obteniendo datos de la BBDD: %s",ex);						
+			VentanaPrincipal.logger.log(Level.SEVERE , String.format("*Error obteniendo datos de la BBDD: %s",ex.getMessage()));						
 		}		
 		
 		return usuarios;
@@ -248,9 +267,9 @@ public class GestorBD {
 			//Se cierra el ResultSet
 			rs.close();
 			con.close();
-			VentanaPrincipal.log.log(Level.INFO,String.format("- Se han recuperado %d cliente...", clientes.size()));			
+			VentanaPrincipal.logger.log(Level.INFO,String.format("- Se han recuperado %d cliente...", clientes.size()));			
 		} catch (Exception ex) {
-			VentanaPrincipal.log.log(Level.SEVERE , "*Error obteniendo datos de la BBDD: %s",ex);				
+			VentanaPrincipal.logger.log(Level.SEVERE , String.format("*Error obteniendo datos de la BBDD: %s",ex.getMessage()));				
 		}		
 		obtenerDatosAnimal((ArrayList<Cliente>) clientes);
 		return clientes;
@@ -299,9 +318,9 @@ public class GestorBD {
 			//Se cierra el ResultSet
 			rs.close();
 			con.close();
-			VentanaPrincipal.log.log(Level.INFO,String.format("- Se han recuperado %d animales...", animales.size()));			
+			VentanaPrincipal.logger.log(Level.INFO,String.format("- Se han recuperado %d animales...", animales.size()));			
 		} catch (Exception ex) {
-			VentanaPrincipal.log.log(Level.SEVERE , "*Error obteniendo datos de la BBDD: %s",ex);
+			VentanaPrincipal.logger.log(Level.SEVERE , String.format("*Error obteniendo datos de la BBDD: %s",ex.getMessage()));
 								
 		}		
 		lista.add(animales);
@@ -319,14 +338,14 @@ public class GestorBD {
 			String sql = "DELETE FROM USUARIO WHERE USUARIO = '%s';";			
 			int result = stmt.executeUpdate(String.format(sql, usuario));
 			
-			VentanaPrincipal.log.log(Level.INFO,String.format("- Se han borrado %d usuarios", result));
+			VentanaPrincipal.logger.log(Level.INFO,String.format("- Se han borrado %d usuarios", result));
 			if (result == 1) {
 			return true;
 			} else {
 				return false;
 			}
 		} catch (Exception ex) {
-			VentanaPrincipal.log.log(Level.WARNING , "*Error borrando datos de la BBDD: %s",ex);
+			VentanaPrincipal.logger.log(Level.WARNING , String.format("*Error borrando datos de la BBDD: %s",ex.getMessage()));
 			
 			return false;
 		}		
@@ -341,14 +360,14 @@ public class GestorBD {
 			String sql = "DELETE FROM CLIENTE WHERE DNI = '%s';";			
 			int result = stmt.executeUpdate(String.format(sql, dni));
 			
-			VentanaPrincipal.log.log(Level.INFO,String.format("- Se han borrado %d clientes", result));
+			VentanaPrincipal.logger.log(Level.INFO,String.format("- Se han borrado %d clientes", result));
 			if (result == 1) {
 			return true;
 			} else {
 				return false;
 			}
 		} catch (Exception ex) {
-			VentanaPrincipal.log.log(Level.WARNING , "*Error borrando datos de la BBDD: %s",ex);
+			VentanaPrincipal.logger.log(Level.WARNING , String.format("*Error borrando datos de la BBDD: %s",ex.getMessage()));
 			
 			return false;
 		}		
@@ -362,20 +381,20 @@ public class GestorBD {
 			String sql = "DELETE FROM ANIMAL WHERE ID = '%d';";			
 			int result = stmt.executeUpdate(String.format(sql, id));
 			
-			VentanaPrincipal.log.log(Level.INFO,String.format("- Se han borrado %d animales", result));
+			VentanaPrincipal.logger.log(Level.INFO,String.format("- Se han borrado %d animales", result));
 			if (result == 1) {
 			return true;
 			} else {
 				return false;
 			}
 		} catch (Exception ex) {
-			VentanaPrincipal.log.log(Level.SEVERE , "*Error borrando datos de la BBDD: %s",ex);
+			VentanaPrincipal.logger.log(Level.SEVERE , String.format("*Error borrando datos de la BBDD: %s",ex.getMessage()));
 			
 			return false;
 		}		
 	}	
 	
-	public void actualizarAnimal(Animal animal, String Dni_AC, String Dni_AD) {
+	public boolean actualizarAnimal(Animal animal, String Dni_AC, String Dni_AD) {
 		try (Connection con = DriverManager.getConnection(CONNECTION_STRING);
 			     Statement stmt = con.createStatement()) {
 				//Se ejecuta la sentencia de borrado de datos
@@ -383,23 +402,25 @@ public class GestorBD {
 				
 				int result = stmt.executeUpdate(String.format(sql, Dni_AC, Dni_AD, animal.getId()));
 				
-				VentanaPrincipal.log.log(Level.INFO, String.format("- Se ha actualizado %d animales", result));
+				VentanaPrincipal.logger.log(Level.INFO, String.format("- Se ha actualizado %d animales", result));
+				return true;
 			} catch (Exception ex) {
-				VentanaPrincipal.log.log(Level.WARNING , "*Error actualizando datos de la BBDD: %s",ex);
-								
+				VentanaPrincipal.logger.log(Level.WARNING , String.format("*Error actualizando datos de la BBDD: %s",ex.getMessage()));
+				return false;				
 			}		
 		}
 	
-	public void actualizarCliente(String DNI_C, int permiso) {
+	public boolean actualizarCliente(String DNI_C, int permiso) {
 		try (Connection con = DriverManager.getConnection(CONNECTION_STRING);
 			 Statement stmt = con.createStatement()){
 			String sql = "UPDATE CLIENTE SET PERMISO = '%d' WHERE DNI = '%s';";
 			int result = stmt.executeUpdate(String.format(sql,permiso, DNI_C));
-			VentanaPrincipal.log.log(Level.INFO,String.format("- Se ha actualizado %d clientes",result));
+			VentanaPrincipal.logger.log(Level.INFO,String.format("- Se ha actualizado %d clientes",result));
+			return true;
 		} catch (Exception e) {
 			// TODO: handle exception
-			VentanaPrincipal.log.log(Level.SEVERE , "*Error actualizando datos de la BBDD: %s",e);
-			
+			VentanaPrincipal.logger.log(Level.SEVERE , String.format("*Error actualizando datos de la BBDD: %s",e.getMessage()));
+			return false;
 		}
 	}
 	//Metodo creado para usar en la ventana EditarCliente solo permite actualizar 1 cliente por llamada
@@ -408,7 +429,7 @@ public class GestorBD {
 			 Statement stmt = con.createStatement()){
 			String sql = "UPDATE CLIENTE SET TEL = '%d', DIR = '%s' WHERE DNI = '%s';";
 			int result = stmt.executeUpdate(String.format(sql,tel,dir, DNI_C));
-			VentanaPrincipal.log.log(Level.INFO, String.format("- Se ha actualizado %d clientes",result));
+			VentanaPrincipal.logger.log(Level.INFO, String.format("- Se ha actualizado %d clientes",result));
 			if (result != 1) {
 				return false;
 			} else {
@@ -416,7 +437,7 @@ public class GestorBD {
 			} 
 		} catch (Exception e) {
 			// TODO: handle exception
-			VentanaPrincipal.log.log(Level.SEVERE ,"*Error actualizando datos de la BBDD: %s" ,e);
+			VentanaPrincipal.logger.log(Level.SEVERE ,String.format("*Error actualizando datos de la BBDD: %s" ,e.getMessage()));
 			
 			return false;
 		}
