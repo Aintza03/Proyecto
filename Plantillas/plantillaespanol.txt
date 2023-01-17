@@ -1,0 +1,6 @@
+Contrato de adopcion
+
+El cliente llamado %s con el dni %s se compromete a adoptar el %s con el id %s y la raza %s.
+Al firmar este contrato el animal queda a cargo del cliente.
+
+Firma

@@ -1,0 +1,6 @@
+Adopzio-kontratua
+
+%s izeneko bezeroak, %s NAN-arekin, konpromisoa hartzen du %s bat,  %s IDarekin eta %s arrazaduna adoptatzeko.
+Sinatzean kontratu hau bezeroaren menpe geratzen da.
+
+Sinadura

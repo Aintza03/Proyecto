@@ -59,45 +59,61 @@ public class GestorBDTest {
 		gestor.borrarBBDD();
 		assertTrue(gestor.crearBBDD());
 		assertTrue(gestor.crearBBDD());
-		gestor.insertarDatosUsuario(listaU.toArray(new Usuario[listaU.size()]));
-		gestor.insertarDatosCliente(listaC.toArray(new Cliente[listaC.size()]));
-		gestor.insertarDatosAnimal(listaA.toArray(new Animal[listaA.size()]));
+		List<Usuario> usuarios = Inits.initUsuarios();
+		gestor.insertarDatosUsuario(usuarios.toArray(new Usuario[usuarios.size()]));
+		List<Cliente> clientes = Inits.initClientes();
+		gestor.insertarDatosCliente(clientes.toArray(new Cliente[clientes.size()]));
+		List<Animal> animales = Inits.initAnimales();
+		gestor.insertarDatosAnimal(animales.toArray(new Animal[animales.size()]));
+
 	}
 
 	@Test
 	public void testBorrarBBDD() {
 		assertTrue(gestor.borrarBBDD());
 		gestor.crearBBDD();
-		gestor.insertarDatosUsuario(listaU.toArray(new Usuario[listaU.size()]));
-		gestor.insertarDatosCliente(listaC.toArray(new Cliente[listaC.size()]));
-		gestor.insertarDatosAnimal(listaA.toArray(new Animal[listaA.size()]));
+		List<Usuario> usuarios = Inits.initUsuarios();
+		gestor.insertarDatosUsuario(usuarios.toArray(new Usuario[usuarios.size()]));
+		List<Cliente> clientes = Inits.initClientes();
+		gestor.insertarDatosCliente(clientes.toArray(new Cliente[clientes.size()]));
+		List<Animal> animales = Inits.initAnimales();
+		gestor.insertarDatosAnimal(animales.toArray(new Animal[animales.size()]));
 	}
 
 	@Test
 	public void testInsertarDatosUsuario() {
 		gestor.borrarBBDD();
 		gestor.crearBBDD();
-		assertTrue(gestor.insertarDatosUsuario(listaU.toArray(new Usuario[listaU.size()])));
-		gestor.insertarDatosCliente(listaC.toArray(new Cliente[listaC.size()]));
-		gestor.insertarDatosAnimal(listaA.toArray(new Animal[listaA.size()]));
+		List<Usuario> usuarios = Inits.initUsuarios();
+		assertTrue(gestor.insertarDatosUsuario(usuarios.toArray(new Usuario[usuarios.size()])));
+		List<Cliente> clientes = Inits.initClientes();
+		gestor.insertarDatosCliente(clientes.toArray(new Cliente[clientes.size()]));
+		List<Animal> animales = Inits.initAnimales();
+		gestor.insertarDatosAnimal(animales.toArray(new Animal[animales.size()]));
 	}
 
 	@Test
 	public void testInsertarDatosCliente() {
 		gestor.borrarBBDD();
 		gestor.crearBBDD();
-		gestor.insertarDatosUsuario(listaU.toArray(new Usuario[listaU.size()]));
-		assertTrue(gestor.insertarDatosCliente(listaC.toArray(new Cliente[listaC.size()])));
-		gestor.insertarDatosAnimal(listaA.toArray(new Animal[listaA.size()]));
+		List<Usuario> usuarios = Inits.initUsuarios();
+		gestor.insertarDatosUsuario(usuarios.toArray(new Usuario[usuarios.size()]));
+		List<Cliente> clientes = Inits.initClientes();
+		assertTrue(gestor.insertarDatosCliente(clientes.toArray(new Cliente[clientes.size()])));
+		List<Animal> animales = Inits.initAnimales();
+		gestor.insertarDatosAnimal(animales.toArray(new Animal[animales.size()]));
 	}
 
 	@Test
 	public void testInsertarDatosAnimal() {
 		gestor.borrarBBDD();
 		gestor.crearBBDD();
-		gestor.insertarDatosUsuario(listaU.toArray(new Usuario[listaU.size()]));
-		gestor.insertarDatosCliente(listaC.toArray(new Cliente[listaC.size()]));
-		assertTrue(gestor.insertarDatosAnimal(listaA.toArray(new Animal[listaA.size()])));
+		List<Usuario> usuarios = Inits.initUsuarios();
+		gestor.insertarDatosUsuario(usuarios.toArray(new Usuario[usuarios.size()]));
+		List<Cliente> clientes = Inits.initClientes();
+		gestor.insertarDatosCliente(clientes.toArray(new Cliente[clientes.size()]));
+		List<Animal> animales = Inits.initAnimales();
+		assertTrue(gestor.insertarDatosAnimal(animales.toArray(new Animal[animales.size()])));
 	}
 
 	@Test
@@ -168,22 +184,59 @@ public class GestorBDTest {
 	}
 	@Test
 	public void testBorrarDatosAnimal() {
-		fail("Not yet implemented");
+		ArrayList<Animal> lista = (ArrayList<Animal>) gestor.obtenerDatosAnimal((ArrayList<Cliente>) gestor.obtenerDatosCliente()).get(0);
+		Animal c = null;
+		for (Animal animal : lista) {
+			if(animal.getId() == 15) {
+				c = animal;
+				break;
+			}
+		}
+		assertTrue(gestor.borrarDatosAnimal(15));
+		gestor.insertarDatosAnimal(c);
 	}
 
 	@Test
 	public void testActualizarAnimal() {
-		fail("Not yet implemented");
+		ArrayList<Animal> lista = (ArrayList<Animal>) gestor.obtenerDatosAnimal((ArrayList<Cliente>) gestor.obtenerDatosCliente()).get(0);
+		Animal c = null;
+		for (Animal animal : lista) {
+			if(animal.getId() == 20) {
+				c = animal;
+				break;
+			}
+		}
+		assertTrue(gestor.actualizarAnimal(c, "11111111H", null));
+		assertTrue(gestor.actualizarAnimal(c,null , "11111111H"));
+		assertTrue(gestor.actualizarAnimal(c,null , null));
 	}
 
 	@Test
 	public void testActualizarCliente() {
-		fail("Not yet implemented");
+		ArrayList<Cliente> lista = (ArrayList<Cliente>) gestor.obtenerDatosCliente();
+		Cliente c = null;
+		for (Cliente cliente : lista) {
+			if(cliente.getDni().equals("22222222J")) {
+				c = cliente;
+				break;
+			}
+		}
+		assertTrue(gestor.actualizarCliente("22222222J", 1));
+		assertTrue(gestor.actualizarCliente("22222222J", 0));
 	}
 
 	@Test
 	public void testActualizarClienteYaExistente() {
-		fail("Not yet implemented");
+		ArrayList<Cliente> lista = (ArrayList<Cliente>) gestor.obtenerDatosCliente();
+		Cliente c = null;
+		for (Cliente cliente : lista) {
+			if(cliente.getDni().equals("33333333P")) {
+				c = cliente;
+				break;
+			}
+		}
+		assertTrue(gestor.actualizarClienteYaExistente(c.getDni(),123456789, "Bermeo"));
+		assertTrue(gestor.actualizarClienteYaExistente(c.getDni(),c.getTelefono(),c.getDireccion()));
 	}
 
 }

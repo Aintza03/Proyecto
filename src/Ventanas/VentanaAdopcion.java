@@ -8,6 +8,7 @@ import java.util.logging.Level;
 import javax.swing.*;
 import General.Animal;
 import General.Cliente;
+import General.Contrato;
 import General.Usuario;
 import bbdd.GestorBD;
 
@@ -21,18 +22,25 @@ public class VentanaAdopcion extends JFrame {
 	protected JButton botonAdoptar;
 	protected JButton botonDevolver;
 	protected VentanaAcoger v2;
-	
-		
+	protected JTabbedPane pestaña;
+	protected JButton descartar;
+	protected JButton guardar;
+	protected JTextArea area;
+	protected Cliente cliente;
 	public VentanaAdopcion(Properties p, GestorBD b, String dni) {
 		Container cp = this.getContentPane();
-		cp.setLayout(new GridLayout(1, 3));
-		
+		JPanel cp1 = new JPanel();
+		cp1.setLayout(new GridLayout(1, 3));
+		JButton descartar = new JButton(p.getProperty("descartar"));
+		JButton guardar = new JButton(p.getProperty("guardar"));
+		pestaña = new JTabbedPane();
+		pestaña.addTab(p.getProperty("ventanaAdoptar"), cp1);
 		JPanel acogidos = new JPanel(new BorderLayout());
 		JPanel botonesCentro = new JPanel(new GridLayout(4,1));
 		JPanel adoptados = new JPanel(new BorderLayout());
 		
 		modeloAcogido = new DefaultListModel<Animal>();
-		Cliente cliente = VentanaAdopcion.cargarCliente(dni, b);
+		cliente = VentanaAdopcion.cargarCliente(dni, b);
 		modeloAcogido.addAll(cliente.getAnimalesAcogidos());
 		
 		
@@ -47,11 +55,25 @@ public class VentanaAdopcion extends JFrame {
 		
 		botonAdoptar = new JButton(p.getProperty("botonadoptar")+"->");
 		botonDevolver= new JButton("<-"+p.getProperty("devolver"));
-		
-		botonAdoptar.addActionListener(new ActionListener() {
+		JPanel cp2 = new JPanel();
+		JPanel abajo2 = new JPanel();
+		cp2.setLayout(new GridLayout(2,1));
+		abajo2.setLayout(new GridLayout(1,2));
+		descartar.addActionListener(new ActionListener() {
+			
 			@Override
-			public void actionPerformed(ActionEvent arg0) {
-				
+			public void actionPerformed(ActionEvent e) {
+				// TODO Auto-generated method stub
+				pestaña.remove(1);
+				cp2.removeAll();
+				VentanaPrincipal.logger.info("Se ha descartado el contrato en VentanaAdopcion");
+			}
+		});
+		guardar.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				// TODO Auto-generated method stub
 				ArrayList<Animal> listaAdo = new ArrayList<Animal>();
 				ArrayList<Animal> listaAdoSi = new ArrayList<Animal>();
 				try {
@@ -67,12 +89,44 @@ public class VentanaAdopcion extends JFrame {
 				}
 				listaAdoSi.add(listaAcogido.getSelectedValue());
 				b.actualizarAnimal(listaAcogido.getSelectedValue(), "noAcogido" , dni);
+				Contrato.guardarContrato(area.getText(),listaAcogido.getSelectedValue().getId());
 				modeloAcogido.removeAllElements();
 				modeloAdoptado.removeAllElements();
 				modeloAcogido.addAll(listaAdo);
 				modeloAdoptado.addAll(listaAdoSi);
-			} catch (Exception e) {
+				VentanaPrincipal.logger.log(Level.WARNING,"Se ha guardado el contrato");
+			} catch (Exception e1) {
 				VentanaPrincipal.logger.log(Level.WARNING,"La lista de acogida estaba vacia al pulsar boton Adoptar en VentanaAdopcion");
+			}
+			
+				pestaña.remove(1);
+				VentanaPrincipal.logger.info("Se ha guardado el contrato en VentanaAdopcion");
+			}
+		});
+		botonAdoptar.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent arg0) {
+				if(pestaña.getTabCount() < 2) {
+					try {
+					Animal ani = listaAcogido.getSelectedValue();
+					String animal = "";
+					if (ani.getTipo() == "Gato") {
+						animal = p.getProperty("gato");
+					}else {
+						animal = p.getProperty("perro");
+					}
+					area = new JTextArea(String.format(Contrato.obtenerPlantilla(p.getProperty("plantilla")), cliente.getNombre(), cliente.getDni(), animal, ani.getId() + "", ani.getRaza()));
+					area.setEditable(false);
+					cp2.add(area);
+					abajo2.add(descartar);
+					abajo2.add(guardar);
+					cp2.add(abajo2);
+					pestaña.addTab("contrato" + ani.getId() + ".txt", cp2);
+					} catch(Exception e) {
+						VentanaPrincipal.logger.log(Level.WARNING,"No hay nada seleccionado en lista de Adopcion en VentanaAdopcion");
+					}
+				} else {
+				VentanaPrincipal.logger.log(Level.WARNING,"Ya hay un contrato abierto en VentanaAdopcion");
 			}
 			}
 		});
@@ -106,6 +160,7 @@ public class VentanaAdopcion extends JFrame {
 						listaAdoSi.add(modeloAdoptado.get(i));
 						}
 					}
+					Contrato.borrarContrato(listaAdoptado.getSelectedValue().getId());
 					b.actualizarAnimal(listaAdoptado.getSelectedValue(), "noAcogido" , "noAdoptado");
 					modeloAdoptado.removeAllElements();
 					modeloAdoptado.addAll(listaAdoSi);
@@ -136,10 +191,11 @@ public class VentanaAdopcion extends JFrame {
 		adoptados.add(scrollAdoptado, BorderLayout.CENTER);	
 		
 		
-		cp.add(acogidos);
-		cp.add(botonesCentro);
-		cp.add(adoptados);
+		cp1.add(acogidos);
+		cp1.add(botonesCentro);
+		cp1.add(adoptados);
 		
+		cp.add(pestaña);
 		this.setTitle(p.getProperty("ventanaAdoptar"));
 		this.setSize(800, 600);
 		this.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
@@ -221,6 +277,8 @@ public class VentanaAdopcion extends JFrame {
 		this.listaAdoptado.addKeyListener(keyListener);
 		this.botonAdoptar.addKeyListener(keyListener);
 		this.botonDevolver.addKeyListener(keyListener);
+		this.pestaña.addKeyListener(keyListener);
+		cp1.addKeyListener(keyListener);
 	}
 	
 	public static Cliente cargarCliente(String dni, GestorBD bd) {
