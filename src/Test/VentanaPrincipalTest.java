@@ -3,6 +3,7 @@ package Test;
 import static org.junit.Assert.*;
 
 import java.io.FileReader;
+import java.util.ArrayList;
 import java.util.Properties;
 
 import org.junit.After;
@@ -11,6 +12,7 @@ import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
+import General.Usuario;
 import Ventanas.VentanaPrincipal;
 import bbdd.GestorBD;
 
@@ -37,11 +39,11 @@ public class VentanaPrincipalTest {
 	}
 	@Test
 	public void testVerificarUsuario() {
-		gestor.obtenerDatosUsuario();
-		u = "Aintzane";
-		contra = 1234;
+		ArrayList<Usuario> a = (ArrayList<Usuario>) gestor.obtenerDatosUsuario();
+		u = a.get(0).getUsuario();
+		contra = a.get(0).getContraseña();
 		assertTrue(VentanaPrincipal.verificarUsuario(u, contra, gestor, p).get(0).equals("Usuario encontrado"));
-		contra = 2222;
+		contra = 1;
 		assertFalse(VentanaPrincipal.verificarUsuario(u, contra, gestor, p).get(0).equals("Usuario encontrado"));
 		
 	}

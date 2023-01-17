@@ -11,14 +11,14 @@ import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
+import General.Cliente;
 import Ventanas.VentanaAdopcion;
 import bbdd.GestorBD;
 
 public class VentanaAdopcionTest {
 	protected static GestorBD gestor;
 	protected static Properties p;
-	protected String dni="11111111H";
-	protected String dni2="11111115J";
+	protected String dni2="00000000A";
 	@BeforeClass
 	public static void setUpBeforeClass() throws Exception {
 		gestor = new GestorBD();
@@ -33,6 +33,7 @@ public class VentanaAdopcionTest {
 
 	@AfterClass
 	public static void tearDownAfterClass() throws Exception {
+		gestor.borrarDatosCliente("01234567A");
 		gestor = null;
 		p = null;
 	}
@@ -40,8 +41,9 @@ public class VentanaAdopcionTest {
 
 	@Test
 	public void testCargarCliente() {
-		
-		assertNotNull(VentanaAdopcion.cargarCliente(dni, gestor));
+		Cliente c =new Cliente("01234567A", "Gernika", 012, "Haizea");
+		gestor.insertarDatosCliente(c);
+		assertNotNull(VentanaAdopcion.cargarCliente(c.getDni(), gestor));
 		assertNull(VentanaAdopcion.cargarCliente(dni2, gestor));
 		
 	}

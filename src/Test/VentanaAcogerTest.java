@@ -17,24 +17,15 @@ import Ventanas.VentanaAcoger;
 import bbdd.GestorBD;
 
 public class VentanaAcogerTest {
-	protected static GestorBD gestor;
-	protected static Properties p;
+	
 	@BeforeClass
 	public static void setUpBeforeClass() throws Exception {
-		gestor = new GestorBD();
-		try (FileReader reader = new FileReader("config/castellano.properties")){
-			p = new Properties();
-			p.load(reader);
-			}catch (Exception e) {
-				e.printStackTrace();
-			}
+		
 	}
 	
-	HashMap<String, ArrayList<Animal>> mapa = new HashMap<String, ArrayList<Animal>>();
 	@AfterClass
 	public static void tearDownAfterClass() throws Exception {
-		gestor = null;
-		p = null;
+		
 	}
 
 	@Test
