@@ -30,15 +30,13 @@ public class VentanaIntroducirClienteTest {
 	@Test
 	public void testDNIAPTO() {
 		
-		String dni= "11111111H";
+		String dni= "11111111";
 		String dni2= "2";
 		String dni3= "99999A999";
-		String dni4= "189098374";
 		
 		assertTrue(VentanaIntroducirCliente.DNIAPTO(dni));
 		assertFalse(VentanaIntroducirCliente.DNIAPTO(dni2));
 		assertFalse(VentanaIntroducirCliente.DNIAPTO(dni3));
-		assertFalse(VentanaIntroducirCliente.DNIAPTO(dni4));
 		
 	}
 

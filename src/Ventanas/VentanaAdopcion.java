@@ -27,6 +27,7 @@ public class VentanaAdopcion extends JFrame {
 	protected JButton guardar;
 	protected JTextArea area;
 	protected Cliente cliente;
+	protected int contratoA = 0;
 	public VentanaAdopcion(Properties p, GestorBD b, String dni) {
 		Container cp = this.getContentPane();
 		JPanel cp1 = new JPanel();
@@ -121,6 +122,7 @@ public class VentanaAdopcion extends JFrame {
 					abajo2.add(descartar);
 					abajo2.add(guardar);
 					cp2.add(abajo2);
+					contratoA = ani.getId();
 					pestaña.addTab("contrato" + ani.getId() + ".txt", cp2);
 					} catch(Exception e) {
 						VentanaPrincipal.logger.log(Level.WARNING,"No hay nada seleccionado en lista de Adopcion en VentanaAdopcion");
@@ -143,8 +145,12 @@ public class VentanaAdopcion extends JFrame {
 						}
 					}
 					b.actualizarAnimal(listaAcogido.getSelectedValue(), "noAcogido","noAdoptado");
+					if(contratoA == listaAcogido.getSelectedValue().getId()) {
+						descartar.doClick();
+					}
 					modeloAcogido.removeAllElements();
 					modeloAcogido.addAll(listaAdo);
+					
 					}else {
 						VentanaPrincipal.logger.log(Level.WARNING,"La lista de Animales acogidos esta vacia en VentanaAdopcion");
 					}

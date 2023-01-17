@@ -26,7 +26,7 @@ public class VentanaIntroducirCliente extends JFrame {
 	protected JLabel Error;
 	protected JButton registrarCliente;
 	protected VentanaAcoger v3;
-	public VentanaIntroducirCliente(GestorBD v,Properties idioma) {
+	public VentanaIntroducirCliente(String dnis,GestorBD v,Properties idioma) {
 		Container cp = this.getContentPane();
 		DNI = new JLabel(idioma.get("dni1").toString());
 		NOMBRE = new JLabel(idioma.get("nombre").toString());
@@ -34,7 +34,8 @@ public class VentanaIntroducirCliente extends JFrame {
 		DIRECCION = new JLabel(idioma.get("dir").toString());
 		Error = new JLabel("");
 		
-		dni = new JTextField("");
+		dni = new JTextField(dnis);
+		dni.setEditable(false);
 		nombre = new JTextField("");
 		telefono = new JTextField("");
 		direccion = new JTextField("");
@@ -79,7 +80,6 @@ public class VentanaIntroducirCliente extends JFrame {
 		String nombreC = null;
 		Cliente cliente = null;
 		try {
-		if (dni.getText().length() == 9 && DNIAPTO(dni.getText())) {
 		dniC = dni.getText();
 		if (telefono.getText().length() == 9){
 		System.out.println(telefono.getText());
@@ -99,10 +99,6 @@ public class VentanaIntroducirCliente extends JFrame {
 		} else {
 		Error.setText(idioma.get("mes6").toString());
 		VentanaPrincipal.logger.log(Level.WARNING,"El numero es incorrecto en VentanaIntroducirCliente");
-		}
-		} else {
-		Error.setText(idioma.get("mes7").toString());
-		VentanaPrincipal.logger.log(Level.WARNING, "El dni no es valido en VentanaIntroducirCliente");
 		}
 		if (dniC != null && direccionC != null && telefonoC != 0 && nombreC != null) {
 		//si el if se cumple significara que se ha podido crear el cliente
@@ -187,25 +183,17 @@ public class VentanaIntroducirCliente extends JFrame {
 		
 		public static boolean DNIAPTO(String dni) {
 		//Comprueba que el dni empieza por 8 digitos y 1 letra
-		String finaliza = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
-		String comienza = "1234567890";
-		boolean res = true;
-		if (dni.length() == 9) {
-		String letra = "" + dni.charAt(8);
-		if (finaliza.contains(letra) ) {
-		for(int i = 0; i < 8; i++) {
-		letra = "" + dni.charAt(i);
-		if (!(comienza.contains(letra))){
-		res = false;
-		break;
+		if(dni.length() == 8) {
+			try {
+			int a = Integer.parseInt(dni);
+			return true;
+			} catch(Exception e) {
+				VentanaPrincipal.logger.log(Level.WARNING, "El dni introducido no se puede usar");
+				return false;
+			}
+		}else {
+			VentanaPrincipal.logger.log(Level.WARNING,"El dni introducido no se puede usar");
+			return false;
 		}
-		}
-		} else {
-		res = false;
-		}
-		} else {
-			res = false;
-		}
-		return res;
 		}
 	}

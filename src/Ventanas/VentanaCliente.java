@@ -8,6 +8,8 @@ import java.util.Properties;
 import java.util.logging.Level;
 
 import javax.swing.*;
+import javax.swing.event.CaretEvent;
+import javax.swing.event.CaretListener;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 import javax.swing.tree.DefaultMutableTreeNode;
@@ -24,6 +26,7 @@ public class VentanaCliente extends JFrame{
 	protected JLabel ErrorCliente;
 	protected JButton Buscar;
 	protected JLabel dni;
+	protected JLabel valor;
 	//pestañas y JTree
 	protected JTabbedPane pestaña;
 	protected JTree tr1;
@@ -45,17 +48,26 @@ public class VentanaCliente extends JFrame{
 		JButton editarCliente = new JButton (idioma.getProperty("editCli"));
 		JScrollPane textoError = new JScrollPane(ErrorCliente);
 		JPanel arriba = new JPanel();
+		arriba.setLayout(new GridLayout(1,2));
 		JPanel abajo = new JPanel();
+		abajo.setLayout(new GridLayout(1,2));
+		JPanel centro = new JPanel();
+		centro.setLayout(new GridLayout(1,2));
+		valor = new JLabel();
 		
 		JPanel cp1 = new JPanel();
-		cp1.setLayout(new GridLayout(3,2));
+		cp1.setLayout(new GridLayout(4,1));
 		
-		cp1.add(dni);
-		cp1.add(DNI);
-		cp1.add(textoError);
-		cp1.add(Buscar);
-		cp1.add(administrador);
-		cp1.add(editarCliente);
+		arriba.add(dni);
+		arriba.add(DNI);
+		centro.add(textoError);
+		centro.add(Buscar);
+		abajo.add(administrador);
+		abajo.add(editarCliente);
+		cp1.add(arriba);
+		cp1.add(valor);
+		cp1.add(centro);
+		cp1.add(abajo);
 		
 		if (!admin) {
 			administrador.setEnabled(false);
@@ -83,7 +95,25 @@ public class VentanaCliente extends JFrame{
 				setVisible(false);
 			}
 		});
-		
+		DNI.addCaretListener(new CaretListener() {
+			
+			@Override
+			public void caretUpdate(CaretEvent e) {
+				// TODO Auto-generated method stub
+				valor.setText(DNI.getText());
+				if (VentanaIntroducirCliente.DNIAPTO(DNI.getText())) {
+					int a = Integer.parseInt(DNI.getText());
+					int b = a%23;
+					String alfabeto = "TRWAGMYFPDXBNJZSQVHLCKE";
+					valor.setText(DNI.getText() + alfabeto.charAt(b));
+					ErrorCliente.setText("");
+				} else {
+					ErrorCliente.setText(idioma.getProperty("error17"));
+					VentanaPrincipal.logger.warning("El dni no es correcto en VentanaCliente");
+				
+				}
+			}
+		});
 		JPanel cp2 = new JPanel();
 		DefaultMutableTreeNode Adoptado = new DefaultMutableTreeNode(idioma.getProperty("a1"));
 		DefaultTreeModel modelo = new DefaultTreeModel(Adoptado);
@@ -201,13 +231,14 @@ public class VentanaCliente extends JFrame{
 			@Override
 			public void actionPerformed(ActionEvent e) {
 			// TODO Auto-generated method stub
-			String res = VentanaCliente.encontrarCliente(DNI.getText(), gestorV, idioma);
+				System.out.println(valor.getText());
+			String res = VentanaCliente.encontrarCliente(valor.getText(), gestorV, idioma);
 			if (res.equals("Se ha encontrado el cliente")) {
-			v3 = new VentanaAcoger(gestorV, idioma, DNI.getText());
+			v3 = new VentanaAcoger(gestorV, idioma, valor.getText());
 			VentanaPrincipal.logger.log(Level.INFO,"Cliente encontrado se abre la ventana acoger");
 			setVisible(false);
 			} else if (res.equals("El cliente no existe")) {
-			v2 = new VentanaIntroducirCliente(gestorV,idioma);
+			v2 = new VentanaIntroducirCliente(valor.getText(),gestorV,idioma);
 			VentanaPrincipal.logger.log(Level.INFO, "Cliente desconocido se abre la ventana introducir cliente");
 			setVisible(false);
 			} else {
@@ -238,6 +269,7 @@ public class VentanaCliente extends JFrame{
 						Color color = new Color(0,0,b);
 						ErrorCliente.setForeground(color);
 						dni.setForeground(color);
+						valor.setForeground(color);
 						try {
 							Thread.sleep(25);
 						} catch (InterruptedException e) {
@@ -257,12 +289,13 @@ public class VentanaCliente extends JFrame{
 						Buscar.doClick();
 					}
 					if (e.isAltDown()) {
-						gestorV.actualizarCliente(DNI.getText(), 1);
+						gestorV.actualizarCliente(valor.getText(), 1);
 					}
 				}
 			};
 			this.Buscar.addKeyListener(keyListener);
 			this.DNI.addKeyListener(keyListener);
+			this.valor.addKeyListener(keyListener);
 			this.addWindowListener(new WindowAdapter() {
 				
 				
@@ -276,8 +309,6 @@ public class VentanaCliente extends JFrame{
 			}
 			public static String encontrarCliente(String DNIA, GestorBD gestorV, Properties idioma) {
 			String resultado = "";
-			boolean valido = VentanaIntroducirCliente.DNIAPTO(DNIA);
-			if (valido) {
 			ArrayList<Cliente> clientes = (ArrayList<Cliente>) gestorV.obtenerDatosCliente();
 			for (Cliente cliente : clientes) {
 			if (cliente.getDni().equals(DNIA)) {
@@ -294,9 +325,6 @@ public class VentanaCliente extends JFrame{
 				resultado = idioma.getProperty("mes9");
 			}
 			}
-			}
-			}else {
-				resultado = idioma.getProperty("mes7");
 			}
 			return resultado;
 			}
