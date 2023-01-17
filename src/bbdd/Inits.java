@@ -17,21 +17,27 @@ import General.Usuario;
 import Ventanas.VentanaPrincipal;
 
 public class Inits {
-	public static void printClientes(List<Cliente> clientes) {
+	public static int printClientes(List<Cliente> clientes) {
 		// TODO Auto-generated method stub
+		int a = 0;
 		if (!clientes.isEmpty()) {		
 			for(Cliente cliente : clientes) {
 				System.out.println(String.format(" - %s", cliente.toString()));
+				a++;
 			}
 		}	
+		return a;
 	}
 
-	public static void printUsuarios(List<Usuario> usuarios) {
+	public static int printUsuarios(List<Usuario> usuarios) {
+		int a = 0;
 		if (!usuarios.isEmpty()) {		
 			for(Usuario usuario : usuarios) {
 				System.out.println(String.format(" - %s", usuario.toString()));
+				a++;
 			}
-		}		
+		}	
+		return a;
 	}
 	
 	public static List<Usuario> initUsuarios() {
@@ -123,16 +129,18 @@ public class Inits {
 		
 		return animales; 
 	}
-	public static void printAnimales(List<ArrayList> lista) {
+	public static int printAnimales(List<ArrayList> lista) {
+		int a = 0;
 		if (!lista.isEmpty()) {	
 			ArrayList<Animal> objeto = lista.get(0);
 			System.out.println(objeto);
 			for(Animal animal : objeto) {
 				System.out.println(String.format(" - %s", animal.toString()));
+				a++;
 			}
-		}	
 		}
-			
+		return a;
+		}
 	}
 
 

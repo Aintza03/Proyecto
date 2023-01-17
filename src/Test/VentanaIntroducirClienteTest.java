@@ -11,40 +11,35 @@ import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
+import Ventanas.VentanaIntroducirCliente;
 import bbdd.GestorBD;
 
 public class VentanaIntroducirClienteTest {
-	protected static GestorBD gestor;
-	protected static Properties p;
+	
 	@BeforeClass
 	public static void setUpBeforeClass() throws Exception {
-		gestor = new GestorBD();
-		try (FileReader reader = new FileReader("config/castellano.properties")){
-			p = new Properties();
-			p.load(reader);
-			}catch (Exception e) {
-				e.printStackTrace();
-			}
+		
 	}
 	
 
 	@AfterClass
 	public static void tearDownAfterClass() throws Exception {
-		gestor = null;
-		p = null;
-	}
-
-	@Before
-	public void setUp() throws Exception {
-	}
-
-	@After
-	public void tearDown() throws Exception {
+		
 	}
 
 	@Test
 	public void testDNIAPTO() {
-		fail("Not yet implemented");
+		
+		String dni= "11111111H";
+		String dni2= "2";
+		String dni3= "99999A999";
+		String dni4= "189098374";
+		
+		assertTrue(VentanaIntroducirCliente.DNIAPTO(dni));
+		assertFalse(VentanaIntroducirCliente.DNIAPTO(dni2));
+		assertFalse(VentanaIntroducirCliente.DNIAPTO(dni3));
+		assertFalse(VentanaIntroducirCliente.DNIAPTO(dni4));
+		
 	}
 
 }
