@@ -3,21 +3,25 @@ package Test;
 import static org.junit.Assert.*;
 
 import org.junit.After;
+import org.junit.AfterClass;
 import org.junit.Before;
+import org.junit.BeforeClass;
 import org.junit.Test;
 
 import General.Animal;
 import General.Cliente;
 import General.Contrato;
+import Ventanas.VentanaPrincipal;
 
 public class ContratoTest {
 
-	@Before
-	public void setUp() throws Exception {
+	@BeforeClass
+	public static void setUpBeforeClass() throws Exception {
+		VentanaPrincipal.iniciarlogger();
 	}
 
-	@After
-	public void tearDown() throws Exception {
+	@AfterClass
+	public static void tearDownAfterClass() throws Exception {
 	}
 
 	@Test

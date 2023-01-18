@@ -23,6 +23,7 @@ public class VentanaPrincipalTest {
 	protected static Properties p;
 	@BeforeClass
 	public static void setUpBeforeClass() throws Exception {
+		VentanaPrincipal.iniciarlogger();
 		gestor = new GestorBD();
 		try (FileReader reader = new FileReader("config/castellano.properties")){
 			p = new Properties();

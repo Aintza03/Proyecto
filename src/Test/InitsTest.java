@@ -13,12 +13,14 @@ import org.junit.Test;
 import General.Animal;
 import General.Cliente;
 import General.Usuario;
+import Ventanas.VentanaPrincipal;
 import bbdd.Inits;
 
 public class InitsTest {
 
 	@BeforeClass
 	public static void setUpBeforeClass() throws Exception {
+		VentanaPrincipal.iniciarlogger();
 	}
 
 	@AfterClass

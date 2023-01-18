@@ -16,6 +16,7 @@ import org.junit.Test;
 import General.Animal;
 import General.Cliente;
 import General.Usuario;
+import Ventanas.VentanaPrincipal;
 import bbdd.GestorBD;
 import bbdd.Inits;
 
@@ -26,6 +27,7 @@ public class GestorBDTest {
 	protected static ArrayList<Animal> listaA;
 	@BeforeClass
 	public static void setUpBeforeClass() throws Exception {
+		VentanaPrincipal.iniciarlogger();
 		gestor = new GestorBD();
 		listaC = (ArrayList<Cliente>) gestor.obtenerDatosCliente();
 		listaU = (ArrayList<Usuario>) gestor.obtenerDatosUsuario();
@@ -42,6 +44,14 @@ public class GestorBDTest {
 
 	@AfterClass
 	public static void tearDownAfterClass() throws Exception {
+		gestor.borrarBBDD();
+		gestor.crearBBDD();
+		Cliente[] c = listaC.toArray(new Cliente[listaC.size()]);
+		Usuario[] u = listaU.toArray(new Usuario[listaU.size()]);
+		Animal[] a = listaA.toArray(new Animal[listaA.size()]);
+		gestor.insertarDatosUsuario(u);
+		gestor.insertarDatosCliente(c);
+		gestor.insertarDatosAnimal(a);
 		gestor = null;
 		
 	}
