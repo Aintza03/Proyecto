@@ -16,6 +16,7 @@ import org.junit.Test;
 import General.Animal;
 import General.Cliente;
 import Ventanas.VentanaCliente;
+import Ventanas.VentanaPrincipal;
 import bbdd.GestorBD;
 
 public class VentanaClienteTest {
@@ -23,6 +24,7 @@ public class VentanaClienteTest {
 	protected static Properties p;
 	@BeforeClass
 	public static void setUpBeforeClass() throws Exception {
+		VentanaPrincipal.iniciarlogger();
 		gestor = new GestorBD();
 		try (FileReader reader = new FileReader("config/castellano.properties")){
 			p = new Properties();

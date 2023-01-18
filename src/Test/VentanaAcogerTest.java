@@ -14,6 +14,7 @@ import org.junit.Test;
 import General.Animal;
 import General.Cliente;
 import Ventanas.VentanaAcoger;
+import Ventanas.VentanaPrincipal;
 import bbdd.GestorBD;
 
 public class VentanaAcogerTest {

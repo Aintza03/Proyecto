@@ -12,13 +12,14 @@ import org.junit.BeforeClass;
 import org.junit.Test;
 
 import Ventanas.VentanaIntroducirCliente;
+import Ventanas.VentanaPrincipal;
 import bbdd.GestorBD;
 
 public class VentanaIntroducirClienteTest {
 	
 	@BeforeClass
 	public static void setUpBeforeClass() throws Exception {
-		
+		VentanaPrincipal.iniciarlogger();
 	}
 	
 

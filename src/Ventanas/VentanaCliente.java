@@ -231,7 +231,6 @@ public class VentanaCliente extends JFrame{
 			@Override
 			public void actionPerformed(ActionEvent e) {
 			// TODO Auto-generated method stub
-				System.out.println(valor.getText());
 			String res = VentanaCliente.encontrarCliente(valor.getText(), gestorV, idioma);
 			if (res.equals("Se ha encontrado el cliente")) {
 			v3 = new VentanaAcoger(gestorV, idioma, valor.getText());

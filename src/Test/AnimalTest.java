@@ -126,7 +126,6 @@ public class AnimalTest {
 		a.add(animal);
 		a.add(new Animal(2, "a", especial, tipo, "2010/12/20"));
 		Collections.sort(a);
-		System.out.println(a);
 		assertTrue(2 == a.get(0).getId());
 		assertTrue(1 == a.get(1).getId());
 	}

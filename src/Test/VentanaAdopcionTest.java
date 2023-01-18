@@ -13,6 +13,7 @@ import org.junit.Test;
 
 import General.Cliente;
 import Ventanas.VentanaAdopcion;
+import Ventanas.VentanaPrincipal;
 import bbdd.GestorBD;
 
 public class VentanaAdopcionTest {
@@ -21,6 +22,7 @@ public class VentanaAdopcionTest {
 	protected String dni2="00000000A";
 	@BeforeClass
 	public static void setUpBeforeClass() throws Exception {
+		VentanaPrincipal.iniciarlogger();
 		gestor = new GestorBD();
 		try (FileReader reader = new FileReader("config/castellano.properties")){
 			p = new Properties();
